@@ -3,7 +3,6 @@ export default function GrainEffect({
    noiseValue = 10,
    opacity = 0.05,
 }) {
-   console.log(opacity);
    return (
       <div className="grain-texture" style={{ opacity: opacity }}>
          <div

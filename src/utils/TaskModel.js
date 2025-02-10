@@ -1,12 +1,8 @@
 export default class TaskModel {
-   constructor(id, name = '', priority = 1, isFinished = false) {
+   constructor(id, name = '', priority = 1, finished = false) {
       this.id = id;
       this.name = name;
       this.priority = priority;
-      this.isFinished = isFinished;
-   }
-
-   complete() {
-      this.isFinished = true;
+      this.finished = finished;
    }
 }

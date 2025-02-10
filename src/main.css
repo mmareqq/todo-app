@@ -24,6 +24,11 @@ body {
    grid-template-columns: auto 1fr;
 }
 
+.wrapper {
+   width: 100%;
+   padding-inline: 10%;
+}
+
 button {
    cursor: pointer;
 }
@@ -34,4 +39,25 @@ button {
 
 .sidebar {
    min-width: 18ch;
+}
+
+.delete-btn:hover > .trash-icon {
+   animation: bounce 0.3s alternate 2 linear;
+}
+
+@keyframes bounce {
+   0% {
+      rotate: 0deg;
+   }
+   33.33% {
+      rotate: 15deg;
+   }
+
+   66% {
+      rotate: -15deg;
+   }
+
+   100% {
+      rotate: 0deg;
+   }
 }

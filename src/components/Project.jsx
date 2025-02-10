@@ -1,15 +1,10 @@
-export default function Project({ projectObj }) {
+import Task from './Task';
+export default function Project({ project }) {
    return (
       <div>
-         <h2>{projectObj.name}</h2>
-         {projectObj.tasks.map(task => {
-            return (
-               <div>
-                  <h3>Name: {task.name}</h3>
-                  <p>Priority: {task.priority}</p>
-                  <p>Finished: {task.isFinished ? 'Yes' : 'No'}</p>
-               </div>
-            );
+         <h2>{project.name}</h2>
+         {project.tasks.map(task => {
+            return <Task key={task.id} task={task}></Task>;
          })}
       </div>
    );
