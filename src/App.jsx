@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './main.css';
 import ProjectButton from './components/ProjectButton.jsx';
 import GrainEffect from './assets/GrainEffect.jsx';
@@ -19,9 +19,14 @@ export default function App() {
    const activeProject = projects.find(
       project => project.id === activeProjectId,
    );
+
    const removeProject = id => {
       setProjects(p => {
-         return p.filter(project => project.id !== id);
+         const newProjects = p.filter(proj => proj.id !== id);
+         if (!newProjects.length) setActiveProject(null);
+         else if (id === activeProject) setActiveProject(newProjects[0].id);
+
+         return newProjects;
       });
    };
 
@@ -71,7 +76,7 @@ export default function App() {
             <div className="wrapper h-full">
                <GrainEffect opacity={0.025} noiseValue={15} />
                <GrainEffect opacity={0.035} color="#E0AC69" noiseValue={15} />
-               <Project project={activeProject}></Project>
+               {activeProject && <Project project={activeProject}></Project>}
             </div>
          </main>
       </div>

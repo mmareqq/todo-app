@@ -1,5 +1,6 @@
 import Task from './Task';
 export default function Project({ project }) {
+   console.log(project);
    return (
       <div>
          <h2>{project.name}</h2>

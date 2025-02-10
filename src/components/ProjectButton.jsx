@@ -10,13 +10,15 @@ export default function ProjectButton({
          <button
             className="w-full py-3 text-start"
             type="button"
-            onClick={() => setActiveProject(id)}>
+            onClick={() => setActiveProject(id)}
+         >
             {text}
          </button>
          <button
-            className="delete-btn bg-opacity-50 mr-1 rounded-md p-1 transition-colors duration-150 hover:bg-gray-800/50"
+            className="delete-btn bg-opacity-50 my-2 mr-1 rounded-md p-1 transition-colors duration-150 hover:bg-white/8"
             type="button"
-            onClick={() => removeProject(id)}>
+            onClick={() => removeProject(id)}
+         >
             <span className="sr-only">delete project: {text}</span>
             <TrashIcon className="trash-icon"></TrashIcon>
          </button>
