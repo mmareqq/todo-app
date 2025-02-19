@@ -1,4 +1,6 @@
 import ProjectButton from './ProjectButton';
+import ProjectModel from '../utils/projectModel';
+import generateId from '../utils/generateId';
 export default function Navbar({
    projects,
    setProjects,
@@ -17,6 +19,7 @@ export default function Navbar({
 
    const addProject = newProject => {
       setProjects(p => {
+         if (p.length === 0) setActiveProjectId(newProject.id);
          return [...p, newProject];
       });
    };
@@ -28,6 +31,7 @@ export default function Navbar({
          );
       });
    };
+
    return (
       <nav>
          <ul className="mt-24 flex flex-col gap-0">
@@ -35,26 +39,34 @@ export default function Navbar({
                return (
                   <li
                      key={index}
-                     className={`duration-200 active:opacity-80 ${index > 0 ? 'border-t border-white/20' : ''} ${
+                     className={`duration-250 active:opacity-80 ${index > 0 ? 'border-t border-white/20' : ''} ${
                         project.id === activeProjectId
                            ? 'project-btn-active bg-gray-900'
                            : 'bg-gray-800'
                      }`}
                   >
                      <ProjectButton
-                        text={project.name}
-                        id={project.id}
+                        project={project}
                         setActiveProjectId={setActiveProjectId}
                         removeProject={removeProject}
-                        editProject={editProject}
                      ></ProjectButton>
                   </li>
                );
             })}
-            <li>
-               <button>Add project</button>
-            </li>
          </ul>
+         <div className="mt-4 px-5">
+            <button
+               className="mr-5 w-full rounded-lg border px-4 py-1 transition-colors duration-200 hover:bg-gray-400/10"
+               type="button"
+               onClick={() => {
+                  const project = new ProjectModel(generateId(), 'Dom');
+                  localStorage.setItem(`tasks-${project.id}`, '[]');
+                  addProject(project);
+               }}
+            >
+               Add project
+            </button>
+         </div>
       </nav>
    );
 }

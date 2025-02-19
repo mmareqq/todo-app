@@ -1,24 +1,24 @@
 import TrashButton from './TrashButton';
 export default function ProjectButton({
-   text,
-   id,
+   project,
    setActiveProjectId,
    removeProject,
-   editProject,
 }) {
    return (
       <div className="items-cente flex pl-3">
          <button
             className="w-full py-3 text-start"
             type="button"
-            onClick={() => setActiveProjectId(id)}
+            onClick={() => setActiveProjectId(project.id)}
          >
-            {text}
+            {project.name}
          </button>
          <TrashButton
-            remove={removeProject}
-            id={id}
-            text={`project ${text}`}
+            remove={() => {
+               removeProject(project.id);
+               localStorage.removeItem(`tasks-${project.id}`);
+            }}
+            altText={`project ${project.name}`}
          ></TrashButton>
       </div>
    );

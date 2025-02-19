@@ -1,5 +1,20 @@
+import { useState, useEffect } from 'react';
 import Task from './Task';
-export default function Project({ project, tasks, setTasks }) {
+
+export default function Project({ project }) {
+   // const [tasks, setTasks] = useState([
+   //    new TaskModel('1-1', 'Go for a walk', 2, false),
+   //    new TaskModel('1-2', 'Read a book', 1, true),
+   // ]);
+
+   const [tasks, setTasks] = useState(
+      JSON.parse(localStorage.getItem(`tasks-${project.id}`)) || [],
+   );
+
+   useEffect(() => {
+      localStorage.setItem(`tasks-${project.id}`, JSON.stringify(tasks));
+   }, [tasks]);
+
    const addTask = newTask => {
       setTasks(prevTasks => [...prevTasks, newTask]);
    };
@@ -21,16 +36,20 @@ export default function Project({ project, tasks, setTasks }) {
    return (
       <div>
          <h2>{project.name}</h2>
-         {tasks.map(task => {
-            return (
-               <Task
-                  key={task.id}
-                  task={task}
-                  editTask={editTask}
-                  removeTask={removeTask}
-               ></Task>
-            );
-         })}
+         {tasks.length &&
+            tasks.map(task => {
+               return (
+                  <Task
+                     key={task.id}
+                     task={task}
+                     editTask={editTask}
+                     removeTask={removeTask}
+                  ></Task>
+               );
+            })}
+         <div>
+            <button type="button">Add Task</button>
+         </div>
       </div>
    );
 }
