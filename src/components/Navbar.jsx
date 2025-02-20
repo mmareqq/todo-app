@@ -1,6 +1,6 @@
 import ProjectButton from './ProjectButton';
-import ProjectModel from '../utils/projectModel';
-import generateId from '../utils/generateId';
+import AddProjectButton from './AddProjectButton';
+
 export default function Navbar({
    projects,
    setProjects,
@@ -55,17 +55,7 @@ export default function Navbar({
             })}
          </ul>
          <div className="mt-4 px-5">
-            <button
-               className="mr-5 w-full rounded-lg border px-4 py-1 transition-colors duration-200 hover:bg-gray-400/10"
-               type="button"
-               onClick={() => {
-                  const project = new ProjectModel(generateId(), 'Dom');
-                  localStorage.setItem(`tasks-${project.id}`, '[]');
-                  addProject(project);
-               }}
-            >
-               Add project
-            </button>
+            <AddProjectButton addProject={addProject} />
          </div>
       </nav>
    );
