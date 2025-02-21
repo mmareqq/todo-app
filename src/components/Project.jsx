@@ -1,15 +1,14 @@
 import { useState, useEffect } from 'react';
 import Task from './Task';
+import ButtonAddTask from './ButtonAddTask';
+
+function getTasks(projectId) {
+   const tasks = localStorage.getItem(`tasks-${projectId}`);
+   return JSON.parse(tasks) || [];
+}
 
 export default function Project({ project }) {
-   // const [tasks, setTasks] = useState([
-   //    new TaskModel('1-1', 'Go for a walk', 2, false),
-   //    new TaskModel('1-2', 'Read a book', 1, true),
-   // ]);
-
-   const [tasks, setTasks] = useState(
-      JSON.parse(localStorage.getItem(`tasks-${project.id}`)) || [],
-   );
+   const [tasks, setTasks] = useState(() => getTasks(project.id));
 
    useEffect(() => {
       localStorage.setItem(`tasks-${project.id}`, JSON.stringify(tasks));
@@ -21,22 +20,24 @@ export default function Project({ project }) {
 
    const removeTask = taskIdToDelete => {
       setTasks(prevTasks =>
-         prevTasks.filter(task => task.id != taskIdToDelete),
+         prevTasks.filter(task => task.id != taskIdToDelete)
       );
    };
 
    const editTask = editedTask => {
       setTasks(prevTasks => {
          return prevTasks.map(task =>
-            task.id === editedTask.id ? editedTask : task,
+            task.id === editedTask.id ? editedTask : task
          );
       });
    };
 
    return (
       <div>
-         <h2>{project.name}</h2>
-         {tasks.length &&
+         <h2>
+            {project.name} {project.id}
+         </h2>
+         {tasks.length > 0 &&
             tasks.map(task => {
                return (
                   <Task
@@ -48,7 +49,7 @@ export default function Project({ project }) {
                );
             })}
          <div>
-            <button type="button">Add Task</button>
+            <ButtonAddTask addTask={addTask} />
          </div>
       </div>
    );

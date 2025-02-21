@@ -6,16 +6,12 @@ import Navbar from './components/Navbar.jsx';
 
 export default function App() {
    const [projects, setProjects] = useState(
-      JSON.parse(localStorage.getItem('projects')) || [],
+      JSON.parse(localStorage.getItem('projects')) || []
    );
 
    const [activeProjectId, setActiveProjectId] = useState(
-      localStorage.getItem('activeProjectId') || null,
+      localStorage.getItem('activeProjectId') || null
    );
-
-   const activeProject =
-      activeProjectId &&
-      projects.find(project => project.id === activeProjectId);
 
    useEffect(() => {
       localStorage.setItem('activeProjectId', activeProjectId);
@@ -25,6 +21,20 @@ export default function App() {
       localStorage.setItem('projects', JSON.stringify(projects));
    }, [projects]);
 
+   let activeProject;
+   if (activeProjectId) {
+      activeProject = projects.find(project => project.id === activeProjectId);
+   }
+
+   useEffect(() => {
+      if (projects.length === 0) {
+         setActiveProjectId(null);
+         return;
+      }
+      if (!projects.find(p => p.id === activeProjectId)) {
+         setActiveProjectId(projects[0].id);
+      }
+   }, [projects, setActiveProjectId]);
    return (
       <div className="body text-gray-50">
          <div className="sidebar h-full max-w-600 text-white">

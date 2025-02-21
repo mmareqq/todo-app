@@ -1,6 +1,6 @@
+import ButtonAddProject from './ButtonAddProject';
 import ProjectButton from './ProjectButton';
-import AddProjectButton from './AddProjectButton';
-
+ButtonAddProject;
 export default function Navbar({
    projects,
    setProjects,
@@ -8,26 +8,17 @@ export default function Navbar({
    setActiveProjectId,
 }) {
    const removeProject = id => {
-      setProjects(prevProjects => {
-         const newProjects = prevProjects.filter(project => project.id !== id);
-         if (newProjects.length === 0) setActiveProjectId(null);
-         else if (id === activeProjectId) setActiveProjectId(newProjects[0].id);
-
-         return newProjects;
-      });
+      setProjects(prevProjects => prevProjects.filter(proj => proj.id !== id));
    };
 
    const addProject = newProject => {
-      setProjects(p => {
-         if (p.length === 0) setActiveProjectId(newProject.id);
-         return [...p, newProject];
-      });
+      setProjects(prevProjects => [...prevProjects, newProject]);
    };
 
    const editProject = newProject => {
-      setProjects(p => {
-         return p.map(project =>
-            project.id === newProject ? newProject : project,
+      setProjects(prevProjects => {
+         return prevProjects.map(proj =>
+            proj.id === newProject ? newProject : proj
          );
       });
    };
@@ -55,7 +46,7 @@ export default function Navbar({
             })}
          </ul>
          <div className="mt-4 px-5">
-            <AddProjectButton addProject={addProject} />
+            <ButtonAddProject addProject={addProject} />
          </div>
       </nav>
    );

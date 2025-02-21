@@ -1,4 +1,5 @@
 import TrashButton from './TrashButton';
+import generateId from '../utils/generateId';
 export default function Task({ task, removeTask, editTask }) {
    const priorityColors = {
       0: 'bg-gray-400',
@@ -6,7 +7,7 @@ export default function Task({ task, removeTask, editTask }) {
       2: 'bg-yellow-400',
       3: 'bg-red-400',
    };
-   console.log(task.name, ' ', task.finished);
+
    return (
       <div
          className={`task flex items-center gap-2 border-2 border-solid border-black ${task.finished ? 'line-through' : ''}`}
@@ -22,8 +23,7 @@ export default function Task({ task, removeTask, editTask }) {
             <span className="sr-only">complete task</span>
          </button>
          <TrashButton
-            remove={removeTask}
-            id={task.id}
+            remove={() => removeTask(task.id)}
             text={`task ${task.name}`}
          ></TrashButton>
       </div>
