@@ -21,11 +21,6 @@ export default function App() {
       localStorage.setItem('projects', JSON.stringify(projects));
    }, [projects]);
 
-   let activeProject;
-   if (activeProjectId) {
-      activeProject = projects.find(project => project.id === activeProjectId);
-   }
-
    useEffect(() => {
       if (projects.length === 0) {
          setActiveProjectId(null);
@@ -35,10 +30,13 @@ export default function App() {
          setActiveProjectId(projects[0].id);
       }
    }, [projects, setActiveProjectId]);
+
+   const activeProject = projects.find(p => p.id === activeProjectId) ?? null;
+
    return (
       <div className="body text-gray-50">
          <div className="sidebar h-full max-w-600 text-white">
-            <h1 className="p-4 text-3xl">Just Do It!</h1>
+            <h1 className="sp-4 bg-primary-100 text-3xl">Just Do It!</h1>
             <Navbar
                projects={projects}
                setProjects={setProjects}

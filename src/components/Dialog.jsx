@@ -34,7 +34,7 @@ export default function Dialog({
                      type="submit"
                      className="rounded-md bg-green-800 px-4 py-1"
                   >
-                     Save changes
+                     Confirm
                   </button>
                </menu>
             </form>

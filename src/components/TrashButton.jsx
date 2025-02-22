@@ -7,12 +7,12 @@ export default function TrashButton({ remove, altText }) {
    return (
       <>
          <button
-            className="delete-btn bg-opacity-50 my-2 mr-1 rounded-md p-1 transition-colors duration-150 hover:bg-white/8"
             type="button"
+            className="bg-opacity-50 my-2 mr-1 rounded-md p-1 transition-colors duration-150 hover:bg-white/8"
             onClick={openDialog}
          >
             <span className="sr-only">delete: {altText}</span>
-            <TrashIcon className="trash-icon"></TrashIcon>
+            <TrashIcon />
          </button>
          <Dialog
             isOpen={isDialogOpen}
@@ -20,7 +20,7 @@ export default function TrashButton({ remove, altText }) {
             onSuccess={remove}
          >
             <p>Delete {altText}?</p>
-            <p>All tasks and info will be permanently deleted.</p>
+            <p>All data will be permanently deleted.</p>
          </Dialog>
       </>
    );

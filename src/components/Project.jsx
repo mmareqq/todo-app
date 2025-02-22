@@ -11,6 +11,10 @@ export default function Project({ project }) {
    const [tasks, setTasks] = useState(() => getTasks(project.id));
 
    useEffect(() => {
+      setTasks(getTasks(project.id));
+   }, [project]);
+
+   useEffect(() => {
       localStorage.setItem(`tasks-${project.id}`, JSON.stringify(tasks));
    }, [tasks]);
 

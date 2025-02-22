@@ -1,11 +1,11 @@
 import TrashButton from './TrashButton';
-import generateId from '../utils/generateId';
+import EditButton from './EditButton';
 export default function Task({ task, removeTask, editTask }) {
    const priorityColors = {
-      0: 'bg-gray-400',
-      1: 'bg-blue-400',
-      2: 'bg-yellow-400',
-      3: 'bg-red-400',
+      0: 'bg-primary-0',
+      1: 'bg-primary-1',
+      2: 'bg-primary-2',
+      3: 'bg-primary-3',
    };
 
    return (
@@ -22,9 +22,10 @@ export default function Task({ task, removeTask, editTask }) {
          >
             <span className="sr-only">complete task</span>
          </button>
+         <EditButton></EditButton>
          <TrashButton
             remove={() => removeTask(task.id)}
-            text={`task ${task.name}`}
+            altText={`task ${task.name}`}
          ></TrashButton>
       </div>
    );
