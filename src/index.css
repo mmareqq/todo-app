@@ -1,1 +1,32 @@
 @import 'tailwindcss';
+
+@theme {
+   --color-primary-50: oklch(98% 0 0);
+   --color-primary-100: oklch(96% 0 0);
+   --color-primary-200: oklch(90% 0 0);
+   --color-primary-300: oklch(84% 0 0);
+   --color-primary-400: oklch(65% 0 0);
+   --color-primary-500: oklch(47% 0 0);
+   --color-primary-600: oklch(34% 0 0);
+   --color-primary-700: oklch(27% 0 0);
+   --color-primary-800: oklch(17% 0 0);
+   --color-primary-900: oklch(10% 0 0);
+   --color-primary-950: oklch(0% 0 0);
+
+   --color-accent-50: var(--color-emerald-50);
+   --color-accent-100: var(--color-emerald-100);
+   --color-accent-200: var(--color-emerald-200);
+   --color-accent-300: var(--color-emerald-300);
+   --color-accent-400: var(--color-emerald-400);
+   --color-accent-500: var(--color-emerald-500);
+   --color-accent-600: var(--color-emerald-600);
+   --color-accent-700: var(--color-emerald-700);
+   --color-accent-800: var(--color-emerald-800);
+   --color-accent-900: var(--color-emerald-900);
+   --color-accent-950: var(--color-emerald-950);
+
+   --color-priority-0: var(--color-gray-400);
+   --color-priority-1: var(--color-blue-400);
+   --color-priority-2: var(--color-yellow-400);
+   --color-priority-3: var(--color-red-400);
+}

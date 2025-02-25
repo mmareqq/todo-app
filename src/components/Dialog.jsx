@@ -10,7 +10,7 @@ export default function Dialog({
 
    return (
       <dialog ref={dialogRef} className="dialog rounded-md">
-         <div className="bg-[#111] p-10">
+         <div className="bg-primary-800 p-10">
             <form
                onSubmit={e => {
                   e.preventDefault();
@@ -32,7 +32,7 @@ export default function Dialog({
                   </button>
                   <button
                      type="submit"
-                     className="rounded-md bg-green-800 px-4 py-1"
+                     className="shadow-accent-700/10 hover:bg-accent-700 border-accent-700 transiton-all rounded-md border-1 px-10 py-1 duration-300 hover:shadow-lg"
                   >
                      Confirm
                   </button>

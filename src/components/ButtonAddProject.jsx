@@ -12,7 +12,7 @@ export default function ButtonAddProject({ addProject }) {
    return (
       <>
          <button
-            className="bg-primary-3 mr-5 w-full rounded-md border px-4 py-1 transition-colors duration-200 hover:bg-gray-400/10"
+            className="shadow-accent-700/10 hover:bg-accent-700 border-accent-700 transiton-all rounded-md border-1 px-10 py-1 duration-300 hover:shadow-lg"
             type="button"
             onClick={openDialog}
          >

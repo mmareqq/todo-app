@@ -4,7 +4,7 @@ export default function ProjectForm({ project, updateValue }) {
          <label htmlFor="projectName">
             Project name:
             <input
-               className="border"
+               className="ml-4 border"
                type="text"
                id="projectName"
                name="projectName"

@@ -5,7 +5,7 @@ export default function ProjectButton({
    removeProject,
 }) {
    return (
-      <div className="items-cente flex pl-3">
+      <div className="flex pl-3">
          <button
             className="w-full py-3 text-start"
             type="button"
@@ -23,4 +23,3 @@ export default function ProjectButton({
       </div>
    );
 }
-

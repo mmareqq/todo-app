@@ -41,18 +41,20 @@ export default function Project({ project }) {
          <h2>
             {project.name} {project.id}
          </h2>
-         {tasks.length > 0 &&
-            tasks.map(task => {
-               return (
-                  <Task
-                     key={task.id}
-                     task={task}
-                     editTask={editTask}
-                     removeTask={removeTask}
-                  ></Task>
-               );
-            })}
-         <div>
+         <div className="grid gap-4">
+            {tasks.length > 0 &&
+               tasks.map(task => {
+                  return (
+                     <Task
+                        key={task.id}
+                        task={task}
+                        editTask={editTask}
+                        removeTask={removeTask}
+                     ></Task>
+                  );
+               })}
+         </div>
+         <div className="mt-4 flex justify-end">
             <ButtonAddTask addTask={addTask} />
          </div>
       </div>

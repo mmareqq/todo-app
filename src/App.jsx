@@ -34,9 +34,9 @@ export default function App() {
    const activeProject = projects.find(p => p.id === activeProjectId) ?? null;
 
    return (
-      <div className="body text-gray-50">
+      <div className="body bg-primary-900 text-gray-50">
          <div className="sidebar h-full max-w-600 text-white">
-            <h1 className="sp-4 bg-primary-100 text-3xl">Just Do It!</h1>
+            <h1 className="sp-4 text-3xl">Just Do It!</h1>
             <Navbar
                projects={projects}
                setProjects={setProjects}
@@ -45,10 +45,9 @@ export default function App() {
             />
          </div>
          <main>
-            <div className="wrapper h-full">
-               <GrainEffect opacity={0.025} noiseValue={15} />
-               <GrainEffect opacity={0.035} color="#E0AC69" noiseValue={15} />
-
+            <div className="main wrapper h-full">
+               <GrainEffect opacity={0} noiseValue={15} />
+               <GrainEffect opacity={0.03} color="#E0AC69" noiseValue={15} />
                {activeProject && <Project project={activeProject} />}
             </div>
          </main>

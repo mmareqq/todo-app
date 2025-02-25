@@ -30,10 +30,10 @@ export default function Navbar({
                return (
                   <li
                      key={index}
-                     className={`duration-250 active:opacity-80 ${index > 0 ? 'border-t border-white/20' : ''} ${
+                     className={`duration-250 active:opacity-80 ${
                         project.id === activeProjectId
-                           ? 'project-btn-active bg-gray-900'
-                           : 'bg-gray-800'
+                           ? 'project-btn-active bg-primary-800'
+                           : 'bg-primary-700'
                      }`}
                   >
                      <ProjectButton

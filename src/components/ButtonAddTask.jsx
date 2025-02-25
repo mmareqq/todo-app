@@ -14,7 +14,7 @@ export default function ButtonAddTask({ addTask }) {
    return (
       <>
          <button
-            className="rounded-md border px-4 py-1"
+            className="shadow-accent-700/10 hover:bg-accent-700 border-accent-700 transiton-all rounded-md border-1 px-10 py-1 duration-300 hover:shadow-lg"
             type="button"
             onClick={openDialog}
          >

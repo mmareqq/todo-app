@@ -6,7 +6,7 @@ export default function EditButton({ edit, altText }) {
       <>
          <button
             type="button"
-            className="bg-opacity-50 my-2 mr-1 rounded-md p-1 transition-colors duration-150 hover:bg-white/8"
+            className="bg-opacity-50 hover:bg-primary-700 my-2 mr-1 rounded-md p-1 transition-colors duration-150"
          >
             <span className="sr-only">edit: {altText}</span>
             <EditIcon></EditIcon>

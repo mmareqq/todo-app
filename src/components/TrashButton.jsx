@@ -8,7 +8,7 @@ export default function TrashButton({ remove, altText }) {
       <>
          <button
             type="button"
-            className="bg-opacity-50 my-2 mr-1 rounded-md p-1 transition-colors duration-150 hover:bg-white/8"
+            className="bg-opacity-50 hover:bg-accent-900 my-2 mr-1 rounded-md p-1 transition-colors duration-150"
             onClick={openDialog}
          >
             <span className="sr-only">delete: {altText}</span>
