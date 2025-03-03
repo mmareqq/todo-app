@@ -22,7 +22,7 @@ export default function Dialog({
                <menu className="mt-8 flex justify-end gap-2">
                   <button
                      type="button"
-                     className="border-inset rounded-md px-4 py-1"
+                     className="shadow-primary-100/10 transiton-all border-primary-100 rounded-md border-1 px-10 py-1 duration-300 hover:shadow-lg"
                      onClick={() => {
                         onCancel?.();
                         closeDialog();
