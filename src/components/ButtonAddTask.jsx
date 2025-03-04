@@ -7,7 +7,7 @@ import Button from './Button';
 
 export default function ButtonAddTask({ addTask }) {
    const [isOpen, openDialog, closeDialog] = useDialog();
-   const [taskData, updateValue, clearForm] = useForm({
+   const [taskData, updateValue, resetForm] = useForm({
       name: '',
       priority: 0,
    });
@@ -25,7 +25,8 @@ export default function ButtonAddTask({ addTask }) {
                   ...taskData,
                };
                addTask(task);
-               reset();
+               resetForm();
+               console.log('form reset: ', taskData);
             }}
          >
             <h2>Create Task</h2>

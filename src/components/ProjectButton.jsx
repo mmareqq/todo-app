@@ -5,7 +5,7 @@ export default function ProjectButton({
    removeProject,
 }) {
    return (
-      <div className="flex pl-3">
+      <div className="flex pr-1 pl-3">
          <button
             className="w-full py-3 text-start"
             type="button"

@@ -3,7 +3,7 @@ import { useCallback, useState } from 'react';
 export default function useForm(template) {
    const [data, setData] = useState(template);
 
-   const reset = useCallback(() => setData(template), [template]);
+   const resetForm = useCallback(() => setData({ ...template }), [template]);
 
    const updateValue = useCallback(
       (name, value) =>
@@ -12,5 +12,5 @@ export default function useForm(template) {
          }),
       []
    );
-   return [data, updateValue, reset];
+   return [data, updateValue, resetForm];
 }

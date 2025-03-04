@@ -1,4 +1,5 @@
 import { PriorityIcon } from '../assets/Icons';
+
 export default function TaskForm({ task, updateValue }) {
    const priorityColors = [
       'text-priority-0',
@@ -6,6 +7,7 @@ export default function TaskForm({ task, updateValue }) {
       'text-priority-2',
       'text-priority-3',
    ];
+
    return (
       <div className="mb-6 grid gap-4">
          <div>
@@ -16,10 +18,8 @@ export default function TaskForm({ task, updateValue }) {
                   type="text"
                   id="taskName"
                   name="taskName"
-                  defaultValue={task.name}
-                  onChange={e => {
-                     updateValue('name', e.target.value);
-                  }}
+                  value={task.name}
+                  onChange={e => updateValue('name', e.target.value)}
                />
             </label>
          </div>

@@ -16,6 +16,7 @@ export default function Dialog({
                   e.preventDefault();
                   onSuccess?.();
                   closeDialog();
+                  console.log('dialog closed');
                }}
             >
                {children}

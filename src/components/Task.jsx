@@ -11,23 +11,23 @@ export default function Task({ task, removeTask, editTask }) {
 
    return (
       <div
-         className={`task border-primary-600 gap flex items-center border ${task.finished ? 'line-through' : ''}`}
+         className={`bg-primary-800 task border-primary-600 flex items-center border px-4 py-2`}
       >
-         <h3>{task.name}</h3>
          <button
             type="button"
-            className={`h-5 w-5 rounded-full border-3 bg-current/20 ${priorityColors[task.priority]}`}
-            onClick={() => {
-               editTask({ ...task, finished: !task.finished });
-            }}
+            className={`h-5 w-5 border-2 bg-current/10 ${priorityColors[task.priority]}`}
+            onClick={() => removeTask(task.id)}
          >
             <span className="sr-only">complete task</span>
          </button>
-         <EditButton editTask={editTask} task={task} />
-         <TrashButton
-            remove={() => removeTask(task.id)}
-            altText={`task ${task.name}`}
-         />
+         <p className="pl-3">{task.name}</p>
+         <div className="ml-auto flex items-center">
+            <EditButton editTask={editTask} task={task} />
+            <TrashButton
+               remove={() => removeTask(task.id)}
+               altText={`task ${task.name}`}
+            />
+         </div>
       </div>
    );
 }

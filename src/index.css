@@ -13,22 +13,20 @@
    --color-primary-900: oklch(10% 0 0);
    --color-primary-950: oklch(0% 0 0);
 
-   --color-accent-50: var(--color-emerald-50);
-   --color-accent-100: var(--color-emerald-100);
-   --color-accent-200: var(--color-emerald-200);
-   --color-accent-300: var(--color-emerald-300);
-   --color-accent-400: var(--color-emerald-400);
-   --color-accent-500: var(--color-emerald-500);
-   --color-accent-600: var(--color-emerald-600);
-   --color-accent-700: var(--color-emerald-700);
-   --color-accent-800: var(--color-emerald-800);
-   --color-accent-900: var(--color-emerald-900);
-   --color-accent-950: var(--color-emerald-950);
+   --color-accent-50: var(--color-sky-50);
+   --color-accent-100: var(--color-sky-100);
+   --color-accent-200: var(--color-sky-200);
+   --color-accent-300: var(--color-sky-300);
+   --color-accent-400: var(--color-sky-400);
+   --color-accent-500: var(--color-sky-500);
+   --color-accent-600: var(--color-sky-600);
+   --color-accent-700: var(--color-sky-700);
+   --color-accent-800: var(--color-sky-800);
+   --color-accent-900: var(--color-sky-900);
+   --color-accent-950: var(--color-sky-950);
 
    --color-priority-0: var(--color-gray-400);
    --color-priority-1: var(--color-blue-400);
    --color-priority-2: var(--color-yellow-400);
    --color-priority-3: var(--color-red-400);
-
-   --color-priority-faded-0: var(--color-gray-400);
 }

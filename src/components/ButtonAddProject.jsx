@@ -8,7 +8,7 @@ import Button from './Button.jsx';
 
 export default function ButtonAddProject({ addProject }) {
    const [isDialogOpen, openDialog, closeDialog] = useDialog();
-   const [projectData, updateValue, reset] = useForm({ name: '' });
+   const [projectData, updateValue, resetForm] = useForm({ name: '' });
 
    return (
       <>
@@ -21,7 +21,7 @@ export default function ButtonAddProject({ addProject }) {
                initalizeTasksInStorage(project.id);
 
                addProject(project);
-               reset();
+               resetForm();
             }}
          >
             <ProjectForm project={projectData} updateValue={updateValue} />

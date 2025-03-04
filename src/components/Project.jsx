@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Task from './Task';
 import ButtonAddTask from './ButtonAddTask';
+import { motion, AnimatePresence } from 'motion/react';
 
 function getTasks(projectId) {
    const tasks = localStorage.getItem(`tasks-${projectId}`);
@@ -38,21 +39,29 @@ export default function Project({ project }) {
 
    return (
       <div>
-         <h2>
-            {project.name} {project.id}
-         </h2>
+         <div className="py-4">
+            <h2 className="my-4 text-2xl">{project.name}</h2>
+         </div>
          <div className="grid gap-4">
-            {tasks.length > 0 &&
-               tasks.map(task => {
-                  return (
-                     <Task
-                        key={task.id}
-                        task={task}
-                        editTask={editTask}
-                        removeTask={removeTask}
-                     ></Task>
-                  );
-               })}
+            <AnimatePresence>
+               {tasks.length > 0 &&
+                  tasks.map(task => {
+                     return (
+                        <motion.div
+                           key={task.id}
+                           initial={{ opacity: 0, transform: 'rotateX(90deg)' }}
+                           animate={{ opacity: 1, transform: 'rotateX(0deg)' }}
+                           exit={{ opacity: 0, transform: 'rotateX(90deg)' }}
+                        >
+                           <Task
+                              task={task}
+                              editTask={editTask}
+                              removeTask={removeTask}
+                           ></Task>
+                        </motion.div>
+                     );
+                  })}
+            </AnimatePresence>
          </div>
          <div className="mt-4 flex justify-end">
             <ButtonAddTask addTask={addTask} />

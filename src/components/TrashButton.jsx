@@ -7,7 +7,7 @@ export default function TrashButton({ remove, altText }) {
    const [isDialogOpen, openDialog, closeDialog] = useDialog();
    return (
       <>
-         <Button variant="square" onClick={openDialog}>
+         <Button className="self-center" variant="square" onClick={openDialog}>
             <span className="sr-only">delete: {altText}</span>
             <TrashIcon />
          </Button>
