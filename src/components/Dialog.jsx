@@ -15,8 +15,8 @@ export default function Dialog({
                onSubmit={e => {
                   e.preventDefault();
                   onSuccess?.();
+
                   closeDialog();
-                  console.log('dialog closed');
                }}
             >
                {children}

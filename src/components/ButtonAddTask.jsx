@@ -10,6 +10,7 @@ export default function ButtonAddTask({ addTask }) {
    const [taskData, updateValue, resetForm] = useForm({
       name: '',
       priority: 0,
+      duration: 0,
    });
 
    return (
@@ -29,7 +30,7 @@ export default function ButtonAddTask({ addTask }) {
                console.log('form reset: ', taskData);
             }}
          >
-            <h2>Create Task</h2>
+            <h2 className="mb-6 text-center text-xl">Create Task</h2>
             <TaskForm task={taskData} updateValue={updateValue} />
          </Dialog>
       </>

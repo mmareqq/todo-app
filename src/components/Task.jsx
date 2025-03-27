@@ -1,5 +1,7 @@
 import TrashButton from './TrashButton';
 import EditButton from './EditButton';
+import { StopWatchIcon } from '../assets/Icons';
+import { formatDuration } from '../utils/formatTime';
 
 export default function Task({ task, removeTask, editTask }) {
    const priorityColors = [
@@ -8,10 +10,10 @@ export default function Task({ task, removeTask, editTask }) {
       'text-priority-2',
       'text-priority-3',
    ];
-
+   console.log(task);
    return (
       <div
-         className={`bg-primary-800 task border-primary-600 flex items-center border px-4 py-2`}
+         className={`bg-primary-800 task border-primary-600 flex items-center gap-2 border px-4 py-2`}
       >
          <button
             type="button"
@@ -20,7 +22,10 @@ export default function Task({ task, removeTask, editTask }) {
          >
             <span className="sr-only">complete task</span>
          </button>
-         <p className="pl-3">{task.name}</p>
+         <p>{task.name}</p>
+         <div className="flex gap-1" hidden={!task.duration}>
+            <StopWatchIcon /> {formatDuration(task.duration)}
+         </div>
          <div className="ml-auto flex items-center">
             <EditButton editTask={editTask} task={task} />
             <TrashButton

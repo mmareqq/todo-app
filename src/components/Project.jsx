@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import Task from './Task';
 import ButtonAddTask from './ButtonAddTask';
 import { motion, AnimatePresence } from 'motion/react';
+import { formatDuration } from '../utils/formatTime';
 
 function getTasks(projectId) {
    const tasks = localStorage.getItem(`tasks-${projectId}`);
@@ -63,7 +64,11 @@ export default function Project({ project }) {
                   })}
             </AnimatePresence>
          </div>
-         <div className="mt-4 flex justify-end">
+         <div className="mt-4 flex justify-end gap-5">
+            Total Duration:{' '}
+            {formatDuration(
+               tasks.reduce((sum, task) => task.duration + sum, 0)
+            )}
             <ButtonAddTask addTask={addTask} />
          </div>
       </div>

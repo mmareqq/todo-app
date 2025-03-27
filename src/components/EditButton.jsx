@@ -7,6 +7,7 @@ import Button from './Button';
 
 export default function EditButton({ editTask, task }) {
    const [isDialogOpen, openDialog, closeDialog] = useDialog();
+   console.log(task.duration);
    const [data, updateValue, reset] = useForm(task);
    return (
       <>

@@ -1,4 +1,5 @@
 import { PriorityIcon } from '../assets/Icons';
+import { formatDuration } from '../utils/formatTime';
 
 export default function TaskForm({ task, updateValue }) {
    const priorityColors = [
@@ -27,22 +28,43 @@ export default function TaskForm({ task, updateValue }) {
          <div className="grid gap-2">
             <p>Priority:</p>
             <div className="flex place-content-center gap-4">
-               {Array.from({ length: 4 }).map((_, i) => {
+               {[0, 1, 2, 3].map(i => {
                   return (
                      <label
                         key={i}
-                        className={`priority-input transition-color cursor-pointer border-1 p-4 duration-250 hover:ring ${priorityColors[i]} ${task.priority === i ? 'bg-current/10' : ''}`}
+                        className={`priority-input transition-color border-1 p-4 duration-250 hover:ring ${priorityColors[i]} ${task.priority === i ? 'bg-current/10' : ''}`}
                      >
                         <input
-                           className="mr-2"
+                           className="sr-only"
                            type="radio"
                            name="taskPriority"
                            onChange={() => updateValue('priority', i)}
                            checked={task.priority === i}
-                           hidden
                         />
                         <PriorityIcon className="h-full w-full" />
                         <div className="sr-only">Priority {i}</div>
+                     </label>
+                  );
+               })}
+            </div>
+         </div>
+         <div>
+            <p>Duration:</p>
+
+            <div className="flex flex-wrap gap-2">
+               {[0, 5, 10, 15, 30, 45, 60, 90, 120].map(duration => {
+                  return (
+                     <label
+                        key={duration}
+                        className={`${duration === task.duration ? 'bg-primary-400/15' : ''} border-1 px-2 py-1`}
+                     >
+                        {formatDuration(duration) || 'none'}
+                        <input
+                           className="sr-only"
+                           type="radio"
+                           name="taskDuration"
+                           onChange={() => updateValue('duration', duration)}
+                        />
                      </label>
                   );
                })}

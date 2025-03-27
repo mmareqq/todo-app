@@ -19,8 +19,8 @@ export default function ButtonAddProject({ addProject }) {
             onSuccess={() => {
                const project = { id: generateId(), name: projectData.name };
                initalizeTasksInStorage(project.id);
-
                addProject(project);
+               document.body.style.margin = '100px';
                resetForm();
             }}
          >
