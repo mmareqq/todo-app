@@ -45,7 +45,7 @@ export default function App() {
             />
          </div>
          <main>
-            <div className="main wrapper h-full">
+            <div className="main wrapper h-svh">
                <GrainEffect opacity={0} noiseValue={15} />
                <GrainEffect opacity={0.03} color="#E0AC69" noiseValue={15} />
                {activeProject && <Project project={activeProject} />}

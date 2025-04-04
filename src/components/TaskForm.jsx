@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { PriorityIcon } from '../assets/Icons';
 import { formatDuration } from '../utils/formatTime';
+import { EmptyIcon } from '../assets/Icons';
 
 export default function TaskForm({ task, updateValue }) {
    const priorityColors = [
@@ -9,7 +10,6 @@ export default function TaskForm({ task, updateValue }) {
       'text-priority-2',
       'text-priority-3',
    ];
-   const [isDuration, setIsDuration] = useState(task.duration !== 0);
 
    return (
       <div className="mb-6 grid gap-4">
@@ -49,33 +49,25 @@ export default function TaskForm({ task, updateValue }) {
             </div>
          </div>
          <div>
-            <div className="mb-1">
-               <input
-                  type="checkbox"
-                  onChange={() => updateValue('duration', 0)}
-               />
-               Duration
+            <div className="mb-1">Duration:</div>
+            <div className="flex flex-wrap gap-2">
+               {[0, 5, 10, 15, 30, 45, 60, 90, 120].map(duration => {
+                  return (
+                     <label
+                        key={duration}
+                        className={`${duration === task.duration ? 'bg-primary-400/15' : ''} cursor-pointer border-1 px-2 py-1`}
+                     >
+                        {duration ? formatDuration(duration) : <EmptyIcon />}
+                        <input
+                           className="sr-only"
+                           type="radio"
+                           name="taskDuration"
+                           onChange={() => updateValue('duration', duration)}
+                        />
+                     </label>
+                  );
+               })}
             </div>
-            {task.duration && (
-               <div className="flex flex-wrap gap-2">
-                  {[5, 10, 15, 30, 45, 60, 90, 120].map(duration => {
-                     return (
-                        <label
-                           key={duration}
-                           className={`${duration === task.duration ? 'bg-primary-400/15' : ''} cursor-pointer border-1 px-2 py-1`}
-                        >
-                           {duration ? formatDuration(duration) : 'none'}
-                           <input
-                              className="sr-only"
-                              type="radio"
-                              name="taskDuration"
-                              onChange={() => updateValue('duration', duration)}
-                           />
-                        </label>
-                     );
-                  })}
-               </div>
-            )}
          </div>
       </div>
    );

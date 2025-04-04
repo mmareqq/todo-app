@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import Task from './Task';
 import ButtonAddTask from './ButtonAddTask';
-import { motion, AnimatePresence } from 'motion/react';
 import { formatDuration } from '../utils/formatTime';
-import { StopWatchIcon } from '../assets/Icons';
+import { HourGlassIcon } from '../assets/Icons';
+import generateId from '../utils/generateId';
 
 function getTasks(projectId) {
    const tasks = localStorage.getItem(`tasks-${projectId}`);
@@ -40,11 +40,11 @@ export default function Project({ project }) {
    };
 
    return (
-      <div>
+      <div className="oveflow-y-hidden grid h-svh content-start items-start">
          <div>
             <h2 className="pt-4 text-2xl">{project.name}</h2>
             <div className="my-6 flex items-center gap-1 text-sm">
-               <StopWatchIcon />
+               <HourGlassIcon />
                <span>
                   Total Duration:&nbsp;
                   {formatDuration(
@@ -53,29 +53,70 @@ export default function Project({ project }) {
                </span>
             </div>
          </div>
-         <div className="grid gap-4">
-            <AnimatePresence>
-               {tasks.length > 0 &&
-                  tasks.map(task => {
-                     return (
-                        <motion.div
-                           key={task.id}
-                           initial={{ opacity: 0, transform: 'rotateX(90deg)' }}
-                           animate={{ opacity: 1, transform: 'rotateX(0deg)' }}
-                           exit={{ opacity: 0, transform: 'rotateX(90deg)' }}
-                        >
-                           <Task
-                              task={task}
-                              editTask={editTask}
-                              removeTask={removeTask}
-                           ></Task>
-                        </motion.div>
-                     );
-                  })}
-            </AnimatePresence>
-         </div>
-         <div className="mt-4 flex justify-end">
-            <ButtonAddTask addTask={addTask} />
+
+         <div className="max-h-full overflow-y-auto">
+            <div className="grid gap-4 overflow-x-hidden pr-1">
+               {tasks.map((task, i) => {
+                  return (
+                     <Task
+                        key={task.id}
+                        task={task}
+                        editTask={editTask}
+                        removeTask={removeTask}
+                        animationDelay={i * 0.05}
+                     />
+                  );
+               })}
+            </div>
+            <div className="mt-4 flex justify-end gap-4">
+               <button
+                  className="rounded-sm border-1 border-yellow-700 px-4 py-1"
+                  type="button"
+                  onClick={() => {
+                     const tasks = [
+                        {
+                           id: generateId(),
+                           finished: false,
+                           name: 'Task 1',
+                           priority: 2,
+                           duration: 15,
+                        },
+                        {
+                           id: generateId(),
+                           finished: false,
+                           name: 'Task 2',
+                           priority: 0,
+                           duration: 90,
+                        },
+                        {
+                           id: generateId(),
+                           finished: false,
+                           name: 'Task 3',
+                           priority: 1,
+                           duration: 45,
+                        },
+                        {
+                           id: generateId(),
+                           finished: false,
+                           name: 'Task 4',
+                           priority: 2,
+                           duration: 15,
+                        },
+                        {
+                           id: generateId(),
+                           finished: false,
+                           name: 'Task 5',
+                           priority: 3,
+                           duration: 5,
+                        },
+                     ];
+                     tasks.forEach(task => addTask(task));
+                  }}
+               >
+                  Load 5 tasks
+               </button>
+               <ButtonAddTask addTask={addTask} />
+            </div>
          </div>
       </div>
    );

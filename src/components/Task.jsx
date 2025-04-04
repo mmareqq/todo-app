@@ -1,39 +1,56 @@
 import TrashButton from './TrashButton';
 import EditButton from './EditButton';
-import { StopWatchIcon } from '../assets/Icons';
+import { HourGlassIcon } from '../assets/Icons';
 import { formatDuration } from '../utils/formatTime';
+import { useRef } from 'react';
+import { motion } from 'motion/react';
+import { animateExit } from '../utils/animations';
 
-export default function Task({ task, removeTask, editTask }) {
+export default function Task({ task, removeTask, editTask, animationDelay }) {
    const priorityColors = [
       'text-priority-0',
       'text-priority-1',
       'text-priority-2',
       'text-priority-3',
    ];
-   console.log(task);
+   const taskRef = useRef(null);
    return (
-      <div
-         className={`bg-primary-800 task border-primary-600 flex items-center gap-2 border px-4 py-2`}
+      <motion.div
+         initial={{ opacity: 0, translate: '-30%' }}
+         animate={{ opacity: 1, translate: '0' }}
+         transition={{ delay: animationDelay }}
       >
-         <button
-            type="button"
-            className={`h-5 w-5 border-2 bg-current/10 ${priorityColors[task.priority]}`}
-            onClick={() => removeTask(task.id)}
+         <div
+            ref={taskRef}
+            className="task bg-primary-800 border-primary-600 flex items-center gap-2 border px-4 py-2"
          >
-            <span className="sr-only">complete task</span>
-         </button>
-         <p>{task.name}</p>
-         <div className="ml-auto flex items-center">
-            <div className="mr-4 flex gap-0.5" hidden={!task.duration}>
-               <StopWatchIcon width="20" />
-               {formatDuration(task.duration)}
+            <button
+               type="button"
+               className={`h-5 w-5 border-2 bg-current/10 ${priorityColors[task.priority]}`}
+               onClick={() =>
+                  animateExit(() => {
+                     removeTask(task.id);
+                  }, taskRef)
+               }
+            >
+               <span className="sr-only">complete task</span>
+            </button>
+            <p>{task.name}</p>
+            <div className="ml-auto flex items-center">
+               <div
+                  className="mr-4 flex items-center gap-0.5"
+                  hidden={!task.duration}
+               >
+                  <HourGlassIcon />
+                  {formatDuration(task.duration)}
+               </div>
+               <EditButton editTask={editTask} task={task} />
+               <TrashButton
+                  remove={() => removeTask(task.id)}
+                  altText={`task ${task.name}`}
+               />
             </div>
-            <EditButton editTask={editTask} task={task} />
-            <TrashButton
-               remove={() => removeTask(task.id)}
-               altText={`task ${task.name}`}
-            />
          </div>
-      </div>
+      </motion.div>
    );
 }
