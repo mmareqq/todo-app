@@ -27,7 +27,6 @@ export default function ButtonAddTask({ addTask }) {
                };
                addTask(task);
                resetForm();
-               console.log('form reset: ', taskData);
             }}
          >
             <h2 className="mb-6 text-center text-xl">Create Task</h2>

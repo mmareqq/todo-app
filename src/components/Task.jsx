@@ -23,10 +23,11 @@ export default function Task({ task, removeTask, editTask }) {
             <span className="sr-only">complete task</span>
          </button>
          <p>{task.name}</p>
-         <div className="flex gap-1" hidden={!task.duration}>
-            <StopWatchIcon /> {formatDuration(task.duration)}
-         </div>
          <div className="ml-auto flex items-center">
+            <div className="mr-4 flex gap-0.5" hidden={!task.duration}>
+               <StopWatchIcon width="20" />
+               {formatDuration(task.duration)}
+            </div>
             <EditButton editTask={editTask} task={task} />
             <TrashButton
                remove={() => removeTask(task.id)}

@@ -1,6 +1,6 @@
 import { formatDuration } from '../src/utils/formatTime';
-test('0 to be null', () => {
-   expect(formatDuration(0)).toBe(null);
+test('0 to be 0min', () => {
+   expect(formatDuration(0)).toBe('0min');
 });
 
 test('10 to be 10min', () => {

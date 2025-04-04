@@ -3,6 +3,7 @@ import Task from './Task';
 import ButtonAddTask from './ButtonAddTask';
 import { motion, AnimatePresence } from 'motion/react';
 import { formatDuration } from '../utils/formatTime';
+import { StopWatchIcon } from '../assets/Icons';
 
 function getTasks(projectId) {
    const tasks = localStorage.getItem(`tasks-${projectId}`);
@@ -40,8 +41,17 @@ export default function Project({ project }) {
 
    return (
       <div>
-         <div className="py-4">
-            <h2 className="my-4 text-2xl">{project.name}</h2>
+         <div>
+            <h2 className="pt-4 text-2xl">{project.name}</h2>
+            <div className="my-6 flex items-center gap-1 text-sm">
+               <StopWatchIcon />
+               <span>
+                  Total Duration:&nbsp;
+                  {formatDuration(
+                     tasks.reduce((sum, task) => task.duration + sum, 0)
+                  )}
+               </span>
+            </div>
          </div>
          <div className="grid gap-4">
             <AnimatePresence>
@@ -64,11 +74,7 @@ export default function Project({ project }) {
                   })}
             </AnimatePresence>
          </div>
-         <div className="mt-4 flex justify-end gap-5">
-            Total Duration:{' '}
-            {formatDuration(
-               tasks.reduce((sum, task) => task.duration + sum, 0)
-            )}
+         <div className="mt-4 flex justify-end">
             <ButtonAddTask addTask={addTask} />
          </div>
       </div>

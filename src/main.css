@@ -23,6 +23,11 @@ body {
    letter-spacing: 0.25px;
 }
 
+input[type='checkbox'] {
+   width: 0.9em;
+   height: 0.9em;
+}
+
 .wrapper {
    width: 100%;
    padding-inline: 10%;
@@ -66,6 +71,10 @@ button {
 .animation-hide {
    animation: hide 0.3s linear forwards;
    transform-origin: center;
+}
+
+.dialog {
+   max-width: 22.5em;
 }
 
 @keyframes hide {

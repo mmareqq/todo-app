@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { PriorityIcon } from '../assets/Icons';
 import { formatDuration } from '../utils/formatTime';
 
@@ -8,31 +9,30 @@ export default function TaskForm({ task, updateValue }) {
       'text-priority-2',
       'text-priority-3',
    ];
+   const [isDuration, setIsDuration] = useState(task.duration !== 0);
 
    return (
       <div className="mb-6 grid gap-4">
          <div>
-            <label>
-               Name:
-               <input
-                  className="ml-2 border"
-                  type="text"
-                  id="taskName"
-                  name="taskName"
-                  value={task.name}
-                  onChange={e => updateValue('name', e.target.value)}
-               />
-            </label>
+            <label htmlFor="taskName">Name</label>
+            <input
+               className="ml-2 border"
+               type="text"
+               id="taskName"
+               name="taskName"
+               value={task.name}
+               onChange={e => updateValue('name', e.target.value)}
+            />
          </div>
 
          <div className="grid gap-2">
-            <p>Priority:</p>
-            <div className="flex place-content-center gap-4">
+            <div className="mb-1">Priority</div>
+            <div className="flex justify-between">
                {[0, 1, 2, 3].map(i => {
                   return (
                      <label
                         key={i}
-                        className={`priority-input transition-color border-1 p-4 duration-250 hover:ring ${priorityColors[i]} ${task.priority === i ? 'bg-current/10' : ''}`}
+                        className={`priority-input transition-color cursor-pointer border-1 p-4 duration-250 hover:ring ${priorityColors[i]} ${task.priority === i ? 'bg-current/10' : ''}`}
                      >
                         <input
                            className="sr-only"
@@ -49,26 +49,33 @@ export default function TaskForm({ task, updateValue }) {
             </div>
          </div>
          <div>
-            <p>Duration:</p>
-
-            <div className="flex flex-wrap gap-2">
-               {[0, 5, 10, 15, 30, 45, 60, 90, 120].map(duration => {
-                  return (
-                     <label
-                        key={duration}
-                        className={`${duration === task.duration ? 'bg-primary-400/15' : ''} border-1 px-2 py-1`}
-                     >
-                        {formatDuration(duration) || 'none'}
-                        <input
-                           className="sr-only"
-                           type="radio"
-                           name="taskDuration"
-                           onChange={() => updateValue('duration', duration)}
-                        />
-                     </label>
-                  );
-               })}
+            <div className="mb-1">
+               <input
+                  type="checkbox"
+                  onChange={() => updateValue('duration', 0)}
+               />
+               Duration
             </div>
+            {task.duration && (
+               <div className="flex flex-wrap gap-2">
+                  {[5, 10, 15, 30, 45, 60, 90, 120].map(duration => {
+                     return (
+                        <label
+                           key={duration}
+                           className={`${duration === task.duration ? 'bg-primary-400/15' : ''} cursor-pointer border-1 px-2 py-1`}
+                        >
+                           {duration ? formatDuration(duration) : 'none'}
+                           <input
+                              className="sr-only"
+                              type="radio"
+                              name="taskDuration"
+                              onChange={() => updateValue('duration', duration)}
+                           />
+                        </label>
+                     );
+                  })}
+               </div>
+            )}
          </div>
       </div>
    );
