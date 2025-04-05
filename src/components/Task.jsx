@@ -5,6 +5,7 @@ import { formatDuration } from '../utils/formatTime';
 import { useRef } from 'react';
 import { motion } from 'motion/react';
 import { animateExit } from '../utils/animations';
+import { playSound } from '../utils/audio';
 
 export default function Task({ task, removeTask, editTask, animationDelay }) {
    const priorityColors = [
@@ -27,11 +28,13 @@ export default function Task({ task, removeTask, editTask, animationDelay }) {
             <button
                type="button"
                className={`h-5 w-5 border-2 bg-current/10 ${priorityColors[task.priority]}`}
-               onClick={() =>
+               onClick={() => {
+                  playSound();
+                  console.log('sound played');
                   animateExit(() => {
                      removeTask(task.id);
-                  }, taskRef)
-               }
+                  }, taskRef);
+               }}
             >
                <span className="sr-only">complete task</span>
             </button>

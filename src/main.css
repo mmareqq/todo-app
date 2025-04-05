@@ -5,6 +5,15 @@
    box-sizing: border-box;
 }
 
+* {
+   scrollbar-color: currentColor transparent;
+   scrollbar-width: thin;
+}
+
+:root {
+   --clr-success: oklch(52.7% 0.154 150.069);
+}
+
 html {
    color-scheme: dark light;
 }
@@ -28,13 +37,18 @@ input[type='checkbox'] {
    height: 0.9em;
 }
 
+button {
+   cursor: pointer;
+}
+
+::backdrop {
+   background-color: rgba(0, 0, 0, 0.6);
+   backdrop-filter: blur(1px);
+}
+
 .wrapper {
    width: 100%;
    padding-inline: 10%;
-}
-
-button {
-   cursor: pointer;
 }
 
 *:has(> .grain-texture) {
@@ -50,11 +64,6 @@ button {
    min-width: 18ch;
 }
 
-::backdrop {
-   background-color: rgba(0, 0, 0, 0.6);
-   backdrop-filter: blur(1px);
-}
-
 .dialog {
    background: none;
    color: white;
@@ -64,26 +73,63 @@ button {
    translate: -50% -50%;
 }
 
-.border-inset {
-   box-shadow: inset 0 0 0 1px currentColor;
-}
-
 .dialog {
    max-width: 22.5em;
 }
 
-.task {
-   transition:
-      0.25s translate ease-in-out,
-      0.25s opacity ease-in-out;
-}
-
 .exit-animation {
-   translate: 30%;
+   position: relative;
+   --_duration: 0.1s;
    opacity: 0;
+   translate: 0 -20px;
+   transform-origin: center;
+   transform: scale(0.5, 0);
+
+   transition:
+      opacity 0.3s,
+      translate 0.3s,
+      transform 0.3s,
+      transform-origin 0.3s;
+   transition-delay: calc(var(--_duration) * 6);
+
+   animation: rotateOut calc(var(--_duration) * 2.2) linear forwards;
 }
 
-* {
-   scrollbar-color: currentColor transparent;
-   scrollbar-width: thin;
+.exit-animation::before {
+   content: '✓';
+   position: absolute;
+   inset: -1px;
+   display: grid;
+   overflow: hidden;
+   place-content: center;
+   background-color: inherit;
+   color: var(--clr-success);
+   font-size: 1.75rem;
+   font-weight: 900;
+   border: 1px solid var(--clr-success);
+   scale: 1 0;
+   animation: rotateIn var(--_duration) var(--_duration) linear forwards;
+}
+
+@keyframes rotateOut {
+   0% {
+      scale: 1 1;
+   }
+   50% {
+      scale: 1 0;
+   }
+
+   100% {
+      scale: 1 1;
+   }
+}
+
+@keyframes rotateIn {
+   0% {
+      scale: 1 0;
+   }
+
+   100% {
+      scale: 1 1;
+   }
 }
