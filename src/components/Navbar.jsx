@@ -15,14 +15,6 @@ export default function Navbar({
       setProjects(prevProjects => [...prevProjects, newProject]);
    };
 
-   const editProject = newProject => {
-      setProjects(prevProjects => {
-         return prevProjects.map(proj =>
-            proj.id === newProject ? newProject : proj
-         );
-      });
-   };
-
    return (
       <nav>
          <ul className="mt-24 flex flex-col gap-0">

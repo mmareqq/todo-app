@@ -1,16 +1,18 @@
 import { useState, useEffect } from 'react';
-import Task from './Task';
-import ButtonAddTask from './ButtonAddTask';
+import generateId from '../utils/generateId';
 import { formatDuration } from '../utils/formatTime';
 import { HourGlassIcon } from '../assets/Icons';
-import generateId from '../utils/generateId';
+
+import Task from './Task';
+import ButtonAddTask from './ButtonAddTask';
+import EditProjectButton from './EditProjectButton';
 
 function getTasks(projectId) {
    const tasks = localStorage.getItem(`tasks-${projectId}`);
    return JSON.parse(tasks) || [];
 }
 
-export default function Project({ project }) {
+export default function Project({ editProject, project }) {
    const [tasks, setTasks] = useState(() => getTasks(project.id));
 
    useEffect(() => {
@@ -42,9 +44,17 @@ export default function Project({ project }) {
    return (
       <div className="oveflow-y-hidden grid h-svh content-start items-start">
          <div>
-            <h2 className="pt-4 text-2xl">{project.name}</h2>
+            <div className="border-primary-500 flex items-end justify-between border-b-1 py-2">
+               <h2 className="pt-4 text-2xl">{project.name}</h2>
+               <EditProjectButton
+                  editProject={editProject}
+                  project={project}
+               ></EditProjectButton>
+            </div>
             <div className="my-6 flex items-center gap-1 text-sm">
-               <HourGlassIcon />
+               <div>
+                  <HourGlassIcon></HourGlassIcon>
+               </div>
                <span>
                   Total Duration:&nbsp;
                   {formatDuration(

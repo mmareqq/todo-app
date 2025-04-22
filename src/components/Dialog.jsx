@@ -55,9 +55,13 @@ function useDialogRef(isOpen, closeDialog) {
 
    useEffect(() => {
       if (!isOpen) return;
-
       const dialogClicked = e => {
-         if (e.target === e.currentTarget) closeDialog();
+         console.log(e.target);
+         console.log(e.currentTarget);
+         if (e.target === e.currentTarget) {
+            console.log('closing dialog');
+            closeDialog();
+         }
       };
 
       dialogRef.current?.addEventListener('click', dialogClicked);

@@ -33,6 +33,14 @@ export default function App() {
 
    const activeProject = projects.find(p => p.id === activeProjectId) ?? null;
 
+   const editProject = editedProject => {
+      setProjects(prevProjects => {
+         return prevProjects.map(project =>
+            project.id === editedProject.id ? editedProject : project
+         );
+      });
+   };
+
    return (
       <div className="body bg-primary-900 text-gray-50">
          <div className="sidebar h-full max-w-600 text-white">
@@ -46,9 +54,11 @@ export default function App() {
          </div>
          <main>
             <div className="main wrapper h-svh">
-               <GrainEffect opacity={0} noiseValue={15} />
-               <GrainEffect opacity={0.03} color="#E0AC69" noiseValue={15} />
-               {activeProject && <Project project={activeProject} />}
+               <GrainEffect opacity={0.01} noiseValue={15} />
+               <GrainEffect opacity={0.025} color="#E0AC69" noiseValue={15} />
+               {activeProject && (
+                  <Project editProject={editProject} project={activeProject} />
+               )}
             </div>
          </main>
       </div>

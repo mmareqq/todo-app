@@ -1,10 +1,9 @@
 import { useRef } from 'react';
 import { motion } from 'motion/react';
 import TrashButton from './TrashButton';
-import EditButton from './EditButton';
+import EditButton from './EditTaskButton';
 import { HourGlassIcon } from '../assets/Icons';
 import { formatDuration } from '../utils/formatTime';
-import { animateExit } from '../utils/animations';
 
 export default function Task({ task, removeTask, editTask, animationDelay }) {
    const priorityColors = [
@@ -28,9 +27,8 @@ export default function Task({ task, removeTask, editTask, animationDelay }) {
                type="button"
                className={`h-5 w-5 border-2 bg-current/10 ${priorityColors[task.priority]}`}
                onClick={() => {
-                  animateExit(() => {
-                     removeTask(task.id);
-                  }, taskRef);
+                  taskRef.current.classList.add('exit-animation');
+                  setTimeout(() => removeTask(task.id), 800);
                }}
             >
                <span className="sr-only">complete task</span>
