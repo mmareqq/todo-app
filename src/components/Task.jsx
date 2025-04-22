@@ -1,11 +1,10 @@
+import { useRef } from 'react';
+import { motion } from 'motion/react';
 import TrashButton from './TrashButton';
 import EditButton from './EditButton';
 import { HourGlassIcon } from '../assets/Icons';
 import { formatDuration } from '../utils/formatTime';
-import { useRef } from 'react';
-import { motion } from 'motion/react';
 import { animateExit } from '../utils/animations';
-import { playSound } from '../utils/audio';
 
 export default function Task({ task, removeTask, editTask, animationDelay }) {
    const priorityColors = [
@@ -29,8 +28,6 @@ export default function Task({ task, removeTask, editTask, animationDelay }) {
                type="button"
                className={`h-5 w-5 border-2 bg-current/10 ${priorityColors[task.priority]}`}
                onClick={() => {
-                  playSound();
-                  console.log('sound played');
                   animateExit(() => {
                      removeTask(task.id);
                   }, taskRef);
@@ -41,10 +38,10 @@ export default function Task({ task, removeTask, editTask, animationDelay }) {
             <p>{task.name}</p>
             <div className="ml-auto flex items-center">
                <div
-                  className="mr-4 flex items-center gap-0.5"
+                  className="mr-4 flex items-center gap-1"
                   hidden={!task.duration}
                >
-                  <HourGlassIcon />
+                  <HourGlassIcon width={12} />
                   {formatDuration(task.duration)}
                </div>
                <EditButton editTask={editTask} task={task} />
