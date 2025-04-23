@@ -1,4 +1,4 @@
-import { useRef, useEffect, memo, useCallback } from 'react';
+import { useRef, useEffect, memo, useCallback, useMemo } from 'react';
 import './style.css';
 import Number from './Number';
 import getNearestMultiple from './utils/getNearestMultiple';
@@ -27,7 +27,10 @@ function getTimerConfig(numCount, fontSize) {
 const MemoizedNumber = memo(Number);
 
 function TimeInput({ numCount = 60, fontSize = 16, setInput }) {
-   const timerConfig = getTimerConfig(numCount, fontSize);
+   const timerConfig = useMemo(
+      () => getTimerConfig(numCount, fontSize),
+      [numCount, fontSize]
+   );
    const sliderRef = useRef(null);
    const isMouseDown = useRef(false);
    const [offsetRef, updateOffset, updateOffsetInstantly] =
@@ -36,12 +39,13 @@ function TimeInput({ numCount = 60, fontSize = 16, setInput }) {
       timerConfig.numHeight,
       timerConfig.numCount
    );
+
    const mouseStartPos = useRef();
    const baseOffset = useRef();
-   console.log(activeNum);
+
    useEffect(() => {
       setInput(activeNum);
-   }, [activeNum]);
+   }, [setInput, activeNum]);
 
    const handleTransitionEnd = useCallback(
       e => {
@@ -56,7 +60,7 @@ function TimeInput({ numCount = 60, fontSize = 16, setInput }) {
          updateOffsetInstantly(offset);
          updateActiveNum(offset);
       },
-      [offsetRef, updateOffsetInstantly, updateActiveNum]
+      [offsetRef, updateOffsetInstantly, updateActiveNum, timerConfig]
    );
 
    const handleScroll = useCallback(
@@ -80,7 +84,13 @@ function TimeInput({ numCount = 60, fontSize = 16, setInput }) {
 
          updateActiveNumDebounce(scrollOffset);
       },
-      [offsetRef, updateOffset, updateOffsetInstantly, updateActiveNumDebounce]
+      [
+         offsetRef,
+         updateOffset,
+         updateOffsetInstantly,
+         updateActiveNumDebounce,
+         timerConfig,
+      ]
    );
 
    const handleClick = useCallback(
@@ -99,36 +109,41 @@ function TimeInput({ numCount = 60, fontSize = 16, setInput }) {
          updateOffset(offset);
          updateActiveNum(offset);
       },
-      [offsetRef, updateOffset, activeNum, updateActiveNum]
+      [offsetRef, updateOffset, activeNum, updateActiveNum, timerConfig]
    );
 
-   function handleMouseDown(e) {
-      // if (e.target.classList.contains('num-active')) return;
-      if (e.button !== 0) return;
-      isMouseDown.current = true;
-      mouseStartPos.current = e.clientY;
-      baseOffset.current = offsetRef.current;
-   }
+   const handleMouseDown = useCallback(
+      e => {
+         if (e.button !== 0) return;
+         isMouseDown.current = true;
+         mouseStartPos.current = e.clientY;
+         baseOffset.current = offsetRef.current;
+      },
+      [offsetRef]
+   );
 
-   function handleMouseMove(e) {
-      if (!isMouseDown.current) return;
-      const dragOffset =
-         baseOffset.current +
-         (mouseStartPos.current - e.clientY) * timerConfig.speedFactor;
-      if (
-         isOffsetOutOfRange(
-            dragOffset,
-            timerConfig.timerHeight,
-            timerConfig.numHeight
-         )
-      ) {
-         return;
-      }
-      updateOffset(dragOffset);
-      updateActiveNum(dragOffset);
-   }
+   const handleMouseMove = useCallback(
+      e => {
+         if (!isMouseDown.current) return;
+         const dragOffset =
+            baseOffset.current +
+            (mouseStartPos.current - e.clientY) * timerConfig.speedFactor;
+         if (
+            isOffsetOutOfRange(
+               dragOffset,
+               timerConfig.timerHeight,
+               timerConfig.numHeight
+            )
+         ) {
+            return;
+         }
+         updateOffset(dragOffset);
+         updateActiveNum(dragOffset);
+      },
+      [updateOffset, updateActiveNum, timerConfig]
+   );
 
-   function handleMouseUp() {
+   const handleMouseUp = useCallback(() => {
       if (!isMouseDown.current) return;
       isMouseDown.current = false;
       // Round an offset to center a number
@@ -138,7 +153,7 @@ function TimeInput({ numCount = 60, fontSize = 16, setInput }) {
       );
       updateOffset(roundedOffset);
       updateActiveNum(roundedOffset);
-   }
+   }, [updateOffset, updateActiveNum, offsetRef, timerConfig]);
 
    const handleEvent = useCallback(
       e => {
@@ -160,18 +175,23 @@ function TimeInput({ numCount = 60, fontSize = 16, setInput }) {
                break;
             case 'mouseup':
                handleMouseUp();
-            default:
-               break;
          }
       },
-      [handleTransitionEnd, handleScroll, handleClick]
+      [
+         handleTransitionEnd,
+         handleScroll,
+         handleClick,
+         handleMouseDown,
+         handleMouseMove,
+         handleMouseUp,
+      ]
    );
 
    // Initalize
    useEffect(() => {
       updateOffsetInstantly(timerConfig.initialOffset);
       updateActiveNum(timerConfig.initialOffset);
-   }, [updateOffsetInstantly, updateActiveNum]);
+   }, [updateOffsetInstantly, updateActiveNum, timerConfig]);
 
    // Event listeners
    useEffect(() => {

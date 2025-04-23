@@ -7,7 +7,7 @@ function useTasks(projectId) {
 
    useEffect(() => {
       localStorage.setItem(`tasks-${projectId}`, JSON.stringify(tasks));
-   }, [tasks]);
+   }, [tasks, projectId]);
 
    const addTask = newTask => {
       setTasks(prevTasks => [...prevTasks, newTask]);

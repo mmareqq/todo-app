@@ -2,7 +2,7 @@ import { useState, useCallback, useRef } from 'react';
 
 function useLiveState(val) {
    const ref = useRef(val);
-   const [_, setValue] = useState(ref.current);
+   const [, setValue] = useState(ref.current);
 
    const getValue = () => ref.current;
    const updateValue = useCallback(newValue => {

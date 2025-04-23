@@ -1,11 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import generateId from '../utils/generateId';
 import { formatDuration } from '../utils/formatTime';
-import { HourGlassIcon } from '../assets/Icons';
 
 import Task from './Task';
 import ButtonAddTask from './ButtonAddTask';
-import EditProjectButton from './EditProjectButton';
+import ProjectHeader from './ProjectHeader';
 
 import useTasks from '../hooks/useTasks';
 import getTasks from '../utils/getTasks';
@@ -15,32 +14,20 @@ export default function Project({ editProject, project }) {
       project.id
    );
 
+   // if project changes, load different tasks
    useEffect(() => {
       setTasks(getTasks(project.id));
-   }, [project]);
+   }, [project, setTasks]);
 
    return (
       <div className="oveflow-y-hidden grid h-svh content-start items-start">
-         <div>
-            <div className="border-primary-500 flex items-end justify-between border-b-1 py-2">
-               <h2 className="pt-4 text-2xl">{project.name}</h2>
-               <EditProjectButton
-                  editProject={editProject}
-                  project={project}
-               ></EditProjectButton>
-            </div>
-            <div className="my-6 flex items-center gap-1 text-sm">
-               <div>
-                  <HourGlassIcon></HourGlassIcon>
-               </div>
-               <span>
-                  Total Duration:&nbsp;
-                  {formatDuration(
-                     tasks.reduce((sum, task) => task.duration + sum, 0)
-                  )}
-               </span>
-            </div>
-         </div>
+         <ProjectHeader
+            project={project}
+            editProject={editProject}
+            tasksDuration={formatDuration(
+               tasks.reduce((sum, task) => task.duration + sum)
+            )}
+         />
 
          <div className="max-h-full overflow-y-auto">
             <div className="grid gap-4 overflow-x-hidden pr-1">

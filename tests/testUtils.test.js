@@ -1,4 +1,5 @@
 import { formatDuration } from '../src/utils/formatTime';
+
 test('0 to be 0min', () => {
    expect(formatDuration(0)).toBe('0min');
 });
