@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
+import useTasks from '../hooks/useTasks';
+
 import generateId from '../utils/generateId';
 import { formatDuration } from '../utils/formatTime';
+import getTasks from '../utils/getTasks';
 
 import Task from './Task';
 import ButtonAddTask from './ButtonAddTask';
 import ProjectHeader from './ProjectHeader';
-
-import useTasks from '../hooks/useTasks';
-import getTasks from '../utils/getTasks';
 
 export default function Project({ editProject, project }) {
    const [tasks, setTasks, addTask, removeTask, editTask] = useTasks(

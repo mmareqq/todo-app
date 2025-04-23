@@ -26,7 +26,7 @@ function getTimerConfig(numCount, fontSize) {
 
 const MemoizedNumber = memo(Number);
 
-function TimeInput({ numCount = 60, fontSize = 16, setInput }) {
+function TimeInput({ numCount = 60, fontSize = 16, updateInput }) {
    const timerConfig = useMemo(
       () => getTimerConfig(numCount, fontSize),
       [numCount, fontSize]
@@ -44,8 +44,8 @@ function TimeInput({ numCount = 60, fontSize = 16, setInput }) {
    const baseOffset = useRef();
 
    useEffect(() => {
-      setInput(activeNum);
-   }, [setInput, activeNum]);
+      updateInput(activeNum);
+   }, [activeNum]);
 
    const handleTransitionEnd = useCallback(
       e => {

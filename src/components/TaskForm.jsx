@@ -57,7 +57,7 @@ export default function TaskForm({ task, updateValue }) {
                   <TimeInput
                      fontSize={12}
                      numCount={24}
-                     setInput={newHours => {
+                     updateInput={newHours => {
                         updateValue(
                            'duration',
                            newHours * 60 + durationMinutes
@@ -70,7 +70,7 @@ export default function TaskForm({ task, updateValue }) {
                   <TimeInput
                      fontSize={12}
                      numCount={60}
-                     setInput={newMinutes => {
+                     updateInput={newMinutes => {
                         updateValue('duration', durationHours + newMinutes);
                      }}
                   ></TimeInput>
