@@ -25,7 +25,7 @@ export default function Project({ editProject, project }) {
             project={project}
             editProject={editProject}
             tasksDuration={formatDuration(
-               tasks.reduce((sum, task) => task.duration + sum)
+               tasks.reduce((sum, task) => task.duration + sum, 0)
             )}
          />
 
