@@ -5,13 +5,13 @@ import useForm from '../hooks/useForm';
 import TaskForm from './TaskForm';
 import Button from './Button';
 
-export default function EditButton({ editTask, task }) {
+export default function EditTaskButton({ editTask, task }) {
    const [isDialogOpen, openDialog, closeDialog] = useDialog();
    const [data, updateValue, reset] = useForm(task);
    return (
       <>
          <Button variant="square" onClick={openDialog}>
-            <span className="sr-only">open edit dialog: {task.name}</span>
+            <span className="sr-only">edit: {task.name}</span>
             <EditIcon></EditIcon>
          </Button>
          <Dialog

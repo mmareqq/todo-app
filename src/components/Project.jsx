@@ -7,39 +7,17 @@ import Task from './Task';
 import ButtonAddTask from './ButtonAddTask';
 import EditProjectButton from './EditProjectButton';
 
-function getTasks(projectId) {
-   const tasks = localStorage.getItem(`tasks-${projectId}`);
-   return JSON.parse(tasks) || [];
-}
+import useTasks from '../hooks/useTasks';
+import getTasks from '../utils/getTasks';
 
 export default function Project({ editProject, project }) {
-   const [tasks, setTasks] = useState(() => getTasks(project.id));
+   const [tasks, setTasks, addTask, removeTask, editTask] = useTasks(
+      project.id
+   );
 
    useEffect(() => {
       setTasks(getTasks(project.id));
    }, [project]);
-
-   useEffect(() => {
-      localStorage.setItem(`tasks-${project.id}`, JSON.stringify(tasks));
-   }, [tasks]);
-
-   const addTask = newTask => {
-      setTasks(prevTasks => [...prevTasks, newTask]);
-   };
-
-   const removeTask = taskIdToDelete => {
-      setTasks(prevTasks =>
-         prevTasks.filter(task => task.id != taskIdToDelete)
-      );
-   };
-
-   const editTask = editedTask => {
-      setTasks(prevTasks => {
-         return prevTasks.map(task =>
-            task.id === editedTask.id ? editedTask : task
-         );
-      });
-   };
 
    return (
       <div className="oveflow-y-hidden grid h-svh content-start items-start">

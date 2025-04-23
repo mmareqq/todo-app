@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { motion } from 'motion/react';
 import TrashButton from './TrashButton';
-import EditButton from './EditTaskButton';
+import EditTaskButton from './EditTaskButton';
 import { HourGlassIcon } from '../assets/Icons';
 import { formatDuration } from '../utils/formatTime';
 
@@ -42,7 +42,7 @@ export default function Task({ task, removeTask, editTask, animationDelay }) {
                   <HourGlassIcon width={12} />
                   {formatDuration(task.duration)}
                </div>
-               <EditButton editTask={editTask} task={task} />
+               <EditTaskButton editTask={editTask} task={task} />
                <TrashButton
                   remove={() => removeTask(task.id)}
                   altText={`task ${task.name}`}
