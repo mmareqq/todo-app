@@ -2,15 +2,21 @@ import { useState, useCallback } from 'react';
 import debounce from '../utils/debounce';
 import getNearestMultiple from '../utils/getNearestMultiple';
 
-export default function useActiveNum(numHeight, numOfElements) {
+export default function useActiveNum(config, updateInput) {
    const [activeNum, setActiveNum] = useState(0);
 
    const updateActiveNum = useCallback(
       offset => {
-         const num = calculateActiveNum(offset, numHeight, numOfElements);
+         const num = calculateActiveNum(
+            offset,
+            config.numHeight,
+            config.numCount
+         );
+
+         updateInput(num);
          setActiveNum(num);
       },
-      [numHeight, numOfElements]
+      [config, updateInput]
    );
 
    // eslint-disable-next-line
@@ -24,8 +30,8 @@ export default function useActiveNum(numHeight, numOfElements) {
    return [activeNum, updateActiveNum, updateActiveNumDebounce];
 }
 
-function calculateActiveNum(offset, numHeight, numOfElements) {
+function calculateActiveNum(offset, numHeight, numCount) {
    const roundedOffset = getNearestMultiple(offset, numHeight);
    const index = Math.abs(roundedOffset) / numHeight + 1;
-   return index % numOfElements;
+   return index % numCount;
 }

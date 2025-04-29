@@ -1,12 +1,12 @@
-import Dialog from './Dialog';
 import useDialog from '../hooks/useDialog';
+import Dialog from './Dialog';
 import useForm from '../hooks/useForm';
 import TaskForm from '../components/TaskForm';
 import generateId from '../utils/generateId';
 import Button from './Button';
 
 export default function ButtonAddTask({ addTask }) {
-   const [isOpen, openDialog, closeDialog] = useDialog();
+   const [isDialogOpen, openDialog, closeDialog] = useDialog();
    const [taskData, updateValue, resetForm] = useForm({
       name: '',
       priority: 0,
@@ -17,7 +17,7 @@ export default function ButtonAddTask({ addTask }) {
       <>
          <Button onClick={openDialog}>Add task</Button>
          <Dialog
-            isOpen={isOpen}
+            isOpen={isDialogOpen}
             closeDialog={closeDialog}
             onSuccess={() => {
                const task = {

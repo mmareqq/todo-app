@@ -6,46 +6,50 @@ import getNearestMultiple from './utils/getNearestMultiple';
 import useActiveNum from './hooks/useActiveNum';
 import useOffset from './hooks/useOffset';
 
-function getTimerConfig(numCount, fontSize) {
+function getTimerConfig(numCount, fontSize, initialNum) {
    const numHeight = 3.75 * fontSize;
    const timerHeight = numHeight * numCount;
    const minOffset = timerHeight * -1.5;
    const maxOffset = timerHeight * -0.5;
-   const initialOffset = timerHeight * -1 + numHeight;
    const speedFactor = 2.5;
+
+   const baseOffset = timerHeight * -1 + numHeight;
+   const initialOffset = baseOffset - initialNum * numHeight;
    return {
       numCount,
       numHeight,
       timerHeight,
       minOffset,
       maxOffset,
-      initialOffset,
       speedFactor,
+      initialNum,
+      initialOffset,
    };
 }
 
 const MemoizedNumber = memo(Number);
 
-function TimeInput({ numCount = 60, fontSize = 16, updateInput }) {
+function TimeInput({
+   numCount = 60,
+   fontSize = 16,
+   updateInput,
+   initialNum = 0,
+}) {
    const timerConfig = useMemo(
-      () => getTimerConfig(numCount, fontSize),
-      [numCount, fontSize]
+      () => getTimerConfig(numCount, fontSize, initialNum),
+      [numCount, fontSize, initialNum]
    );
    const sliderRef = useRef(null);
    const isMouseDown = useRef(false);
    const [offsetRef, updateOffset, updateOffsetInstantly] =
       useOffset(sliderRef);
    const [activeNum, updateActiveNum, updateActiveNumDebounce] = useActiveNum(
-      timerConfig.numHeight,
-      timerConfig.numCount
+      timerConfig,
+      updateInput
    );
 
    const mouseStartPos = useRef();
    const baseOffset = useRef();
-
-   useEffect(() => {
-      updateInput(activeNum);
-   }, [activeNum]);
 
    const handleTransitionEnd = useCallback(
       e => {
@@ -191,7 +195,7 @@ function TimeInput({ numCount = 60, fontSize = 16, updateInput }) {
    useEffect(() => {
       updateOffsetInstantly(timerConfig.initialOffset);
       updateActiveNum(timerConfig.initialOffset);
-   }, [updateOffsetInstantly, updateActiveNum, timerConfig]);
+   }, []);
 
    // Event listeners
    useEffect(() => {

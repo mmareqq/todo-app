@@ -68,12 +68,10 @@ button {
    background: none;
    color: white;
    position: absolute;
+   z-index: 1000;
    top: 50%;
    left: 50%;
    translate: -50% -50%;
-}
-
-.dialog {
    max-width: 22.5em;
 }
 

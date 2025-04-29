@@ -8,6 +8,8 @@ export default function Dialog({
 }) {
    const dialogRef = useDialogRef(isOpen, closeDialog);
 
+   if (!isOpen) return;
+
    return (
       <dialog ref={dialogRef} className="dialog rounded-md">
          <div className="bg-primary-800 p-10">
@@ -20,6 +22,7 @@ export default function Dialog({
                }}
             >
                {children}
+
                <menu className="mt-8 flex justify-end gap-2">
                   <button
                      type="button"
@@ -47,25 +50,26 @@ export default function Dialog({
 function useDialogRef(isOpen, closeDialog) {
    const dialogRef = useRef(null);
 
+   // closes and opens dialog
    useEffect(() => {
       if (isOpen) {
          dialogRef.current?.showModal();
       } else dialogRef.current?.close();
    }, [isOpen]);
 
+   // closes dialog if clicked outside of it
    useEffect(() => {
       if (!isOpen) return;
-      const dialogClicked = e => {
-         if (e.target === e.currentTarget) {
-            closeDialog();
-         }
+      const dialogEl = dialogRef.current;
+
+      const handleClick = e => {
+         if (e.target === dialogEl) closeDialog();
       };
 
-      const dialogEl = dialogRef.current;
-      dialogEl.addEventListener('click', dialogClicked);
+      dialogEl.addEventListener('mousedown', handleClick);
 
       return () => {
-         dialogEl.removeEventListener('click', dialogClicked);
+         dialogEl.addEventListener('mousedown', handleClick);
       };
    }, [isOpen, closeDialog]);
 

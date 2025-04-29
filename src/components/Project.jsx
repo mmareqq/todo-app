@@ -1,3 +1,4 @@
+/* eslint-disable no-unreachable */
 import { useEffect } from 'react';
 import useTasks from '../hooks/useTasks';
 

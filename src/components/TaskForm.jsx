@@ -1,3 +1,4 @@
+import { useCallback, useRef } from 'react';
 import { PriorityIcon } from '../assets/Icons';
 
 import TimeInput from './TimeInput/TimeInput';
@@ -10,8 +11,24 @@ export default function TaskForm({ task, updateValue }) {
       'text-priority-3',
    ];
 
-   const durationHours = Math.floor(task.duration / 60);
-   const durationMinutes = task.duration / 60;
+   const durationHours = useRef(Math.floor(task.duration / 60));
+   const durationMinutes = useRef(task.duration % 60);
+
+   const updateHours = useCallback(
+      newHours => {
+         durationHours.current = newHours;
+         updateValue('duration', newHours * 60 + durationMinutes.current);
+      },
+      [updateValue]
+   );
+
+   const updateMinutes = useCallback(
+      newMinutes => {
+         durationMinutes.current = newMinutes;
+         updateValue('duration', durationHours.current * 60 + newMinutes);
+      },
+      [updateValue]
+   );
 
    return (
       <div className="mb-6 grid gap-4">
@@ -51,18 +68,14 @@ export default function TaskForm({ task, updateValue }) {
             </div>
          </div>
          <div>
-            <div className="mb-1">Duration:</div>
+            <div className="mb-4">Duration:</div>
             <div className="flex justify-center gap-4">
                <div className="flex items-center">
                   <TimeInput
                      fontSize={12}
                      numCount={24}
-                     updateInput={newHours => {
-                        updateValue(
-                           'duration',
-                           newHours * 60 + durationMinutes
-                        );
-                     }}
+                     updateInput={updateHours}
+                     initialNum={durationHours.current}
                   ></TimeInput>
                   <div>h</div>
                </div>
@@ -70,9 +83,8 @@ export default function TaskForm({ task, updateValue }) {
                   <TimeInput
                      fontSize={12}
                      numCount={60}
-                     updateInput={newMinutes => {
-                        updateValue('duration', durationHours + newMinutes);
-                     }}
+                     updateInput={updateMinutes}
+                     initialNum={durationMinutes.current}
                   ></TimeInput>
                   <div>min</div>
                </div>
