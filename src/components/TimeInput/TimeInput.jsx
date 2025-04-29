@@ -200,21 +200,18 @@ function TimeInput({
    // Event listeners
    useEffect(() => {
       const sliderEl = sliderRef.current;
+      const controller = new AbortController();
+      const signal = controller.signal;
 
-      sliderEl.addEventListener('transitionend', handleEvent);
-      sliderEl.addEventListener('wheel', handleEvent);
-      sliderEl.addEventListener('click', handleEvent);
-      sliderEl.addEventListener('mousedown', handleEvent);
-      document.addEventListener('mousemove', handleEvent);
-      document.addEventListener('mouseup', handleEvent);
+      sliderEl.addEventListener('transitionend', handleEvent, { signal });
+      sliderEl.addEventListener('wheel', handleEvent, { signal });
+      sliderEl.addEventListener('click', handleEvent, { signal });
+      sliderEl.addEventListener('mousedown', handleEvent, { signal });
+      document.addEventListener('mousemove', handleEvent, { signal });
+      document.addEventListener('mouseup', handleEvent, { signal });
 
       return () => {
-         sliderEl.removeEventListener('transitionend', handleEvent);
-         sliderEl.removeEventListener('wheel', handleEvent);
-         sliderEl.removeEventListener('click', handleEvent);
-         sliderEl.removeEventListener('mousedown', handleEvent);
-         document.removeEventListener('mousemove', handleEvent);
-         document.removeEventListener('mouseup', handleEvent);
+         controller.abort();
       };
    }, [handleEvent]);
 
