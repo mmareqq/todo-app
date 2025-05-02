@@ -1,6 +1,6 @@
 import ButtonAddProject from './ButtonAddProject';
 import ProjectButton from './ProjectButton';
-ButtonAddProject;
+
 export default function Navbar({
    projects,
    setProjects,

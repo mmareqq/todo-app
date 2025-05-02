@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import './main.css';
 import GrainEffect from './assets/GrainEffect.jsx';
 import Project from './components/Project.jsx';
@@ -31,7 +31,10 @@ export default function App() {
       }
    }, [projects, activeProjectId, setActiveProjectId]);
 
-   const activeProject = projects.find(p => p.id === activeProjectId) ?? null;
+   const activeProject = useMemo(
+      () => projects.find(p => p.id === activeProjectId) ?? null,
+      [projects, activeProjectId]
+   );
 
    const editProject = editedProject => {
       setProjects(prevProjects => {
