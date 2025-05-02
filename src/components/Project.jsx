@@ -1,21 +1,29 @@
-/* eslint-disable no-unreachable */
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import useTasks from '../hooks/useTasks';
 
 import generateId from '../utils/generateId';
 import { formatDuration } from '../utils/formatTime';
 import getTasks from '../utils/getTasks';
+import sortTasks from '../utils/sortTasks';
 
 import Task from './Task';
 import ButtonAddTask from './ButtonAddTask';
 import ProjectHeader from './ProjectHeader';
 
-export default function Project({ editProject, project }) {
+export default function Project({
+   editProject,
+   project,
+   sortMethod,
+   updateSettings,
+}) {
    const [tasks, setTasks, addTask, removeTask, editTask] = useTasks(
       project.id
    );
+   const sortedTasks = useMemo(
+      () => sortTasks(tasks, sortMethod),
+      [tasks, sortMethod]
+   );
 
-   // if project changes, load different tasks
    useEffect(() => {
       setTasks(getTasks(project.id));
    }, [project, setTasks]);
@@ -25,6 +33,8 @@ export default function Project({ editProject, project }) {
          <ProjectHeader
             project={project}
             editProject={editProject}
+            sortMethod={sortMethod}
+            updateSettings={updateSettings}
             tasksDuration={formatDuration(
                tasks.reduce((sum, task) => task.duration + sum, 0)
             )}
@@ -32,7 +42,7 @@ export default function Project({ editProject, project }) {
 
          <div className="max-h-full overflow-y-auto">
             <div className="grid gap-4 overflow-x-hidden pr-1">
-               {tasks.map((task, i) => {
+               {sortedTasks.map((task, i) => {
                   return (
                      <Task
                         key={task.id}
@@ -45,6 +55,7 @@ export default function Project({ editProject, project }) {
                })}
             </div>
             <div className="mt-4 flex justify-end gap-4">
+               {/* TO BE DELETED */}
                <button
                   className="rounded-sm border-1 border-yellow-700 px-4 py-1"
                   type="button"

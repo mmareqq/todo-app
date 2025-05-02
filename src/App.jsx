@@ -1,17 +1,38 @@
 import { useState, useEffect, useMemo } from 'react';
 import './main.css';
+
 import GrainEffect from './assets/GrainEffect.jsx';
 import Project from './components/Project.jsx';
 import Navbar from './components/Navbar.jsx';
 
+function getSettings() {
+   return (
+      JSON.parse(localStorage.getItem('settings')) || {
+         sortMethod: 'priority',
+      }
+   );
+}
+
+function getProjects() {
+   return JSON.parse(localStorage.getItem('projects')) || [];
+}
+
+function getActiveId() {
+   return localStorage.getItem('activeProjectId') || null;
+}
+
 export default function App() {
-   const [projects, setProjects] = useState(
-      JSON.parse(localStorage.getItem('projects')) || []
+   const [settings, setSettings] = useState(getSettings);
+   const [projects, setProjects] = useState(getProjects);
+   const [activeProjectId, setActiveProjectId] = useState(getActiveId);
+   const activeProject = useMemo(
+      () => projects.find(p => p.id === activeProjectId) ?? null,
+      [projects, activeProjectId]
    );
 
-   const [activeProjectId, setActiveProjectId] = useState(
-      localStorage.getItem('activeProjectId') || null
-   );
+   useEffect(() => {
+      localStorage.setItem('settings', JSON.stringify(settings));
+   }, [settings]);
 
    useEffect(() => {
       localStorage.setItem('activeProjectId', activeProjectId);
@@ -31,11 +52,6 @@ export default function App() {
       }
    }, [projects, activeProjectId, setActiveProjectId]);
 
-   const activeProject = useMemo(
-      () => projects.find(p => p.id === activeProjectId) ?? null,
-      [projects, activeProjectId]
-   );
-
    const editProject = editedProject => {
       setProjects(prevProjects => {
          return prevProjects.map(project =>
@@ -43,6 +59,11 @@ export default function App() {
          );
       });
    };
+
+   const updateSettings = (settingName, value) =>
+      setSettings(prevSettings => {
+         return { ...prevSettings, [settingName]: value };
+      });
 
    return (
       <div className="body bg-primary-900 text-gray-50">
@@ -60,7 +81,12 @@ export default function App() {
                <GrainEffect opacity={0.01} noiseValue={15} />
                <GrainEffect opacity={0.025} color="#E0AC69" noiseValue={15} />
                {activeProject && (
-                  <Project editProject={editProject} project={activeProject} />
+                  <Project
+                     editProject={editProject}
+                     project={activeProject}
+                     sortMethod={settings.sortMethod}
+                     updateSettings={updateSettings}
+                  />
                )}
             </div>
          </main>
