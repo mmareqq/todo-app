@@ -66,8 +66,8 @@ export default function App() {
       });
 
    return (
-      <div className="body bg-primary-900 text-gray-50">
-         <div className="sidebar h-full max-w-600 text-white">
+      <div className="body bg-primary-900 text-primary-50">
+         <div>
             <h1 className="border-primary-500 m-4 ml-auto w-min border-r border-b p-2 font-mono text-3xl leading-none font-bold">
                To <br /> Do
             </h1>
