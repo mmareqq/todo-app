@@ -11,6 +11,7 @@ export default function ButtonAddTask({ addTask }) {
       name: '',
       priority: 0,
       duration: 0,
+      date: null,
    });
 
    return (

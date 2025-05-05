@@ -60,6 +60,7 @@ export default function Project({
                            name: 'Task 1',
                            priority: 2,
                            duration: 15,
+                           date: null,
                         },
                         {
                            id: generateId(),
@@ -67,6 +68,7 @@ export default function Project({
                            name: 'Task 2',
                            priority: 0,
                            duration: 90,
+                           date: null,
                         },
                         {
                            id: generateId(),
@@ -74,6 +76,7 @@ export default function Project({
                            name: 'Task 3',
                            priority: 1,
                            duration: 45,
+                           date: null,
                         },
                         {
                            id: generateId(),
@@ -81,6 +84,7 @@ export default function Project({
                            name: 'Task 4',
                            priority: 2,
                            duration: 15,
+                           date: null,
                         },
                         {
                            id: generateId(),
@@ -88,6 +92,7 @@ export default function Project({
                            name: 'Task 5',
                            priority: 3,
                            duration: 5,
+                           date: null,
                         },
                      ];
                      tasks.forEach(task => addTask(task));

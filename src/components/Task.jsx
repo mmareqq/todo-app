@@ -4,6 +4,7 @@ import TrashButton from './TrashButton';
 import EditTaskButton from './EditTaskButton';
 import { HourGlassIcon } from '../assets/Icons';
 import { formatDuration } from '../utils/formatTime';
+import { formatDate } from '../utils/formatTime';
 
 export default function Task({ task, removeTask, editTask, animationDelay }) {
    const priorityColors = [
@@ -33,7 +34,8 @@ export default function Task({ task, removeTask, editTask, animationDelay }) {
             >
                <span className="sr-only">complete task</span>
             </button>
-            <p>{task.name}</p>
+            <div>{task.name}</div>
+            {task.date && <div>{formatDate(task.date)}</div>}
             <div className="ml-auto flex items-center">
                <div
                   className="mr-4 flex items-center gap-1"

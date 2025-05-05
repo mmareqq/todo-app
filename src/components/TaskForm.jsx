@@ -90,6 +90,16 @@ export default function TaskForm({ task, updateValue }) {
                </div>
             </div>
          </div>
+         <div>
+            Date:{' '}
+            <input
+               type="date"
+               id="task-date"
+               name="task-date"
+               value={task.date}
+               onChange={e => updateValue('date', e.target.value)}
+            />
+         </div>
       </div>
    );
 }
