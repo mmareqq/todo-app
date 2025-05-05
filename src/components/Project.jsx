@@ -1,9 +1,8 @@
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import useTasks from '../hooks/useTasks';
 
 import generateId from '../utils/generateId';
 import { formatDuration } from '../utils/formatTime';
-import getTasks from '../utils/getTasks';
 import sortTasks from '../utils/sortTasks';
 
 import Task from './Task';
@@ -16,17 +15,11 @@ export default function Project({
    sortMethod,
    updateSettings,
 }) {
-   const [tasks, setTasks, addTask, removeTask, editTask] = useTasks(
-      project.id
-   );
+   const [tasks, addTask, removeTask, editTask] = useTasks(project.id);
    const sortedTasks = useMemo(
       () => sortTasks(tasks, sortMethod),
       [tasks, sortMethod]
    );
-
-   useEffect(() => {
-      setTasks(getTasks(project.id));
-   }, [project, setTasks]);
 
    return (
       <div className="oveflow-y-hidden grid h-svh content-start items-start">

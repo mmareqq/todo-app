@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 
-import getTasks from '../utils/getTasks';
-
 function useTasks(projectId) {
    const [tasks, setTasks] = useState(() => getTasks(projectId));
+
+   useEffect(() => {
+      setTasks(getTasks(projectId));
+   }, [projectId]);
 
    useEffect(() => {
       localStorage.setItem(`tasks-${projectId}`, JSON.stringify(tasks));
@@ -27,7 +29,12 @@ function useTasks(projectId) {
       });
    };
 
-   return [tasks, setTasks, addTask, removeTask, editTask];
+   return [tasks, addTask, removeTask, editTask];
+}
+
+function getTasks(projectId) {
+   const tasks = localStorage.getItem(`tasks-${projectId}`);
+   return JSON.parse(tasks) || [];
 }
 
 export default useTasks;
