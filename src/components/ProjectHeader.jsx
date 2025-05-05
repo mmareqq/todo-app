@@ -55,7 +55,7 @@ function ProjectHeader({
                   {isSortMenuOpen && (
                      <motion.div
                         transition={{
-                           duration: 0.15,
+                           duration: 0.1,
                            ease: 'linear',
                         }}
                         initial={{ scale: 0, opacity: 0 }}
