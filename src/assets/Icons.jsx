@@ -128,7 +128,7 @@ export function HourGlassIcon(props) {
    );
 }
 
-export function Chevron(props) {
+export function ChevronIcon(props) {
    return (
       <svg
          xmlns="http://www.w3.org/2000/svg"

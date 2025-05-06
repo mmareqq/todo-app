@@ -5,7 +5,7 @@ import useForm from '../hooks/useForm';
 import ProjectForm from './ProjectForm';
 import Button from './Button';
 
-export default function EditButton({ editProject, project }) {
+export default function EditProjectButton({ editProject, project }) {
    const [isDialogOpen, openDialog, closeDialog] = useDialog();
    const [data, updateValue, reset] = useForm(project);
    return (

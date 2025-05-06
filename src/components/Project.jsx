@@ -7,7 +7,8 @@ import sortTasks from '../utils/sortTasks';
 
 import Task from './Task';
 import ButtonAddTask from './ButtonAddTask';
-import ProjectHeader from './ProjectHeader';
+import ProjectTitle from './ProjectTitle';
+import ProjectInfoBar from './ProjectInfoBar';
 
 export default function Project({
    editProject,
@@ -23,14 +24,13 @@ export default function Project({
 
    return (
       <div className="oveflow-y-hidden grid h-svh content-start items-start">
-         <ProjectHeader
-            project={project}
-            editProject={editProject}
-            sortMethod={sortMethod}
-            updateSettings={updateSettings}
-            tasksDuration={formatDuration(
+         <ProjectTitle project={project} editProject={editProject} />
+         <ProjectInfoBar
+            duration={formatDuration(
                tasks.reduce((sum, task) => task.duration + sum, 0)
             )}
+            updateSettings={updateSettings}
+            sortMethod={sortMethod}
          />
 
          <div className="max-h-full overflow-y-auto">
