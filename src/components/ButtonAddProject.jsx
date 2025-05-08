@@ -17,7 +17,12 @@ export default function ButtonAddProject({ addProject }) {
             isOpen={isDialogOpen}
             closeDialog={closeDialog}
             onSuccess={() => {
-               const project = { id: generateId(), name: projectData.name };
+               const project = {
+                  id: generateId(),
+                  name: projectData.name,
+                  editable: true,
+                  createdByUser: true,
+               };
                initalizeTasksInStorage(project.id);
                addProject(project);
                resetForm();

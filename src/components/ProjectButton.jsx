@@ -13,13 +13,15 @@ export default function ProjectButton({
          >
             {project.name}
          </button>
-         <TrashButton
-            remove={() => {
-               removeProject(project.id);
-               localStorage.removeItem(`tasks-${project.id}`);
-            }}
-            altText={`project ${project.name}`}
-         ></TrashButton>
+         {project.editable && (
+            <TrashButton
+               remove={() => {
+                  removeProject(project.id);
+                  localStorage.removeItem(`tasks-${project.id}`);
+               }}
+               altText={`project ${project.name}`}
+            ></TrashButton>
+         )}
       </div>
    );
 }

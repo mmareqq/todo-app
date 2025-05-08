@@ -14,9 +14,17 @@ function getSettings() {
 }
 
 function getProjects() {
-   return JSON.parse(localStorage.getItem('projects')) || [];
+   const coreProjects = [
+      { id: 'today', name: 'Today', editable: false, createdByUser: false },
+      {
+         id: 'upcoming',
+         name: 'Upcoming',
+         editable: false,
+         createdByUser: false,
+      },
+   ];
+   return JSON.parse(localStorage.getItem('projects')) || coreProjects;
 }
-
 function getActiveId() {
    return localStorage.getItem('activeProjectId') || null;
 }
