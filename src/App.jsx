@@ -92,11 +92,14 @@ export default function App() {
                <GrainEffect opacity={0.025} color="#E0AC69" noiseValue={15} />
                {activeProject && (
                   <Project
-                     editProject={editProject}
                      project={activeProject}
                      sortMethod={settings.sortMethod}
-                     updateSettings={updateSettings}
-                  />
+                  >
+                     <Project.Title editProject={editProject} />
+                     <Project.InfoPanel updateSettings={updateSettings} />
+                     <Project.Body></Project.Body>
+                     <Project.Menu></Project.Menu>
+                  </Project>
                )}
             </div>
          </main>
