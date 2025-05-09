@@ -108,6 +108,7 @@ function Menu() {
                      priority: 2,
                      duration: 15,
                      date: null,
+                     createdAt: new Date(),
                   },
                   {
                      id: generateId(),
@@ -116,6 +117,7 @@ function Menu() {
                      priority: 0,
                      duration: 90,
                      date: null,
+                     createdAt: new Date(),
                   },
                   {
                      id: generateId(),
@@ -124,6 +126,7 @@ function Menu() {
                      priority: 1,
                      duration: 45,
                      date: null,
+                     createdAt: new Date(),
                   },
                   {
                      id: generateId(),
@@ -132,6 +135,7 @@ function Menu() {
                      priority: 2,
                      duration: 15,
                      date: null,
+                     createdAt: new Date(),
                   },
                   {
                      id: generateId(),
@@ -140,6 +144,7 @@ function Menu() {
                      priority: 3,
                      duration: 5,
                      date: null,
+                     createdAt: new Date(),
                   },
                ];
                tasks.forEach(task => addTask(task));

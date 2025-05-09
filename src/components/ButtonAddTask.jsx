@@ -11,7 +11,7 @@ export default function ButtonAddTask({ addTask }) {
       name: '',
       priority: 0,
       duration: 0,
-      date: null,
+      date: '',
    });
 
    return (
@@ -24,6 +24,7 @@ export default function ButtonAddTask({ addTask }) {
                const task = {
                   id: generateId(),
                   finished: false,
+                  createdAt: new Date(),
                   ...taskData,
                };
                addTask(task);
