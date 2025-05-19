@@ -23,7 +23,7 @@ function sortTasksByDuration(tasks) {
 
 function sortTasksByName(tasks) {
    return tasks.toSorted((task1, task2) =>
-      compareStrings(task1.name, task2.name)
+      compareStrings(task1.name, task2.name),
    );
 }
 

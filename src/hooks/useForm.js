@@ -10,7 +10,7 @@ export default function useForm(template) {
          setData(prevData => {
             return { ...prevData, [name]: value };
          }),
-      []
+      [],
    );
    return [data, updateValue, resetForm];
 }

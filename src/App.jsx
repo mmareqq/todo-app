@@ -35,7 +35,7 @@ export default function App() {
    const [activeProjectId, setActiveProjectId] = useState(getActiveId);
    const activeProject = useMemo(
       () => projects.find(p => p.id === activeProjectId) ?? null,
-      [projects, activeProjectId]
+      [projects, activeProjectId],
    );
 
    useEffect(() => {
@@ -63,7 +63,7 @@ export default function App() {
    const editProject = editedProject => {
       setProjects(prevProjects => {
          return prevProjects.map(project =>
-            project.id === editedProject.id ? editedProject : project
+            project.id === editedProject.id ? editedProject : project,
          );
       });
    };

@@ -19,7 +19,7 @@ export default function TaskForm({ task, updateValue }) {
          durationHours.current = newHours;
          updateValue('duration', newHours * 60 + durationMinutes.current);
       },
-      [updateValue]
+      [updateValue],
    );
 
    const updateMinutes = useCallback(
@@ -27,7 +27,7 @@ export default function TaskForm({ task, updateValue }) {
          durationMinutes.current = newMinutes;
          updateValue('duration', durationHours.current * 60 + newMinutes);
       },
-      [updateValue]
+      [updateValue],
    );
 
    return (

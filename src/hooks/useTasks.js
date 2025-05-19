@@ -17,14 +17,14 @@ function useTasks(projectId) {
 
    const removeTask = taskIdToDelete => {
       setTasks(prevTasks =>
-         prevTasks.filter(task => task.id != taskIdToDelete)
+         prevTasks.filter(task => task.id != taskIdToDelete),
       );
    };
 
    const editTask = editedTask => {
       setTasks(prevTasks => {
          return prevTasks.map(task =>
-            task.id === editedTask.id ? editedTask : task
+            task.id === editedTask.id ? editedTask : task,
          );
       });
    };

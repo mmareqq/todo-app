@@ -18,15 +18,15 @@ export default function Navbar({
 
    const todayProject = useMemo(
       () => projects.find(p => p.id === 'today'),
-      [projects]
+      [projects],
    );
    const upcomingProject = useMemo(
       () => projects.find(p => p.id === 'upcoming'),
-      [projects]
+      [projects],
    );
    const userProjects = useMemo(
       () => projects.filter(p => p.createdByUser),
-      [projects]
+      [projects],
    );
    return (
       <nav>

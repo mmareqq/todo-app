@@ -17,7 +17,7 @@ function Project({ project, sortMethod, children }) {
    const [tasks, addTask, removeTask, editTask] = useTasks(project.id);
    const sortedTasks = useMemo(
       () => sortTasks(tasks, sortMethod),
-      [tasks, sortMethod]
+      [tasks, sortMethod],
    );
 
    const totalDuration = tasks.reduce((acc, task) => task.duration + acc, 0);
