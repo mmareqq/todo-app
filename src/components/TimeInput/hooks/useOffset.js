@@ -1,14 +1,14 @@
 import { useCallback, useRef } from 'react';
 
 export default function useOffset(sliderRef) {
-   const offsetRef = useRef(null);
+   const offsetRef = useRef(0);
 
    const updateOffset = useCallback(
       newOffset => {
          offsetRef.current = newOffset;
-         updateDOMOffset(sliderRef.current, offsetRef.current);
+         updateDOMOffset(sliderRef.current, newOffset);
       },
-      [sliderRef]
+      [sliderRef],
    );
 
    const updateOffsetInstantly = useCallback(
@@ -22,7 +22,7 @@ export default function useOffset(sliderRef) {
          void el.offsetWidth;
          enableAnimation(el);
       },
-      [sliderRef, updateOffset]
+      [sliderRef, updateOffset],
    );
 
    return [offsetRef, updateOffset, updateOffsetInstantly];

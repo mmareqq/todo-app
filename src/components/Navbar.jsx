@@ -21,13 +21,14 @@ export default function Navbar({
       () => projects.filter(p => p.createdByUser),
       [projects],
    );
+
    return (
       <nav>
          <ul className="mt-24 flex flex-col gap-0">
             <li
                className={`duration-250 active:opacity-80 ${
                   activeProjectId === 'today'
-                     ? 'project-btn-active bg-primary-800'
+                     ? 'bg-primary-800'
                      : 'bg-primary-700'
                }`}
             >
@@ -40,7 +41,7 @@ export default function Navbar({
             <li
                className={`duration-250 active:opacity-80 ${
                   activeProjectId === 'upcoming'
-                     ? 'project-btn-active bg-primary-800'
+                     ? 'bg-primary-800'
                      : 'bg-primary-700'
                }`}
             >
@@ -49,7 +50,7 @@ export default function Navbar({
                   setActiveProjectId={setActiveProjectId}
                ></ProjectButton>
             </li>
-            <div className="p-5"></div>
+            <div className="py-5" />
             <div className="p-2 leading-normal">My Projects</div>
             {userProjects.map((project, index) => {
                return (
@@ -57,7 +58,7 @@ export default function Navbar({
                      key={index}
                      className={`duration-250 active:opacity-80 ${
                         project.id === activeProjectId
-                           ? 'project-btn-active bg-primary-800'
+                           ? 'bg-primary-800'
                            : 'bg-primary-700'
                      }`}
                   >
@@ -70,6 +71,7 @@ export default function Navbar({
                );
             })}
          </ul>
+
          <div className="mt-4 px-5">
             <ButtonAddProject addProject={addProject} />
          </div>

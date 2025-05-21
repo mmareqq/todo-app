@@ -32,7 +32,11 @@
    opacity: 0.5;
    pointer-events: none;
    font-variation-settings: 'wght' 400;
-   transition: scale 200ms, opacity 200ms, font-variation-settings 150ms, font-weight 150ms;
+   transition:
+      scale 200ms,
+      opacity 200ms,
+      font-variation-settings 150ms,
+      font-weight 150ms;
 }
 
 .num-active > .num-inner {
@@ -46,16 +50,4 @@
 .num-active + .number > .num-inner {
    scale: 0.75;
    opacity: 0.5;
-}
-
-.sr-only {
-   position: absolute;
-   width: 1px;
-   height: 1px;
-   padding: 0;
-   margin: -1px;
-   overflow: hidden;
-   clip: rect(0, 0, 0, 0);
-   white-space: nowrap;
-   border-width: 0;
 }

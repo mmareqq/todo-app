@@ -2,21 +2,17 @@ import { useState, useCallback } from 'react';
 import debounce from '../utils/debounce';
 import getNearestMultiple from '../utils/getNearestMultiple';
 
-export default function useActiveNum(config, updateInput) {
+export default function useActiveNum({ numHeight, numCount }, updateInput) {
    const [activeNum, setActiveNum] = useState(0);
 
    const updateActiveNum = useCallback(
       offset => {
-         const num = calculateActiveNum(
-            offset,
-            config.numHeight,
-            config.numCount
-         );
+         const num = calculateActiveNum(offset, numHeight, numCount);
 
          updateInput(num);
          setActiveNum(num);
       },
-      [config, updateInput]
+      [numCount, numHeight, updateInput],
    );
 
    // eslint-disable-next-line
@@ -24,7 +20,7 @@ export default function useActiveNum(config, updateInput) {
       debounce(offset => {
          updateActiveNum(offset);
       }, 80),
-      [updateActiveNum]
+      [updateActiveNum],
    );
 
    return [activeNum, updateActiveNum, updateActiveNumDebounce];

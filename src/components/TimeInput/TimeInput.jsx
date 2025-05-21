@@ -1,10 +1,10 @@
 import './style.css';
-import { useRef, useEffect, memo, useCallback, useMemo } from 'react';
+import { useRef, useEffect, useMemo } from 'react';
 import Number from './Number';
-import getNearestMultiple from './utils/getNearestMultiple';
 
 import useActiveNum from './hooks/useActiveNum';
 import useOffset from './hooks/useOffset';
+import useTimeInputEvents from './hooks/events/useTimeInputEvents';
 
 function getTimerConfig(numCount, fontSize, initialNum) {
    const numHeight = 3.75 * fontSize;
@@ -27,8 +27,6 @@ function getTimerConfig(numCount, fontSize, initialNum) {
    };
 }
 
-const MemoizedNumber = memo(Number);
-
 const TimeInput = ({
    numCount = 60,
    fontSize = 16,
@@ -39,165 +37,31 @@ const TimeInput = ({
       () => getTimerConfig(numCount, fontSize, initialNum),
       [numCount, fontSize, initialNum],
    );
-   const sliderRef = useRef(null);
-   const isMouseDown = useRef(false);
-   const [offsetRef, updateOffset, updateOffsetInstantly] =
-      useOffset(sliderRef);
+
    const [activeNum, updateActiveNum, updateActiveNumDebounce] = useActiveNum(
       timerConfig,
       updateInput,
    );
+   const sliderRef = useRef(null);
+   const [offsetRef, updateOffset, updateOffsetInstantly] =
+      useOffset(sliderRef);
 
-   const mouseStartPos = useRef();
-   const baseOffset = useRef();
+   const handleEvent = useTimeInputEvents({
+      sliderRef,
+      offsetRef,
+      timerConfig,
+      activeNum,
+      updateOffset,
+      updateOffsetInstantly,
+      updateActiveNum,
+      updateActiveNumDebounce,
+   });
 
-   const handleTransitionEnd = useCallback(
-      e => {
-         if (isMouseDown.current) return;
-
-         if (e.target !== sliderRef.current) return;
-
-         let offset = offsetRef.current;
-         if (offset < timerConfig.minOffset) offset += timerConfig.timerHeight;
-         if (offset > timerConfig.maxOffset) offset -= timerConfig.timerHeight;
-
-         updateOffsetInstantly(offset);
-         updateActiveNum(offset);
-      },
-      [offsetRef, updateOffsetInstantly, updateActiveNum, timerConfig],
-   );
-
-   const handleScroll = useCallback(
-      e => {
-         if (isMouseDown.current) return;
-         let scrollOffset = offsetRef.current;
-         if (e.deltaY > 0) scrollOffset -= timerConfig.numHeight;
-         else scrollOffset += timerConfig.numHeight;
-
-         // Block infinite scroll
-         const clampedOffset = getClampedOffset(
-            scrollOffset,
-            timerConfig.timerHeight,
-         );
-         if (scrollOffset !== clampedOffset) {
-            scrollOffset = clampedOffset;
-            updateOffsetInstantly(scrollOffset);
-         } else {
-            updateOffset(scrollOffset);
-         }
-
-         updateActiveNumDebounce(scrollOffset);
-      },
-      [
-         offsetRef,
-         updateOffset,
-         updateOffsetInstantly,
-         updateActiveNumDebounce,
-         timerConfig,
-      ],
-   );
-
-   const handleClick = useCallback(
-      e => {
-         if (e.target.classList.contains('num-active')) return;
-         if (!e.target.classList.contains('number')) return;
-         const num = parseInt(e.target.textContent);
-         const offset = getOffsetAfterClick(
-            offsetRef.current,
-            num,
-            activeNum,
-            timerConfig.numCount,
-            timerConfig.numHeight,
-         );
-
-         updateOffset(offset);
-         updateActiveNum(offset);
-      },
-      [offsetRef, updateOffset, activeNum, updateActiveNum, timerConfig],
-   );
-
-   const handleMouseDown = useCallback(
-      e => {
-         if (e.button !== 0) return;
-         isMouseDown.current = true;
-         mouseStartPos.current = e.clientY;
-         baseOffset.current = offsetRef.current;
-      },
-      [offsetRef],
-   );
-
-   const handleMouseMove = useCallback(
-      e => {
-         if (!isMouseDown.current) return;
-         const dragOffset =
-            baseOffset.current +
-            (mouseStartPos.current - e.clientY) * timerConfig.speedFactor;
-         if (
-            isOffsetOutOfRange(
-               dragOffset,
-               timerConfig.timerHeight,
-               timerConfig.numHeight,
-            )
-         ) {
-            return;
-         }
-         updateOffset(dragOffset);
-         updateActiveNum(dragOffset);
-      },
-      [updateOffset, updateActiveNum, timerConfig],
-   );
-
-   const handleMouseUp = useCallback(() => {
-      if (!isMouseDown.current) return;
-      isMouseDown.current = false;
-      // Round an offset to center a number
-      const roundedOffset = getNearestMultiple(
-         offsetRef.current,
-         timerConfig.numHeight,
-      );
-      updateOffset(roundedOffset);
-      updateActiveNum(roundedOffset);
-   }, [updateOffset, updateActiveNum, offsetRef, timerConfig]);
-
-   const handleEvent = useCallback(
-      e => {
-         switch (e.type) {
-            case 'transitionend':
-               handleTransitionEnd(e);
-               break;
-            case 'wheel':
-               handleScroll(e);
-               break;
-            case 'click':
-               handleClick(e);
-               break;
-            case 'mousedown':
-               handleMouseDown(e);
-               break;
-            case 'mousemove':
-               handleMouseMove(e);
-               break;
-            case 'mouseup':
-               handleMouseUp();
-         }
-      },
-      [
-         handleTransitionEnd,
-         handleScroll,
-         handleClick,
-         handleMouseDown,
-         handleMouseMove,
-         handleMouseUp,
-      ],
-   );
-
-   // Initalize
    useEffect(() => {
       updateOffsetInstantly(timerConfig.initialOffset);
       updateActiveNum(timerConfig.initialOffset);
-   }, []);
+   }, [timerConfig.initialOffset, updateOffsetInstantly, updateActiveNum]);
 
-   // Event listeners
    useEffect(() => {
       const sliderEl = sliderRef.current;
       const controller = new AbortController();
@@ -210,50 +74,19 @@ const TimeInput = ({
       document.addEventListener('mousemove', handleEvent, { signal });
       document.addEventListener('mouseup', handleEvent, { signal });
 
-      return () => {
-         controller.abort();
-      };
+      return () => controller.abort();
    }, [handleEvent]);
 
    return (
-      <div className="timer" style={{ fontSize: fontSize }}>
+      <div className="timer" style={{ fontSize }}>
          <div ref={sliderRef}>
             {Array.from({ length: timerConfig.numCount * 2 }).map((_, i) => {
                const num = i % timerConfig.numCount;
-               return (
-                  <MemoizedNumber
-                     key={i}
-                     num={num}
-                     active={num === activeNum}
-                  />
-               );
+               return <Number key={i} num={num} active={num === activeNum} />;
             })}
          </div>
       </div>
    );
 };
-
-function getClampedOffset(offset, timerHeight) {
-   if (offset < timerHeight * -2) {
-      return offset % timerHeight;
-   }
-   if (offset > 0) {
-      return timerHeight * -1 - offset;
-   }
-   return offset;
-}
-
-function isOffsetOutOfRange(offset, timerHeight, numHeight) {
-   if (offset < timerHeight * -2 + numHeight * 2) return true;
-   if (offset > 0) return true;
-   return false;
-}
-
-function getOffsetAfterClick(offset, num, activeNum, numCount, numHeight) {
-   if (num === numCount - 1 && activeNum === 0) return offset + numHeight;
-   else if (num === 0 && activeNum === numCount - 1) return offset - numHeight;
-   else if (num < activeNum) return offset + numHeight;
-   else if (num > activeNum) return offset - numHeight;
-}
 
 export default TimeInput;
