@@ -1,10 +1,12 @@
 import { useRef } from 'react';
 import { motion } from 'motion/react';
-import TrashButton from './TrashButton';
+
+import { formatDate } from '@utils/formatTime';
+import { formatDuration } from '@utils/formatTime';
+
+import { HourGlassIcon } from '@assets/Icons';
+import TrashButton from '@components/TrashButton';
 import EditTaskButton from './EditTaskButton';
-import { HourGlassIcon } from '../assets/Icons';
-import { formatDuration } from '../utils/formatTime';
-import { formatDate } from '../utils/formatTime';
 
 export default function Task({ task, removeTask, editTask, animationDelay }) {
    const priorityColors = [

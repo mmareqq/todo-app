@@ -1,6 +1,7 @@
-import { Dot } from '../assets/Icons';
-import { capitalizeFirstLetter } from '../utils/stringUtils';
-export default function DropdownItem({ selected, onClick, value }) {
+import { Dot } from '@assets/Icons';
+import { capitalizeFirstLetter } from '@utils/stringUtils';
+
+const DropdownItem = ({ selected, onClick, value }) => {
    return (
       <div>
          <button
@@ -23,4 +24,6 @@ export default function DropdownItem({ selected, onClick, value }) {
          </div>
       </div>
    );
-}
+};
+
+export default DropdownItem;

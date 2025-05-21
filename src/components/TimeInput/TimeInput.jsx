@@ -1,5 +1,5 @@
-import { useRef, useEffect, memo, useCallback, useMemo } from 'react';
 import './style.css';
+import { useRef, useEffect, memo, useCallback, useMemo } from 'react';
 import Number from './Number';
 import getNearestMultiple from './utils/getNearestMultiple';
 
@@ -29,15 +29,15 @@ function getTimerConfig(numCount, fontSize, initialNum) {
 
 const MemoizedNumber = memo(Number);
 
-function TimeInput({
+const TimeInput = ({
    numCount = 60,
    fontSize = 16,
    updateInput,
    initialNum = 0,
-}) {
+}) => {
    const timerConfig = useMemo(
       () => getTimerConfig(numCount, fontSize, initialNum),
-      [numCount, fontSize, initialNum]
+      [numCount, fontSize, initialNum],
    );
    const sliderRef = useRef(null);
    const isMouseDown = useRef(false);
@@ -45,7 +45,7 @@ function TimeInput({
       useOffset(sliderRef);
    const [activeNum, updateActiveNum, updateActiveNumDebounce] = useActiveNum(
       timerConfig,
-      updateInput
+      updateInput,
    );
 
    const mouseStartPos = useRef();
@@ -64,7 +64,7 @@ function TimeInput({
          updateOffsetInstantly(offset);
          updateActiveNum(offset);
       },
-      [offsetRef, updateOffsetInstantly, updateActiveNum, timerConfig]
+      [offsetRef, updateOffsetInstantly, updateActiveNum, timerConfig],
    );
 
    const handleScroll = useCallback(
@@ -77,7 +77,7 @@ function TimeInput({
          // Block infinite scroll
          const clampedOffset = getClampedOffset(
             scrollOffset,
-            timerConfig.timerHeight
+            timerConfig.timerHeight,
          );
          if (scrollOffset !== clampedOffset) {
             scrollOffset = clampedOffset;
@@ -94,7 +94,7 @@ function TimeInput({
          updateOffsetInstantly,
          updateActiveNumDebounce,
          timerConfig,
-      ]
+      ],
    );
 
    const handleClick = useCallback(
@@ -107,13 +107,13 @@ function TimeInput({
             num,
             activeNum,
             timerConfig.numCount,
-            timerConfig.numHeight
+            timerConfig.numHeight,
          );
 
          updateOffset(offset);
          updateActiveNum(offset);
       },
-      [offsetRef, updateOffset, activeNum, updateActiveNum, timerConfig]
+      [offsetRef, updateOffset, activeNum, updateActiveNum, timerConfig],
    );
 
    const handleMouseDown = useCallback(
@@ -123,7 +123,7 @@ function TimeInput({
          mouseStartPos.current = e.clientY;
          baseOffset.current = offsetRef.current;
       },
-      [offsetRef]
+      [offsetRef],
    );
 
    const handleMouseMove = useCallback(
@@ -136,7 +136,7 @@ function TimeInput({
             isOffsetOutOfRange(
                dragOffset,
                timerConfig.timerHeight,
-               timerConfig.numHeight
+               timerConfig.numHeight,
             )
          ) {
             return;
@@ -144,7 +144,7 @@ function TimeInput({
          updateOffset(dragOffset);
          updateActiveNum(dragOffset);
       },
-      [updateOffset, updateActiveNum, timerConfig]
+      [updateOffset, updateActiveNum, timerConfig],
    );
 
    const handleMouseUp = useCallback(() => {
@@ -153,7 +153,7 @@ function TimeInput({
       // Round an offset to center a number
       const roundedOffset = getNearestMultiple(
          offsetRef.current,
-         timerConfig.numHeight
+         timerConfig.numHeight,
       );
       updateOffset(roundedOffset);
       updateActiveNum(roundedOffset);
@@ -188,7 +188,7 @@ function TimeInput({
          handleMouseDown,
          handleMouseMove,
          handleMouseUp,
-      ]
+      ],
    );
 
    // Initalize
@@ -231,7 +231,7 @@ function TimeInput({
          </div>
       </div>
    );
-}
+};
 
 function getClampedOffset(offset, timerHeight) {
    if (offset < timerHeight * -2) {

@@ -4,18 +4,11 @@ import ProjectButton from './ProjectButton';
 
 export default function Navbar({
    projects,
-   setProjects,
+   addProject,
+   removeProject,
    activeProjectId,
    setActiveProjectId,
 }) {
-   const removeProject = id => {
-      setProjects(prevProjects => prevProjects.filter(proj => proj.id !== id));
-   };
-
-   const addProject = newProject => {
-      setProjects(prevProjects => [...prevProjects, newProject]);
-   };
-
    const todayProject = useMemo(
       () => projects.find(p => p.id === 'today'),
       [projects],

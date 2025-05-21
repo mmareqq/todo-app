@@ -1,14 +1,17 @@
-import Dialog from './Dialog.jsx';
-import useDialog from '../hooks/useDialog.js';
-import generateId from '../utils/generateId.js';
-import { initalizeTasksInStorage } from '../utils/localStorage.js';
-import ProjectForm from './ProjectForm.jsx';
-import useForm from '../hooks/useForm.js';
-import Button from './Button.jsx';
+import useDialog from '@hooks/useDialog.js';
+import useForm from '@hooks/useForm.js';
+import generateId from '@utils/generateId.js';
+import { initalizeTasksInStorage } from '@utils/localStorage.js';
+
+import ProjectForm from '@components/ProjectForm.jsx';
+import Dialog from '@ui/Dialog.jsx';
+import Button from '@ui/Button.jsx';
+
+import { projectModel } from '@data/data';
 
 export default function ButtonAddProject({ addProject }) {
    const [isDialogOpen, openDialog, closeDialog] = useDialog();
-   const [projectData, updateValue, resetForm] = useForm({ name: '' });
+   const [projectData, updateValue, resetForm] = useForm(projectModel);
 
    return (
       <>

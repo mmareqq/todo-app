@@ -1,11 +1,12 @@
-import { EditIcon } from '../assets/Icons';
-import Dialog from './Dialog';
-import useDialog from '../hooks/useDialog';
-import useForm from '../hooks/useForm';
-import ProjectForm from './ProjectForm';
-import Button from './Button';
+import { EditIcon } from '@assets/Icons';
+import useDialog from '@hooks/useDialog';
+import useForm from '@hooks/useForm';
 
-export default function EditProjectButton({ editProject, project }) {
+import Dialog from '@ui/Dialog';
+import ProjectForm from '@components/ProjectForm';
+import Button from '@ui/Button';
+
+export default function EditProjectButton({ project, editProject }) {
    const [isDialogOpen, openDialog, closeDialog] = useDialog();
    const [data, updateValue, reset] = useForm(project);
    return (

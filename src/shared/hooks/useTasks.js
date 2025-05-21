@@ -29,7 +29,7 @@ function useTasks(projectId) {
       });
    };
 
-   return [tasks, addTask, removeTask, editTask];
+   return { tasks, addTask, removeTask, editTask };
 }
 
 function getTasks(projectId) {

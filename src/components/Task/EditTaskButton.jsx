@@ -1,9 +1,9 @@
-import { EditIcon } from '../assets/Icons';
-import Dialog from './Dialog';
-import useDialog from '../hooks/useDialog';
-import useForm from '../hooks/useForm';
-import TaskForm from './TaskForm';
-import Button from './Button';
+import { EditIcon } from '@assets/Icons';
+import Dialog from '@ui/Dialog';
+import useDialog from '@hooks/useDialog';
+import useForm from '@hooks/useForm';
+import TaskForm from '../TaskForm';
+import Button from '@ui/Button';
 
 export default function EditTaskButton({ editTask, task }) {
    const [isDialogOpen, openDialog, closeDialog] = useDialog();

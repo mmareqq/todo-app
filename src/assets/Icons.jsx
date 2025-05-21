@@ -1,9 +1,9 @@
-export function TrashIcon(props) {
+export function TrashIcon({ size, props }) {
    return (
       <svg
          xmlns="http://www.w3.org/2000/svg"
-         width={24}
-         height={24}
+         width={size}
+         height={size}
          viewBox="0 0 24 24"
          {...props}
       >
@@ -16,12 +16,12 @@ export function TrashIcon(props) {
    );
 }
 
-export function EditIcon(props) {
+export function EditIcon({ size, props }) {
    return (
       <svg
          xmlns="http://www.w3.org/2000/svg"
-         width={24}
-         height={24}
+         width={size}
+         height={size}
          viewBox="0 0 1024 1024"
          {...props}
       >
@@ -41,12 +41,12 @@ export function EditIcon(props) {
    );
 }
 
-export function PriorityIcon(props) {
+export function PriorityIcon({ size, props }) {
    return (
       <svg
          xmlns="http://www.w3.org/2000/svg"
-         width={24}
-         height={24}
+         width={size}
+         height={size}
          viewBox="0 0 256 256"
          {...props}
       >
@@ -60,12 +60,12 @@ export function PriorityIcon(props) {
    );
 }
 
-export function StopWatchIcon(props) {
+export function StopWatchIcon({ size, props }) {
    return (
       <svg
          xmlns="http://www.w3.org/2000/svg"
-         width={24}
-         height={24}
+         width={size}
+         height={size}
          viewBox="0 0 24 24"
          {...props}
       >
@@ -77,12 +77,12 @@ export function StopWatchIcon(props) {
    );
 }
 
-export function CalendarIcon(props) {
+export function CalendarIcon({ size, props }) {
    return (
       <svg
          xmlns="http://www.w3.org/2000/svg"
-         width={24}
-         height={24}
+         width={size}
+         height={size}
          viewBox="0 0 24 24"
          {...props}
       >
@@ -94,12 +94,12 @@ export function CalendarIcon(props) {
    );
 }
 
-export function EmptyIcon(props) {
+export function EmptyIcon({ size, props }) {
    return (
       <svg
          xmlns="http://www.w3.org/2000/svg"
-         width={24}
-         height={24}
+         width={size}
+         height={size}
          viewBox="0 0 256 256"
          {...props}
       >
@@ -111,12 +111,12 @@ export function EmptyIcon(props) {
    );
 }
 
-export function HourGlassIcon(props) {
+export function HourGlassIcon({ size, props }) {
    return (
       <svg
          xmlns="http://www.w3.org/2000/svg"
-         width={19}
-         height={19}
+         width={size}
+         height={size}
          viewBox="0 0 384 512"
          {...props}
       >
@@ -128,12 +128,12 @@ export function HourGlassIcon(props) {
    );
 }
 
-export function ChevronIcon(props) {
+export function ChevronIcon({ size, props }) {
    return (
       <svg
          xmlns="http://www.w3.org/2000/svg"
-         width={24}
-         height={24}
+         width={size}
+         height={size}
          viewBox="0 0 24 24"
          {...props}
       >
@@ -158,12 +158,12 @@ export function ChevronIcon(props) {
    );
 }
 
-export function Dot(props) {
+export function Dot({ size, props }) {
    return (
       <svg
          xmlns="http://www.w3.org/2000/svg"
-         width={48}
-         height={48}
+         width={size}
+         height={size}
          viewBox="0 0 48 48"
          {...props}
       >

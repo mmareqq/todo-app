@@ -8,6 +8,8 @@ export default function sortTasks(tasks, method) {
          return sortTasksByCreationDate(tasks);
       case 'duration':
          return sortTasksByDuration(tasks);
+      case 'groupByDate':
+         return groupTasksByDate(tasks);
       default:
          throw new Error('Wrong method for sorting tasks');
    }
@@ -25,6 +27,10 @@ function sortTasksByName(tasks) {
    return tasks.toSorted((task1, task2) =>
       compareStrings(task1.name, task2.name),
    );
+}
+
+function groupTasksByDate(tasks) {
+   return tasks;
 }
 
 function sortTasksByCreationDate(tasks) {

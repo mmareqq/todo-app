@@ -1,7 +1,7 @@
 import { useCallback, useRef } from 'react';
-import { PriorityIcon } from '../assets/Icons';
+import { PriorityIcon } from '@assets/Icons';
 
-import TimeInput from './TimeInput/TimeInput';
+import TimeInput from '@components/TimeInput';
 
 export default function TaskForm({ task, updateValue }) {
    const priorityColors = [

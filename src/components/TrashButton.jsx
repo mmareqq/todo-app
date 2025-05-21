@@ -1,7 +1,7 @@
-import { TrashIcon } from '../assets/Icons';
-import Dialog from './Dialog';
-import useDialog from '../hooks/useDialog';
-import Button from './Button';
+import { TrashIcon } from '@assets/Icons';
+import Dialog from '@ui/Dialog';
+import useDialog from '@hooks/useDialog';
+import Button from '@ui/Button';
 
 export default function TrashButton({ remove, altText }) {
    const [isDialogOpen, openDialog, closeDialog] = useDialog();

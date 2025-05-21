@@ -1,4 +1,4 @@
-import TrashButton from './TrashButton';
+import TrashButton from '@components/TrashButton';
 export default function ProjectButton({
    project,
    setActiveProjectId,

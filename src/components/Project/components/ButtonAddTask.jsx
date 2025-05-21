@@ -1,18 +1,16 @@
-import useDialog from '../hooks/useDialog';
-import Dialog from './Dialog';
-import useForm from '../hooks/useForm';
-import TaskForm from '../components/TaskForm';
-import generateId from '../utils/generateId';
-import Button from './Button';
+import useDialog from '@hooks/useDialog';
+import useForm from '@hooks/useForm';
+import generateId from '@utils/generateId';
+
+import TaskForm from '@components/TaskForm';
+import Dialog from '@ui/Dialog';
+import Button from '@ui/Button';
+
+import { taskModel } from '@data/data';
 
 export default function ButtonAddTask({ addTask }) {
    const [isDialogOpen, openDialog, closeDialog] = useDialog();
-   const [taskData, updateValue, resetForm] = useForm({
-      name: '',
-      priority: 0,
-      duration: 0,
-      date: '',
-   });
+   const [taskData, updateValue, resetForm] = useForm(taskModel);
 
    return (
       <>
