@@ -8,24 +8,29 @@ import { taskModel } from '@data/data';
 
 const AddTaskDialog = ({ addTask }) => {
    const { isOpen, closeDialog } = useDialogContext();
-   const [taskData, updateValue, resetForm] = useForm(taskModel);
+   const [task, updateValue, resetForm] = useForm(taskModel);
    return (
       <Dialog
          isOpen={isOpen}
          closeDialog={closeDialog}
          onSuccess={() => {
-            const task = {
+            const newTask = {
                id: generateId(),
                finished: false,
                createdAt: new Date(),
-               ...taskData,
+               ...task,
             };
-            addTask(task);
+            addTask(newTask);
             resetForm();
          }}
       >
          <h2 className="mb-6 text-center text-xl">Create Task</h2>
-         <TaskForm task={taskData} updateValue={updateValue} />
+         <TaskForm task={task} updateValue={updateValue}>
+            <TaskForm.NameInput />
+            <TaskForm.PriorityInput />
+            <TaskForm.DurationInput />
+            <TaskForm.DateInput />
+         </TaskForm>
       </Dialog>
    );
 };

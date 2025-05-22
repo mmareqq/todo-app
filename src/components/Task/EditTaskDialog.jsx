@@ -6,15 +6,20 @@ import Dialog from '@ui/Dialog';
 
 function EditTaskDialog({ task, editTask }) {
    const { isOpen, closeDialog } = useDialogContext();
-   const [data, updateValue, resetForm] = useForm(task);
+   const [formTask, updateValue, resetForm] = useForm(task);
    return (
       <Dialog
          isOpen={isOpen}
          closeDialog={closeDialog}
          onCancel={resetForm}
-         onSuccess={() => editTask(data)}
+         onSuccess={() => editTask(task)}
       >
-         <TaskForm task={data} updateValue={updateValue} />
+         <TaskForm task={formTask} updateValue={updateValue}>
+            <TaskForm.NameInput />
+            <TaskForm.PriorityInput />
+            <TaskForm.DurationInput />
+            <TaskForm.DateInput />
+         </TaskForm>
       </Dialog>
    );
 }

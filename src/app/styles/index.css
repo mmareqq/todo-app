@@ -29,4 +29,8 @@
    --color-priority-1: var(--color-blue-400);
    --color-priority-2: var(--color-yellow-400);
    --color-priority-3: var(--color-red-400);
+
+   --color-warning-100: var(--color-yellow-100);
+   --color-warning-400: var(--color-yellow-600);
+   --color-warning-700: var(--color-yellow-900);
 }

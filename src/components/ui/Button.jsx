@@ -14,7 +14,7 @@ const Button = ({ variant = 'default', className, ...props }) => {
    return (
       <button
          type="button"
-         className={twMerge(className, buttonStyles[variant])}
+         className={twMerge(buttonStyles[variant], className)}
          {...props}
       />
    );
