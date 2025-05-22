@@ -37,7 +37,7 @@ function UserProject({ project, editProject }) {
          />
 
          <DialogProvider>
-            <Menu />
+            <Menu addTask={addTask} />
             <AddTaskDialog addTask={addTask} />
          </DialogProvider>
       </div>

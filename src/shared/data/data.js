@@ -80,6 +80,8 @@ const priorityColors = [
    'text-priority-3',
 ];
 
+const durationValues = [5, 10, 15, 30, 45, 60, 90];
+
 export {
    initialSettings,
    tasksTemplate,
@@ -87,4 +89,5 @@ export {
    taskModel,
    projectModel,
    priorityColors,
+   durationValues,
 };

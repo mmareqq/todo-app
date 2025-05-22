@@ -4,8 +4,11 @@ import useTasks from '@hooks/useTasks';
 import sortTasks from '@utils/sortTasks';
 
 import Title from './components/Title';
+import DialogProvider from '@contexts/DialogProvider';
+
 import UpcomingBody from './components/UpcomingBody';
 import Menu from './components/Menu';
+import AddTaskDialog from './components/AddTaskDialog';
 
 function UpcomingProject({ project }) {
    const { tasks, addTask, removeTask, editTask } = useTasks(project.id);
@@ -19,7 +22,10 @@ function UpcomingProject({ project }) {
             editTask={editTask}
             removeTask={removeTask}
          />
-         <Menu addTask={addTask} />
+         <DialogProvider>
+            <Menu addTask={addTask} />
+            <AddTaskDialog addTask={addTask} />
+         </DialogProvider>
       </div>
    );
 }

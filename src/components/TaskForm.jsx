@@ -1,35 +1,14 @@
-import { useCallback, useRef } from 'react';
 import { PriorityIcon } from '@assets/Icons';
+import { priorityColors } from '@data/data';
 
-import TimeInput from '@components/TimeInput';
+import useDurationValues from '@hooks/useDurationValues';
+import Button from '@ui/Button';
 
-export default function TaskForm({ task, updateValue }) {
-   const priorityColors = [
-      'text-priority-0',
-      'text-priority-1',
-      'text-priority-2',
-      'text-priority-3',
-   ];
+function TaskForm({ task, updateValue }) {
+   const [durationValues, addDurationValue, removeDurationValue] =
+      useDurationValues();
 
-   const durationHours = useRef(Math.floor(task.duration / 60));
-   const durationMinutes = useRef(task.duration % 60);
-
-   const updateHours = useCallback(
-      newHours => {
-         durationHours.current = newHours;
-         updateValue('duration', newHours * 60 + durationMinutes.current);
-      },
-      [updateValue],
-   );
-
-   const updateMinutes = useCallback(
-      newMinutes => {
-         durationMinutes.current = newMinutes;
-         updateValue('duration', durationHours.current * 60 + newMinutes);
-      },
-      [updateValue],
-   );
-
+   const btnActive = 'bg-primary-700 border-primary-100';
    return (
       <div className="mb-6 grid gap-4">
          <div>
@@ -69,29 +48,31 @@ export default function TaskForm({ task, updateValue }) {
          </div>
          <div>
             <div className="mb-4">Duration:</div>
-            <div className="flex justify-center gap-4">
-               <div className="flex items-center">
-                  <TimeInput
-                     fontSize={12}
-                     numCount={24}
-                     updateInput={updateHours}
-                     initialNum={durationHours.current}
-                  ></TimeInput>
-                  <div>h</div>
-               </div>
-               <div className="flex items-center">
-                  <TimeInput
-                     fontSize={12}
-                     numCount={60}
-                     updateInput={updateMinutes}
-                     initialNum={durationMinutes.current}
-                  ></TimeInput>
-                  <div>min</div>
-               </div>
-            </div>
+            <ul className="flex gap-2">
+               {durationValues.map(val => {
+                  return (
+                     <li key={val} className="group relative">
+                        <Button
+                           variant="none"
+                           className={`border-primary-700 rounded-sm border px-2 py-1 ${task.duration === val ? btnActive : ''}`}
+                           onClick={() => updateValue('duration', val)}
+                        >
+                           {val}
+                        </Button>
+                        <Button
+                           variant="none"
+                           className="group-hover:bg-primary-700 right invisible absolute z-10 rounded-xs px-1 text-xs group-hover:visible"
+                           onClick={() => removeDurationValue(val)}
+                        >
+                           X
+                        </Button>
+                     </li>
+                  );
+               })}
+            </ul>
          </div>
-         <div>
-            Date:{' '}
+         <div className="flex gap-5">
+            <span>Date:</span>
             <input
                type="date"
                id="task-date"
@@ -103,3 +84,5 @@ export default function TaskForm({ task, updateValue }) {
       </div>
    );
 }
+
+export default TaskForm;
