@@ -9,7 +9,11 @@ import InfoPanel from './components/InfoPanel';
 import Body from './components/Body';
 import Menu from './components/Menu';
 
-function UserProject({ project }) {
+import DialogProvider from '@contexts/DialogProvider';
+import EditProjectDialog from './components/EditProjectDialog';
+import AddTaskDialog from './components/AddTaskDialog';
+
+function UserProject({ project, editProject }) {
    const { settings } = useSettingsContext();
    const { tasks, addTask, removeTask, editTask } = useTasks(project.id);
 
@@ -21,14 +25,21 @@ function UserProject({ project }) {
 
    return (
       <div className="oveflow-y-hidden grid h-svh content-start items-start">
-         <Title project={project} />
+         <DialogProvider>
+            <Title project={project} />
+            <EditProjectDialog project={project} editProject={editProject} />
+         </DialogProvider>
          <InfoPanel totalDuration={totalDuration} />
          <Body
             tasks={sortedTasks}
             editTask={editTask}
             removeTask={removeTask}
          />
-         <Menu addTask={addTask} />
+
+         <DialogProvider>
+            <Menu />
+            <AddTaskDialog addTask={addTask} />
+         </DialogProvider>
       </div>
    );
 }

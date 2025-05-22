@@ -3,7 +3,7 @@ import useWheelEvent from './useWheelEvent';
 import useClickEvent from './useClickEvent';
 import useTransitionEndEvent from './useTransitionEndEvent';
 
-export default function useTimeInputEvents({
+function useEvents({
    sliderRef,
    offsetRef,
    timerConfig,
@@ -71,3 +71,5 @@ export default function useTimeInputEvents({
 
    return handleEvent;
 }
+
+export default useEvents;

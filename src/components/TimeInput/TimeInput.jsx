@@ -4,7 +4,7 @@ import Number from './Number';
 
 import useActiveNum from './hooks/useActiveNum';
 import useOffset from './hooks/useOffset';
-import useTimeInputEvents from './hooks/events/useTimeInputEvents';
+import useEvents from './hooks/events/useEvents';
 
 function getTimerConfig(numCount, fontSize, initialNum) {
    const numHeight = 3.75 * fontSize;
@@ -46,7 +46,7 @@ const TimeInput = ({
    const [offsetRef, updateOffset, updateOffsetInstantly] =
       useOffset(sliderRef);
 
-   const handleEvent = useTimeInputEvents({
+   const handleEvent = useEvents({
       sliderRef,
       offsetRef,
       timerConfig,

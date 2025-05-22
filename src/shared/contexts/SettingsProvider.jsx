@@ -3,8 +3,9 @@ import SettingsContext from './SettingsContext';
 import { initialSettings } from '@data/data';
 
 const SettingsProvider = ({ children }) => {
+   const settings = useSettings();
    return (
-      <SettingsContext.Provider value={useSettings()}>
+      <SettingsContext.Provider value={settings}>
          {children}
       </SettingsContext.Provider>
    );

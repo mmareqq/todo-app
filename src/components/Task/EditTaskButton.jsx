@@ -1,27 +1,13 @@
 import { EditIcon } from '@assets/Icons';
-import Dialog from '@ui/Dialog';
-import useDialog from '@hooks/useDialog';
-import useForm from '@hooks/useForm';
-import TaskForm from '@components/TaskForm';
 import Button from '@ui/Button';
+import useDialogContext from '@hooks/useDialogContext';
 
-export default function EditTaskButton({ editTask, task }) {
-   const [isDialogOpen, openDialog, closeDialog] = useDialog();
-   const [data, updateValue, reset] = useForm(task);
+export default function EditTaskButton({ children }) {
+   const { openDialog } = useDialogContext();
    return (
-      <>
-         <Button variant="square" onClick={openDialog}>
-            <span className="sr-only">edit: {task.name}</span>
-            <EditIcon></EditIcon>
-         </Button>
-         <Dialog
-            isOpen={isDialogOpen}
-            closeDialog={closeDialog}
-            onCancel={reset}
-            onSuccess={() => editTask(data)}
-         >
-            <TaskForm task={data} updateValue={updateValue} />
-         </Dialog>
-      </>
+      <Button variant="square" onClick={openDialog}>
+         <span className="sr-only">edit: {children}</span>
+         <EditIcon size={24} />
+      </Button>
    );
 }

@@ -73,4 +73,18 @@ const appProjects = [
    },
 ];
 
-export { initialSettings, tasksTemplate, appProjects, taskModel, projectModel };
+const priorityColors = [
+   'text-priority-0',
+   'text-priority-1',
+   'text-priority-2',
+   'text-priority-3',
+];
+
+export {
+   initialSettings,
+   tasksTemplate,
+   appProjects,
+   taskModel,
+   projectModel,
+   priorityColors,
+};

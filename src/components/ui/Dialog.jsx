@@ -52,16 +52,17 @@ function useDialogRef(isOpen, closeDialog) {
 
    // closes and opens dialog
    useEffect(() => {
-      if (isOpen) {
-         dialogRef.current?.showModal();
-      } else dialogRef.current?.close();
+      if (!dialogRef.current) return;
+
+      if (isOpen) dialogRef.current.showModal();
+      else dialogRef.current.close();
    }, [isOpen]);
 
    // closes dialog if clicked outside of it
    useEffect(() => {
       if (!isOpen) return;
-      const dialogEl = dialogRef.current;
 
+      const dialogEl = dialogRef.current;
       const handleClick = e => {
          if (e.target === dialogEl) closeDialog();
       };

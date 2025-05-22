@@ -1,4 +1,4 @@
-export function TrashIcon({ size, props }) {
+export function TrashIcon({ size = '20', props }) {
    return (
       <svg
          xmlns="http://www.w3.org/2000/svg"
@@ -16,7 +16,7 @@ export function TrashIcon({ size, props }) {
    );
 }
 
-export function EditIcon({ size, props }) {
+export function EditIcon({ size = '20', props }) {
    return (
       <svg
          xmlns="http://www.w3.org/2000/svg"
@@ -41,7 +41,7 @@ export function EditIcon({ size, props }) {
    );
 }
 
-export function PriorityIcon({ size, props }) {
+export function PriorityIcon({ size = '20', props }) {
    return (
       <svg
          xmlns="http://www.w3.org/2000/svg"
@@ -60,7 +60,7 @@ export function PriorityIcon({ size, props }) {
    );
 }
 
-export function StopWatchIcon({ size, props }) {
+export function StopWatchIcon({ size = '20', props }) {
    return (
       <svg
          xmlns="http://www.w3.org/2000/svg"
@@ -77,7 +77,7 @@ export function StopWatchIcon({ size, props }) {
    );
 }
 
-export function CalendarIcon({ size, props }) {
+export function CalendarIcon({ size = '20', props }) {
    return (
       <svg
          xmlns="http://www.w3.org/2000/svg"
@@ -94,7 +94,7 @@ export function CalendarIcon({ size, props }) {
    );
 }
 
-export function EmptyIcon({ size, props }) {
+export function EmptyIcon({ size = '20', props }) {
    return (
       <svg
          xmlns="http://www.w3.org/2000/svg"
@@ -111,7 +111,7 @@ export function EmptyIcon({ size, props }) {
    );
 }
 
-export function HourGlassIcon({ size, props }) {
+export function HourGlassIcon({ size = '20', props }) {
    return (
       <svg
          xmlns="http://www.w3.org/2000/svg"
@@ -128,7 +128,7 @@ export function HourGlassIcon({ size, props }) {
    );
 }
 
-export function ChevronIcon({ size, props }) {
+export function ChevronIcon({ size = '20', props }) {
    return (
       <svg
          xmlns="http://www.w3.org/2000/svg"
@@ -158,7 +158,7 @@ export function ChevronIcon({ size, props }) {
    );
 }
 
-export function Dot({ size, props }) {
+export function Dot({ size = '20', props }) {
    return (
       <svg
          xmlns="http://www.w3.org/2000/svg"

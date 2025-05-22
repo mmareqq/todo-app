@@ -1,5 +1,5 @@
 import { useRef, useCallback } from 'react';
-import getNearestMultiple from '../utils/getNearestMultiple';
+import getNearestMultiple from '../../utils/getNearestMultiple';
 
 export default function useDragEvents({
    offsetRef,

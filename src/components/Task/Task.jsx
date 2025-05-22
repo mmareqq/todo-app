@@ -1,27 +1,22 @@
 import { useRef } from 'react';
-import { motion } from 'motion/react';
+import AnimateSlideIn from '@ui/AnimateSlideIn';
 
 import { formatDate } from '@utils/formatTime';
 import { formatDuration } from '@utils/formatTime';
 
 import { HourGlassIcon } from '@assets/Icons';
-import TrashButton from '@components/TrashButton';
+import DeleteButton from '@ui/DeleteButton';
 import EditTaskButton from './EditTaskButton';
 
+import DialogProvider from '@contexts/DialogProvider';
+import EditTaskDialog from './EditTaskDialog';
+
+import { priorityColors } from '@data/data';
+
 export default function Task({ task, removeTask, editTask, animationDelay }) {
-   const priorityColors = [
-      'text-priority-0',
-      'text-priority-1',
-      'text-priority-2',
-      'text-priority-3',
-   ];
    const taskRef = useRef(null);
    return (
-      <motion.div
-         initial={{ opacity: 0, translate: '-30%' }}
-         animate={{ opacity: 1, translate: '0' }}
-         transition={{ delay: animationDelay }}
-      >
+      <AnimateSlideIn delay={animationDelay}>
          <div
             ref={taskRef}
             className="task bg-primary-800 border-primary-600 flex items-center gap-2 border px-4 py-2"
@@ -36,8 +31,11 @@ export default function Task({ task, removeTask, editTask, animationDelay }) {
             >
                <span className="sr-only">complete task</span>
             </button>
+
             <div>{task.name}</div>
+
             {task.date && <div>{formatDate(task.date)}</div>}
+
             <div className="ml-auto flex items-center">
                <div
                   className="mr-4 flex items-center gap-1"
@@ -46,13 +44,17 @@ export default function Task({ task, removeTask, editTask, animationDelay }) {
                   <HourGlassIcon width={12} />
                   {formatDuration(task.duration)}
                </div>
-               <EditTaskButton editTask={editTask} task={task} />
-               <TrashButton
-                  remove={() => removeTask(task.id)}
-                  altText={`task ${task.name}`}
-               />
+
+               <DialogProvider>
+                  <EditTaskButton />
+                  <EditTaskDialog editTask={editTask} task={task} />
+               </DialogProvider>
+
+               <DeleteButton remove={() => removeTask(task.id)}>
+                  {task.name}
+               </DeleteButton>
             </div>
          </div>
-      </motion.div>
+      </AnimateSlideIn>
    );
 }

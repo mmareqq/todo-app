@@ -1,9 +1,6 @@
-import TrashButton from '@components/TrashButton';
-export default function ProjectButton({
-   project,
-   setActiveProjectId,
-   removeProject,
-}) {
+import DeleteButton from '@ui/DeleteButton';
+
+const ProjectButton = ({ project, setActiveProjectId, removeProject }) => {
    return (
       <div className="flex pr-1 pl-3">
          <button
@@ -14,14 +11,17 @@ export default function ProjectButton({
             {project.name}
          </button>
          {project.editable && (
-            <TrashButton
+            <DeleteButton
                remove={() => {
                   removeProject(project.id);
                   localStorage.removeItem(`tasks-${project.id}`);
                }}
-               altText={`project ${project.name}`}
-            ></TrashButton>
+            >
+               {project.name}
+            </DeleteButton>
          )}
       </div>
    );
-}
+};
+
+export default ProjectButton;

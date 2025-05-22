@@ -1,8 +1,9 @@
 import { useContext } from 'react';
-import SettingsContext from '@contexts/SettingsContext';
+import settingsContext from '@contexts/SettingsContext';
 
 const useSettingsContext = () => {
-   return useContext(SettingsContext);
+   if (!settingsContext) throw new Error('no settings context');
+   return useContext(settingsContext);
 };
 
 export default useSettingsContext;

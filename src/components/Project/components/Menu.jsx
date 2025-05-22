@@ -11,7 +11,7 @@ function Menu({ addTask }) {
          >
             Load 5 tasks
          </button>
-         <ButtonAddTask addTask={addTask} />
+         <ButtonAddTask />
       </div>
    );
 }

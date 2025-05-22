@@ -1,6 +1,8 @@
 import { useMemo } from 'react';
 import ButtonAddProject from './ButtonAddProject';
 import ProjectButton from './ProjectButton';
+import DialogProvider from '@contexts/DialogProvider';
+import AddProjectDialog from './AddProjectDialog';
 
 export default function Navbar({
    projects,
@@ -73,7 +75,10 @@ export default function Navbar({
          </ul>
 
          <div className="mt-4 px-5">
-            <ButtonAddProject addProject={addProject} />
+            <DialogProvider>
+               <ButtonAddProject />
+               <AddProjectDialog addProject={addProject} />
+            </DialogProvider>
          </div>
       </nav>
    );
