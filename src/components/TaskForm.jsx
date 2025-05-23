@@ -148,7 +148,10 @@ const DurationInput = () => {
                         <Button
                            variant="square"
                            className="hover:bg-primary-700 right text-normal invisible absolute inset-0 rounded-xs transition-none group-hover:visible"
-                           onClick={() => removeDurValue(val)}
+                           onClick={() => {
+                              removeDurValue(val);
+                              if (val === duration) updateValue('duration', 0);
+                           }}
                         >
                            X
                         </Button>

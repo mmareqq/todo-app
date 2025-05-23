@@ -1,4 +1,4 @@
-export function formatDuration(totalMinutes) {
+export function formatDuration(totalMinutes: number): string | null {
    const hours = Math.floor(totalMinutes / 60);
    const minutes = totalMinutes % 60;
    if (totalMinutes === 0) return '0min';
@@ -9,7 +9,7 @@ export function formatDuration(totalMinutes) {
    );
 }
 
-export function formatDate(date) {
+export function formatDate(date: string): string {
    const [year, month, day] = date.split('-');
    return `${day}.${month}.${year}`;
 }

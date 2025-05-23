@@ -1,23 +1,31 @@
 import { Dot } from '@assets/Icons';
-import { capitalizeFirstLetter } from '@utils/stringUtils';
+import { capitalize } from '@utils/stringUtils';
+import Button from './Button';
 
-const DropdownItem = ({ selected, onClick, value }) => {
+import useSettingsContext from '@hooks/useSettingsContext';
+
+const DropdownItem = ({ value, close }) => {
+   const { settings, updateSetting } = useSettingsContext();
+   console.log(settings.sortMethod);
    return (
       <div>
-         <button
-            type="button"
-            className="hover:bg-primary-600 border-primary-400 outline-primary-600 flex w-full items-center gap-1 py-1.5 outline-1 transition-colors"
-            onClick={onClick}
+         <Button
+            variant="none"
+            className="hover:bg-primary-600 bg-primary-800 border-primary-400 outline-primary-600 flex w-full items-center gap-1 py-1.5 outline-1 transition-colors"
+            onClick={() => {
+               close();
+               updateSetting('sortMethod', value);
+            }}
          >
             <div>
                <Dot
                   width="20"
                   height="20"
-                  className={selected ? '' : 'invisible'}
+                  className={settings.sortMethod === value ? '' : 'invisible'}
                />
             </div>
-            <span>{capitalizeFirstLetter(value)}</span>
-         </button>
+            <span>{capitalize(value)}</span>
+         </Button>
          <div className="sr-only">
             <label htmlFor={value}>{value}</label>
             <input type="radio" id={value} value={value} />
