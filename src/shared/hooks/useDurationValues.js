@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 
 function getInititalValues() {
    const values = localStorage.getItem('durationValues');
-   console.log(values);
    return values ? JSON.parse(values) : durationValues;
 }
 

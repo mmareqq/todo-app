@@ -12,7 +12,7 @@ function EditTaskDialog({ task, editTask }) {
          isOpen={isOpen}
          closeDialog={closeDialog}
          onCancel={resetForm}
-         onSuccess={() => editTask(task)}
+         onSuccess={() => editTask(formTask)}
       >
          <TaskForm task={formTask} updateValue={updateValue}>
             <TaskForm.NameInput />

@@ -70,7 +70,6 @@ const DurationInput = () => {
    const [durValues, addDurValue, removeDurValue] = useDurationValues();
    const [editDuration, setEditDuration] = useState(false);
    const [newDuration, setNewDuration] = useState('');
-   console.log(duration);
 
    const styleDefault =
       'hover:bg-primary-700/50 border border-primary-700 px-2';
@@ -171,7 +170,7 @@ const DateInput = () => {
             type="date"
             id="task-date"
             name="task-date"
-            value={date}
+            value={date ?? ''}
             onChange={e => updateValue('date', e.target.value)}
          />
       </div>

@@ -1,4 +1,6 @@
 import { useRef, useEffect } from 'react';
+
+import Button from './Button';
 export default function Dialog({
    children,
    isOpen,
@@ -23,23 +25,17 @@ export default function Dialog({
             >
                {children}
 
-               <menu className="mt-8 flex justify-end gap-2">
-                  <button
-                     type="button"
-                     className="shadow-primary-100/10 transiton-all border-primary-100 rounded-md border-1 px-10 py-1 duration-300 hover:shadow-lg"
+               <menu className="mt-8 flex justify-end gap-4">
+                  <Button
                      onClick={() => {
                         onCancel?.();
                         closeDialog();
                      }}
+                     className="border-primary-100 shadow-primary-300/10 hover:bg-transparent"
                   >
                      Cancel
-                  </button>
-                  <button
-                     type="submit"
-                     className="shadow-accent-700/10 hover:bg-accent-700 border-accent-700 transiton-all rounded-md border-1 px-10 py-1 duration-300 hover:shadow-lg"
-                  >
-                     Confirm
-                  </button>
+                  </Button>
+                  <Button type="submit">Confirm</Button>
                </menu>
             </form>
          </div>
