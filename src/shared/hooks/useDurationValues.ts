@@ -7,11 +7,11 @@ function getInititalValues() {
 }
 
 const useDurationValues = () => {
-   const [values, setValues] = useState(getInititalValues);
+   const [values, setValues] = useState<number[]>(getInititalValues);
 
-   const addValue = value =>
-      setValues(prevValues => {
-         if (prevValues.find(curr => curr === value)) {
+   const addValue = (value: number) =>
+      setValues((prevValues) => {
+         if (prevValues.find((curr) => curr === value)) {
             return prevValues;
          }
 
@@ -22,9 +22,9 @@ const useDurationValues = () => {
       localStorage.setItem('durationValues', JSON.stringify(values));
    }, [values]);
 
-   const removeValue = value =>
-      setValues(prevValues =>
-         prevValues.filter(currValue => currValue !== value),
+   const removeValue = (value: number) =>
+      setValues((prevValues) =>
+         prevValues.filter((currValue) => currValue !== value),
       );
 
    return [values, addValue, removeValue];
