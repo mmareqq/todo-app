@@ -6,7 +6,7 @@ import useSettingsContext from '@hooks/useSettingsContext';
 
 const DropdownItem = ({ value, close }) => {
    const { settings, updateSetting } = useSettingsContext();
-   console.log(settings.sortMethod);
+
    return (
       <div>
          <Button

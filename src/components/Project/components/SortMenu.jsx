@@ -11,7 +11,6 @@ function SortMenu() {
 
    const toggleOpen = () => setIsOpen(p => !p);
 
-   console.log('open?', isOpen);
    return (
       <div className="relative z-10">
          <Button

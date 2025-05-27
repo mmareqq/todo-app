@@ -22,7 +22,6 @@ function useTasks(projectId) {
    };
 
    const editTask = editedTask => {
-      console.log('task edited', editedTask);
       setTasks(prevTasks => {
          return prevTasks.map(task =>
             task.id === editedTask.id ? editedTask : task,
