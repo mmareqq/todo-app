@@ -2,8 +2,9 @@ import { useContext } from 'react';
 import DialogContext from '@contexts/DialogContext';
 
 const useDialogContext = () => {
-   if (!DialogContext) throw new Error('no dialog context');
-   return useContext(DialogContext);
+   const context = useContext(DialogContext);
+   if (!context) throw new Error('no dialog context');
+   return context;
 };
 
 export default useDialogContext;

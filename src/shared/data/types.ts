@@ -1,3 +1,8 @@
+import { initialSettings } from './data';
+import type { ReactNode } from 'react';
+
+type Children = { children: ReactNode };
+
 type Project = {
    id: string;
    name: string;
@@ -15,4 +20,17 @@ type Task = {
    createdAt: string;
 };
 
-export { Task, Project };
+type Dialog = {
+   isOpen: boolean;
+   openDialog: () => void;
+   closeDialog: () => void;
+};
+
+type Settings = typeof initialSettings;
+
+type SettingsContext = {
+   settings: Settings;
+   updateSetting: <T, K extends keyof T>(name: K, value: T[K]) => void;
+};
+
+export { Children, Task, Project, Dialog, Settings, SettingsContext };

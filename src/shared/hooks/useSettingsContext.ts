@@ -1,9 +1,10 @@
 import { useContext } from 'react';
-import settingsContext from '@contexts/SettingsContext';
+import SettingsContext from '@contexts/SettingsContext';
 
 const useSettingsContext = () => {
-   if (!settingsContext) throw new Error('no settings context');
-   return useContext(settingsContext);
+   const context = useContext(SettingsContext);
+   if (!context) throw new Error('no dialog context');
+   return context;
 };
 
 export default useSettingsContext;

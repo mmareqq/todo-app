@@ -1,14 +1,18 @@
+import type { Dialog, Children } from '@data/types';
 import { useState } from 'react';
+
 import DialogContext from './DialogContext';
 
-const DialogProvider = ({ children }) => {
-   const dialog = useDialog();
+const DialogProvider = ({ children }: Children) => {
+   const contextValue = useDialog();
    return (
-      <DialogContext.Provider value={dialog}>{children}</DialogContext.Provider>
+      <DialogContext.Provider value={contextValue}>
+         {children}
+      </DialogContext.Provider>
    );
 };
 
-const useDialog = () => {
+const useDialog = (): Dialog => {
    const [isOpen, setIsOpen] = useState(false);
 
    const openDialog = () => setIsOpen(true);
