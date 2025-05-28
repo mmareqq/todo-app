@@ -1,6 +1,12 @@
 import { AnimatePresence, motion } from 'motion/react';
+import type { Children } from '@data/types';
 
-function AnimateExit({ hidden, className, children }) {
+type Props = {
+   hidden: boolean;
+   className?: string;
+} & Children;
+
+function AnimateExit({ hidden, className, children }: Props) {
    return (
       <AnimatePresence>
          {hidden && (

@@ -1,4 +1,15 @@
 import { twMerge } from 'tailwind-merge';
+import type { Children } from '@data/types';
+
+type Variant = keyof typeof buttonStyles;
+
+type ButtonAttributes = React.ButtonHTMLAttributes<HTMLButtonElement>;
+
+type Props = {
+   variant?: Variant;
+   className?: string;
+} & Children &
+   ButtonAttributes;
 
 const buttonStyles = {
    none: '',
@@ -10,13 +21,20 @@ const buttonStyles = {
       'shadow-primary-600/10 hover:bg-primary-600 border-primary-600 transiton-all rounded-sm border-1 px-2 py-1 duration-300 hover:shadow-lg',
 };
 
-const Button = ({ variant = 'primary', className, ...props }) => {
+const Button = ({
+   variant = 'primary',
+   className,
+   children,
+   ...props
+}: Props) => {
    return (
       <button
          type="button"
          className={twMerge(buttonStyles[variant], className)}
          {...props}
-      />
+      >
+         {children}
+      </button>
    );
 };
 

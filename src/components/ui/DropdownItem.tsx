@@ -4,7 +4,12 @@ import Button from './Button';
 
 import useSettingsContext from '@hooks/useSettingsContext';
 
-const DropdownItem = ({ value, close }) => {
+type Props = {
+   value: string;
+   close: () => void;
+};
+
+const DropdownItem = ({ value, close }: Props) => {
    const { settings, updateSetting } = useSettingsContext();
 
    return (

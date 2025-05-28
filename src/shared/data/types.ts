@@ -1,7 +1,7 @@
 import { initialSettings } from './data';
 import type { ReactNode } from 'react';
 
-type Children = { children: ReactNode };
+type Children = { children?: ReactNode };
 
 type Project = {
    id: string;
@@ -30,7 +30,10 @@ type Settings = typeof initialSettings;
 
 type SettingsContext = {
    settings: Settings;
-   updateSetting: <T, K extends keyof T>(name: K, value: T[K]) => void;
+   updateSetting: <K extends keyof Settings>(
+      name: K,
+      value: Settings[K],
+   ) => void;
 };
 
 export { Children, Task, Project, Dialog, Settings, SettingsContext };
