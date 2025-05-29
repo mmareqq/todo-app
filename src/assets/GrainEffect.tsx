@@ -1,8 +1,14 @@
-export default function GrainEffect({
+type Props = {
+   color?: string;
+   noiseValue?: number;
+   opacity?: number;
+};
+
+const GrainEffect = ({
    color = '#000',
    noiseValue = 10,
    opacity = 0.05,
-}) {
+}: Props) => {
    return (
       <div
          className="grain-texture"
@@ -48,4 +54,6 @@ export default function GrainEffect({
          </div>
       </div>
    );
-}
+};
+
+export default GrainEffect;
