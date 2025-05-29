@@ -37,12 +37,8 @@ export default function App() {
                      color="#E0AC69"
                      noiseValue={15}
                   />
-                  {activeProject && (
-                     <Project
-                        project={activeProject}
-                        editProject={editProject}
-                     />
-                  )}
+
+                  <Project project={activeProject} editProject={editProject} />
                </div>
             </main>
          </div>
