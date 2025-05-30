@@ -1,5 +1,4 @@
 import useForm from '@hooks/useForm';
-import useDialogContext from '@hooks/useDialogContext';
 import generateId from '@utils/generateId';
 
 import TaskForm from '@components/TaskForm';
@@ -7,12 +6,9 @@ import Dialog from '@ui/Dialog';
 import { taskModel } from '@data/data';
 
 const AddTaskDialog = ({ addTask }) => {
-   const { isOpen, closeDialog } = useDialogContext();
    const [task, updateValue, resetForm] = useForm(taskModel);
    return (
       <Dialog
-         isOpen={isOpen}
-         closeDialog={closeDialog}
          onSuccess={() => {
             const newTask = {
                id: generateId(),

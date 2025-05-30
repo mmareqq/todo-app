@@ -1,26 +1,43 @@
 import { useMemo } from 'react';
-import ButtonAddProject from './ButtonAddProject';
 import ProjectButton from './ProjectButton';
 import DialogProvider from '@contexts/DialogProvider';
+import ButtonAddProject from './ButtonAddProject';
 import AddProjectDialog from './AddProjectDialog';
 
-export default function Navbar({
+import type { Project } from '@data/types';
+import type { StateSetter } from '@data/helperTypes';
+
+type Id = Project['id'];
+
+type Props = {
+   projects: Project[];
+   addProject: (project: Project) => void;
+   removeProject: (id: Id) => void;
+   activeProjectId: Id;
+   setActiveProjectId: StateSetter<Id>;
+};
+
+const Navbar = ({
    projects,
    addProject,
    removeProject,
    activeProjectId,
    setActiveProjectId,
-}) {
+}: Props) => {
    const todayProject = useMemo(
-      () => projects.find(p => p.id === 'today'),
+      () => projects.find((p) => p.id === 'today'),
       [projects],
    );
    const upcomingProject = useMemo(
-      () => projects.find(p => p.id === 'upcoming'),
+      () => projects.find((p) => p.id === 'upcoming'),
       [projects],
    );
+   if (!todayProject || !upcomingProject) {
+      throw new Error('today and upcoming project must be in projects array');
+   }
+
    const userProjects = useMemo(
-      () => projects.filter(p => p.createdByUser),
+      () => projects.filter((p) => p.createdByUser),
       [projects],
    );
 
@@ -36,9 +53,12 @@ export default function Navbar({
             >
                <ProjectButton
                   project={todayProject}
-                  setActiveProjectId={setActiveProjectId}
-                  removeProject={removeProject}
-               ></ProjectButton>
+                  onClick={() => setActiveProjectId(todayProject.id)}
+                  onRemove={() => {
+                     removeProject(todayProject.id);
+                     localStorage.removeItem(`tasks-${todayProject.id}`);
+                  }}
+               />
             </li>
             <li
                className={`duration-250 active:opacity-80 ${
@@ -49,8 +69,12 @@ export default function Navbar({
             >
                <ProjectButton
                   project={upcomingProject}
-                  setActiveProjectId={setActiveProjectId}
-               ></ProjectButton>
+                  onClick={() => setActiveProjectId(upcomingProject.id)}
+                  onRemove={() => {
+                     removeProject(upcomingProject.id);
+                     localStorage.removeItem(`tasks-${upcomingProject.id}`);
+                  }}
+               />
             </li>
             <div className="py-5" />
             <div className="p-2 leading-normal">My Projects</div>
@@ -66,9 +90,12 @@ export default function Navbar({
                   >
                      <ProjectButton
                         project={project}
-                        setActiveProjectId={setActiveProjectId}
-                        removeProject={removeProject}
-                     ></ProjectButton>
+                        onClick={() => setActiveProjectId(project.id)}
+                        onRemove={() => {
+                           removeProject(project.id);
+                           localStorage.removeItem(`tasks-${project.id}`);
+                        }}
+                     />
                   </li>
                );
             })}
@@ -82,4 +109,6 @@ export default function Navbar({
          </div>
       </nav>
    );
-}
+};
+
+export default Navbar;

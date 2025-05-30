@@ -1,4 +1,3 @@
-import useDialogContext from '@hooks/useDialogContext';
 import useForm from '@hooks/useForm';
 import { initalizeTasksInStorage } from '@utils/localStorage';
 import generateId from '@utils/generateId';
@@ -7,14 +6,17 @@ import ProjectForm from './ProjectForm';
 import Dialog from '@ui/Dialog';
 import { projectModel } from '@data/data';
 
-function AddProjectDialog({ addProject }) {
-   const { isOpen, closeDialog } = useDialogContext();
+import type { Project } from '@data/types';
+
+type Props = {
+   addProject: (proj: Project) => void;
+};
+
+function AddProjectDialog({ addProject }: Props) {
    const [projectData, updateValue, resetForm] = useForm(projectModel);
 
    return (
       <Dialog
-         isOpen={isOpen}
-         closeDialog={closeDialog}
          onSuccess={() => {
             const project = {
                id: generateId(),

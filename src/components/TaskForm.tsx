@@ -1,17 +1,29 @@
-import { useState } from 'react';
+import { useState, createContext, useContext } from 'react';
+import { twMerge } from 'tailwind-merge';
 import { CheckMarkIcon, PriorityIcon, EditIcon, PlusIcon } from '@assets/Icons';
 import { priorityColors } from '@data/data';
+import Button from '@ui/Button';
 
 import useDurationValues from '@hooks/useDurationValues';
-import Button from '@ui/Button';
 import { formatDuration } from '@utils/formatTime';
-import { twMerge } from 'tailwind-merge';
 
-import { createContext, useContext } from 'react';
+import type { Children, Task } from '@data/types';
+import type { UpdateValue } from '@data/helperTypes';
 
-const FormContext = createContext(null);
+type Props = {
+   task: Task;
+   updateValue: UpdateValue<Task>;
+} & Children;
 
-const TaskForm = ({ children, task, updateValue }) => {
+type ContextType = {
+   updateValue: Props['updateValue'];
+} & {
+   [K in keyof Task]: Task[K];
+};
+
+const FormContext = createContext<ContextType>(null!);
+
+const TaskForm = ({ task, updateValue, children }: Props) => {
    return (
       <FormContext.Provider value={{ updateValue, ...task }}>
          <div className="mb-6 grid gap-6">{children}</div>
@@ -30,7 +42,7 @@ const NameInput = () => {
             id="taskName"
             name="taskName"
             value={name}
-            onChange={e => updateValue('name', e.target.value)}
+            onChange={(e) => updateValue('name', e.target.value)}
          />
       </div>
    );
@@ -42,7 +54,7 @@ const PriorityInput = () => {
       <div className="grid gap-2">
          <div className="mb-1">Priority</div>
          <div className="flex justify-between">
-            {[0, 1, 2, 3].map(i => {
+            {[0, 1, 2, 3].map((i) => {
                return (
                   <label
                      key={i}
@@ -89,7 +101,7 @@ const DurationInput = () => {
                         value={newDuration}
                         placeholder="0"
                         className="placeholder-shown:text-primary-400 text-primary-200 w-12 rounded-sm border border-current py-0.5 pl-2 text-sm focus:outline-none"
-                        onChange={e => {
+                        onChange={(e) => {
                            const val = e.target.value;
                            if (val.length > 3) return;
                            if (parseInt(val) || val === '') setNewDuration(val);
@@ -103,7 +115,7 @@ const DurationInput = () => {
                            setNewDuration('');
                         }}
                      >
-                        <PlusIcon size={18}></PlusIcon>
+                        <PlusIcon size="18" />
                      </Button>{' '}
                      <Button
                         variant="square"
@@ -132,7 +144,7 @@ const DurationInput = () => {
                   None
                </Button>
             </li>
-            {durValues.map(val => {
+            {durValues.map((val) => {
                return (
                   <li key={val} className="group relative">
                      <Button
@@ -174,7 +186,7 @@ const DateInput = () => {
             id="task-date"
             name="task-date"
             value={date ?? ''}
-            onChange={e => updateValue('date', e.target.value)}
+            onChange={(e) => updateValue('date', e.target.value)}
          />
       </div>
    );
