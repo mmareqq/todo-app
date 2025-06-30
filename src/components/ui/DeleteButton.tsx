@@ -25,7 +25,7 @@ const DeleteButtonContent = ({ remove, children }: Props) => {
       <>
          <Button className="self-center" variant="square" onClick={openDialog}>
             <span className="sr-only">delete: {children}</span>
-            <TrashIcon size="24" />
+            <TrashIcon size={24} />
          </Button>
          <Dialog onSuccess={remove}>
             <p>Delete {children}?</p>

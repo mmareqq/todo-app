@@ -1,6 +1,10 @@
 import Task from '@components/Task';
 
-function Body({ tasks, editTask, removeTask }) {
+import type { TaskActions, Task as TaskType } from '@data/types';
+
+type Props = Pick<TaskActions, 'editTask' | 'removeTask'> & { tasks: Task[] };
+
+const Body = ({ tasks, editTask, removeTask }: Props) => {
    return (
       <div className="max-h-full overflow-y-auto">
          <div className="grid gap-4 overflow-x-hidden pr-1">
@@ -18,6 +22,6 @@ function Body({ tasks, editTask, removeTask }) {
          </div>
       </div>
    );
-}
+};
 
 export default Body;

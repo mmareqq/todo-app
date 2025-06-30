@@ -1,6 +1,6 @@
-type Props = { size?: string } & React.SVGAttributes<SVGElement>;
+type Props = { size?: number } & React.SVGAttributes<SVGElement>;
 
-export function TrashIcon({ size = '20', ...props }: Props) {
+export function TrashIcon({ size = 20, ...props }: Props) {
    return (
       <svg
          xmlns="http://www.w3.org/2000/svg"
@@ -18,7 +18,7 @@ export function TrashIcon({ size = '20', ...props }: Props) {
    );
 }
 
-export function EditIcon({ size = '20', ...props }: Props) {
+export function EditIcon({ size = 20, ...props }: Props) {
    return (
       <svg
          xmlns="http://www.w3.org/2000/svg"
@@ -43,7 +43,7 @@ export function EditIcon({ size = '20', ...props }: Props) {
    );
 }
 
-export function PriorityIcon({ size = '20', ...props }: Props) {
+export function PriorityIcon({ size = 20, ...props }: Props) {
    return (
       <svg
          xmlns="http://www.w3.org/2000/svg"
@@ -62,7 +62,7 @@ export function PriorityIcon({ size = '20', ...props }: Props) {
    );
 }
 
-export function StopWatchIcon({ size = '20', ...props }: Props) {
+export function StopWatchIcon({ size = 20, ...props }: Props) {
    return (
       <svg
          xmlns="http://www.w3.org/2000/svg"
@@ -79,7 +79,7 @@ export function StopWatchIcon({ size = '20', ...props }: Props) {
    );
 }
 
-export function CalendarIcon({ size = '20', ...props }: Props) {
+export function CalendarIcon({ size = 20, ...props }: Props) {
    return (
       <svg
          xmlns="http://www.w3.org/2000/svg"
@@ -96,7 +96,7 @@ export function CalendarIcon({ size = '20', ...props }: Props) {
    );
 }
 
-export function EmptyIcon({ size = '20', ...props }: Props) {
+export function EmptyIcon({ size = 20, ...props }: Props) {
    return (
       <svg
          xmlns="http://www.w3.org/2000/svg"
@@ -113,7 +113,7 @@ export function EmptyIcon({ size = '20', ...props }: Props) {
    );
 }
 
-export function HourGlassIcon({ size = '20', ...props }: Props) {
+export function HourGlassIcon({ size = 20, ...props }: Props) {
    return (
       <svg
          xmlns="http://www.w3.org/2000/svg"
@@ -130,7 +130,7 @@ export function HourGlassIcon({ size = '20', ...props }: Props) {
    );
 }
 
-export function ChevronIcon({ size = '20', ...props }: Props) {
+export function ChevronIcon({ size = 20, ...props }: Props) {
    return (
       <svg
          xmlns="http://www.w3.org/2000/svg"
@@ -160,7 +160,7 @@ export function ChevronIcon({ size = '20', ...props }: Props) {
    );
 }
 
-export function Dot({ size = '20', ...props }: Props) {
+export function Dot({ size = 20, ...props }: Props) {
    return (
       <svg
          xmlns="http://www.w3.org/2000/svg"
@@ -179,7 +179,7 @@ export function Dot({ size = '20', ...props }: Props) {
    );
 }
 
-export function CheckMarkIcon({ size = '20', ...props }: Props) {
+export function CheckMarkIcon({ size = 20, ...props }: Props) {
    return (
       <svg
          xmlns="http://www.w3.org/2000/svg"
@@ -196,7 +196,7 @@ export function CheckMarkIcon({ size = '20', ...props }: Props) {
    );
 }
 
-export function WarningIcon({ size = '20', ...props }: Props) {
+export function WarningIcon({ size = 20, ...props }: Props) {
    return (
       <svg
          xmlns="http://www.w3.org/2000/svg"
@@ -229,7 +229,7 @@ export function WarningIcon({ size = '20', ...props }: Props) {
    );
 }
 
-export function PlusIcon({ size = '20', ...props }: Props) {
+export function PlusIcon({ size = 20, ...props }: Props) {
    return (
       <svg
          xmlns="http://www.w3.org/2000/svg"

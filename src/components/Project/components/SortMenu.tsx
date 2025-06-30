@@ -5,11 +5,11 @@ import AnimateExit from '@ui/AnimateExit';
 import DropdownItem from '@ui/DropdownItem';
 import Button from '@ui/Button';
 
-function SortMenu() {
+const SortMenu = () => {
    const [isOpen, setIsOpen] = useState(false);
    const sortOptions = ['priority', 'duration', 'name'];
 
-   const toggleOpen = () => setIsOpen(p => !p);
+   const toggleOpen = () => setIsOpen((p) => !p);
 
    return (
       <div className="relative z-10">
@@ -29,12 +29,12 @@ function SortMenu() {
             hidden={isOpen}
             className='className="bg-primary-800 border-primary-600 outline-primary-600 outline-1" absolute inset-x-0 origin-top overflow-hidden rounded-sm'
          >
-            {sortOptions.map(option => (
+            {sortOptions.map((option) => (
                <DropdownItem key={option} value={option} close={toggleOpen} />
             ))}
          </AnimateExit>
       </div>
    );
-}
+};
 
 export default SortMenu;

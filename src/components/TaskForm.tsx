@@ -115,7 +115,7 @@ const DurationInput = () => {
                            setNewDuration('');
                         }}
                      >
-                        <PlusIcon size="18" />
+                        <PlusIcon size={18} />
                      </Button>{' '}
                      <Button
                         variant="square"

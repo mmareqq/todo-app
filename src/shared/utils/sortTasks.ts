@@ -1,13 +1,6 @@
-import { type Task } from '@data/types';
+import type { Task, SortMethod } from '@data/types';
 
-type Method =
-   | 'priority'
-   | 'name'
-   | 'creation-date'
-   | 'duration'
-   | 'groupByDate';
-
-export default function sortTasks(tasks: Task[], method: Method) {
+function sortTasks(tasks: Task[], method: SortMethod) {
    switch (method) {
       case 'priority':
          return sortTasksByPriority(tasks);
@@ -23,6 +16,8 @@ export default function sortTasks(tasks: Task[], method: Method) {
          throw new Error('Wrong method for sorting tasks');
    }
 }
+
+export default sortTasks;
 
 function sortTasksByPriority(tasks: Task[]) {
    return tasks.toSorted((task1, task2) => task2.priority - task1.priority);

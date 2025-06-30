@@ -1,16 +1,21 @@
 import { useMemo } from 'react';
 
+import DialogProvider from '@contexts/DialogProvider';
 import useTasks from '@hooks/useTasks';
 import sortTasks from '@utils/sortTasks';
 
 import Title from './components/Title';
-import DialogProvider from '@contexts/DialogProvider';
-
 import UpcomingBody from './components/UpcomingBody';
 import Menu from './components/Menu';
 import AddTaskDialog from './components/AddTaskDialog';
 
-function UpcomingProject({ project }) {
+import type { Project } from '@data/types';
+
+type Props = {
+   project: Project;
+};
+
+const UpcomingProject = ({ project }: Props) => {
    const { tasks, addTask, removeTask, editTask } = useTasks(project.id);
    const groupedTasks = useMemo(() => sortTasks(tasks, 'groupByDate'), [tasks]);
 
@@ -28,6 +33,6 @@ function UpcomingProject({ project }) {
          </DialogProvider>
       </div>
    );
-}
+};
 
 export default UpcomingProject;

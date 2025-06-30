@@ -2,8 +2,14 @@ import useForm from '@hooks/useForm';
 
 import TaskForm from '@components/TaskForm';
 import Dialog from '@ui/Dialog';
+import type { Task } from '@data/types';
 
-function EditTaskDialog({ task, editTask }) {
+type Props = {
+   task: Task;
+   editTask: (newTask: Task) => void;
+};
+
+const EditTaskDialog = ({ task, editTask }: Props) => {
    const [formTask, updateValue, resetForm] = useForm(task);
    return (
       <Dialog onCancel={resetForm} onSuccess={() => editTask(formTask)}>
@@ -15,6 +21,6 @@ function EditTaskDialog({ task, editTask }) {
          </TaskForm>
       </Dialog>
    );
-}
+};
 
 export default EditTaskDialog;

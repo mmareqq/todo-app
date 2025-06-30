@@ -1,12 +1,14 @@
 import generateId from '@utils/generateId';
+import type { Settings } from './types';
+import type { Task } from '@data/types';
 
-const initialSettings = {
+const initialSettings: Settings = {
    sortMethod: 'priority',
    theme: 'dark',
 };
 
 // Only for dev, to be deleted
-const tasksTemplate = [
+const tasksTemplate: Task[] = [
    {
       id: generateId(),
       finished: false,
@@ -14,7 +16,7 @@ const tasksTemplate = [
       priority: 2,
       duration: 15,
       date: null,
-      createdAt: new Date(),
+      createdAt: new Date().toString(),
    },
    {
       id: generateId(),
@@ -23,7 +25,7 @@ const tasksTemplate = [
       priority: 0,
       duration: 90,
       date: null,
-      createdAt: new Date(),
+      createdAt: new Date().toString(),
    },
    {
       id: generateId(),
@@ -32,7 +34,7 @@ const tasksTemplate = [
       priority: 1,
       duration: 45,
       date: null,
-      createdAt: new Date(),
+      createdAt: new Date().toString(),
    },
    {
       id: generateId(),
@@ -41,7 +43,7 @@ const tasksTemplate = [
       priority: 2,
       duration: 15,
       date: null,
-      createdAt: new Date(),
+      createdAt: new Date().toString(),
    },
    {
       id: generateId(),
@@ -50,7 +52,7 @@ const tasksTemplate = [
       priority: 3,
       duration: 5,
       date: null,
-      createdAt: new Date(),
+      createdAt: new Date().toString(),
    },
 ];
 
