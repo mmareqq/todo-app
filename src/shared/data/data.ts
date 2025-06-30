@@ -1,6 +1,11 @@
 import generateId from '@utils/generateId';
-import type { Settings } from './types';
-import type { Task } from '@data/types';
+import type {
+   Settings,
+   TaskPayload,
+   Task,
+   Project,
+   ProjectPayload,
+} from './types';
 
 const initialSettings: Settings = {
    sortMethod: 'priority',
@@ -16,7 +21,7 @@ const tasksTemplate: Task[] = [
       priority: 2,
       duration: 15,
       date: null,
-      createdAt: new Date().toString(),
+      createdAt: new Date().toISOString(),
    },
    {
       id: generateId(),
@@ -25,7 +30,7 @@ const tasksTemplate: Task[] = [
       priority: 0,
       duration: 90,
       date: null,
-      createdAt: new Date().toString(),
+      createdAt: new Date().toISOString(),
    },
    {
       id: generateId(),
@@ -34,7 +39,7 @@ const tasksTemplate: Task[] = [
       priority: 1,
       duration: 45,
       date: null,
-      createdAt: new Date().toString(),
+      createdAt: new Date().toISOString(),
    },
    {
       id: generateId(),
@@ -43,7 +48,7 @@ const tasksTemplate: Task[] = [
       priority: 2,
       duration: 15,
       date: null,
-      createdAt: new Date().toString(),
+      createdAt: new Date().toISOString(),
    },
    {
       id: generateId(),
@@ -52,20 +57,20 @@ const tasksTemplate: Task[] = [
       priority: 3,
       duration: 5,
       date: null,
-      createdAt: new Date().toString(),
+      createdAt: new Date().toISOString(),
    },
 ];
 
-const taskModel = {
+const taskModel: TaskPayload = {
    name: '',
    priority: 0,
    duration: 0,
    date: '',
 };
 
-const projectModel = { name: '' };
+const projectModel: ProjectPayload = { name: '' };
 
-const appProjects = [
+const appProjects: Project[] = [
    { id: 'today', name: 'Today', editable: false, createdByUser: false },
    {
       id: 'upcoming',

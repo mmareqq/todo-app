@@ -5,15 +5,19 @@ import TaskForm from '@components/TaskForm';
 import Dialog from '@ui/Dialog';
 import { taskModel } from '@data/data';
 
-const AddTaskDialog = ({ addTask }) => {
+import type { Task, TaskActions } from '@data/types';
+type Props = Pick<TaskActions, 'addTask'>;
+
+const AddTaskDialog = ({ addTask }: Props) => {
    const [task, updateValue, resetForm] = useForm(taskModel);
+   type f = typeof updateValue;
    return (
       <Dialog
          onSuccess={() => {
-            const newTask = {
+            const newTask: Task = {
                id: generateId(),
                finished: false,
-               createdAt: new Date(),
+               createdAt: new Date().toISOString(),
                ...task,
             };
             addTask(newTask);

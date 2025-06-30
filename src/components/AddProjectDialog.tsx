@@ -2,7 +2,7 @@ import useForm from '@hooks/useForm';
 import { initalizeTasksInStorage } from '@utils/localStorage';
 import generateId from '@utils/generateId';
 
-import ProjectForm from './ProjectForm';
+import ProjectForm from './Project/components/ProjectForm';
 import Dialog from '@ui/Dialog';
 import { projectModel } from '@data/data';
 

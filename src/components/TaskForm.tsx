@@ -7,18 +7,18 @@ import Button from '@ui/Button';
 import useDurationValues from '@hooks/useDurationValues';
 import { formatDuration } from '@utils/formatTime';
 
-import type { Children, Task } from '@data/types';
+import type { Children, TaskPayload } from '@data/types';
 import type { UpdateValue } from '@data/helperTypes';
 
 type Props = {
-   task: Task;
-   updateValue: UpdateValue<Task>;
+   task: TaskPayload;
+   updateValue: UpdateValue<TaskPayload>;
 } & Children;
 
 type ContextType = {
    updateValue: Props['updateValue'];
 } & {
-   [K in keyof Task]: Task[K];
+   [K in keyof TaskPayload]: TaskPayload[K];
 };
 
 const FormContext = createContext<ContextType>(null!);

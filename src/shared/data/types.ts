@@ -17,6 +17,8 @@ type Project = {
    readonly createdByUser: boolean;
 };
 
+type ProjectPayload = Pick<Project, 'name'>;
+
 type ProjectActions = {
    project: Project;
    addProject: (newProject: Project) => void;
@@ -33,6 +35,8 @@ type Task = {
    date: string | null;
    readonly createdAt: string;
 };
+
+type TaskPayload = Pick<Task, 'name' | 'priority' | 'duration' | 'date'>;
 
 type TaskActions = {
    task: Task;
@@ -60,8 +64,10 @@ type SettingsContext = {
 export {
    Children,
    Project,
+   ProjectPayload,
    ProjectActions,
    Task,
+   TaskPayload,
    TaskActions,
    Dialog,
    Settings,
