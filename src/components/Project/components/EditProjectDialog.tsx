@@ -9,6 +9,7 @@ type Props = Pick<ProjectActions, 'project' | 'editProject'>;
 
 const EditProjectDialog = ({ project, editProject }: Props) => {
    const [projectData, updateValue, reset] = useForm(project);
+
    return (
       <Dialog onCancel={reset} onSuccess={() => editProject(projectData)}>
          <ProjectForm project={projectData} updateValue={updateValue} />

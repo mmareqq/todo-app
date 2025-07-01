@@ -1,7 +1,11 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 
-export default function useForm<T extends object>(template: T) {
+const useForm = <T extends object>(template: T) => {
    const [data, setData] = useState(template);
+
+   useEffect(() => {
+      setData(template);
+   }, [template]);
 
    const resetForm = useCallback(() => setData({ ...template }), [template]);
 
@@ -9,4 +13,6 @@ export default function useForm<T extends object>(template: T) {
       setData((prevData) => ({ ...prevData, [key]: value }));
    }, []);
    return [data, updateValue, resetForm] as const;
-}
+};
+
+export default useForm;

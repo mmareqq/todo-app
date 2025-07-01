@@ -17,7 +17,7 @@ const Menu = ({ addTask }: Props) => {
          >
             Load 5 tasks
          </Button>
-         <Button onClick={openDialog}>Add task</Button>;
+         <Button onClick={openDialog}>Add task</Button>
       </div>
    );
 };
