@@ -20,7 +20,7 @@ const ProjectButton = ({ project, onClick, onRemove }: Props) => {
             {project.name}
          </Button>
          {project.editable && (
-            <DeleteButton remove={onRemove}>{project.name}</DeleteButton>
+            <DeleteButton onRemove={onRemove}>{project.name}</DeleteButton>
          )}
       </div>
    );

@@ -60,8 +60,8 @@ const Task = ({ task, editTask, removeTask, animationDelay }: Props) => {
                   <EditTaskDialog editTask={editTask} task={task} />
                </DialogProvider>
 
-               <DeleteButton remove={() => removeTask(task.id)}>
-                  {task.name}
+               <DeleteButton onRemove={() => removeTask(task.id)}>
+                  {task.name} {task.id}
                </DeleteButton>
             </div>
          </div>

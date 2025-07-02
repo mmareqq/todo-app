@@ -8,18 +8,20 @@ import Button from '@ui/Button';
 import type { Children } from '@data/types';
 
 type Props = {
-   remove: () => void;
+   onRemove: () => void;
 } & Children;
 
-const DeleteButton = ({ remove, children }: Props) => {
+const DeleteButton = ({ onRemove, children }: Props) => {
    return (
       <DialogProvider>
-         <DeleteButtonContent remove={remove}>{children}</DeleteButtonContent>
+         <DeleteButtonContent onRemove={onRemove}>
+            {children}
+         </DeleteButtonContent>
       </DialogProvider>
    );
 };
 
-const DeleteButtonContent = ({ remove, children }: Props) => {
+const DeleteButtonContent = ({ onRemove, children }: Props) => {
    const { openDialog } = useDialogContext();
    return (
       <>
@@ -27,7 +29,7 @@ const DeleteButtonContent = ({ remove, children }: Props) => {
             <span className="sr-only">delete: {children}</span>
             <TrashIcon size={24} />
          </Button>
-         <Dialog onSuccess={remove}>
+         <Dialog onSuccess={onRemove}>
             <p>Delete {children}?</p>
             <p>All data will be permanently deleted.</p>
          </Dialog>

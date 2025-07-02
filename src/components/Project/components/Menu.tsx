@@ -4,7 +4,7 @@ import useDialogContext from '@hooks/useDialogContext';
 import { tasksTemplate } from '@data/data';
 import { TaskActions } from '@data/types';
 
-type Props = Pick<TaskActions, 'addTask'>;
+type Props = Pick<TaskActions, 'addTask' | 'removeTask'>;
 
 const Menu = ({ addTask }: Props) => {
    const { openDialog } = useDialogContext();
@@ -13,7 +13,14 @@ const Menu = ({ addTask }: Props) => {
          <Button
             className="rounded-sm border-1 border-yellow-700 px-4 py-1"
             type="button"
-            onClick={() => tasksTemplate.forEach((task) => addTask(task))}
+            id="btn-tasks-debug"
+            onClick={(e) => {
+               tasksTemplate.forEach((task) => addTask(task));
+               // @ts-expect-error
+               // Only for dev, to be deleted
+               e.target.classList.add('hidden');
+               console.log(e.target);
+            }}
          >
             Load 5 tasks
          </Button>

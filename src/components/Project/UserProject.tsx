@@ -41,7 +41,7 @@ function UserProject({ project, editProject }: Props) {
          />
 
          <DialogProvider>
-            <Menu addTask={addTask} />
+            <Menu addTask={addTask} removeTask={removeTask} />
             <AddTaskDialog addTask={addTask} />
          </DialogProvider>
       </div>
