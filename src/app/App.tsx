@@ -11,8 +11,7 @@ import useActiveProject from './useActiveProject';
 
 export default function App() {
    const { projects, addProject, editProject, removeProject } = useProjects();
-   const { activeProject, activeProjectId, setActiveProjectId } =
-      useActiveProject(projects);
+   const { activeProject, setActiveProjectId } = useActiveProject(projects);
 
    return (
       <SettingsProvider>
@@ -25,7 +24,7 @@ export default function App() {
                   projects={projects}
                   addProject={addProject}
                   removeProject={removeProject}
-                  activeProjectId={activeProjectId}
+                  activeProjectId={activeProject.id}
                   setActiveProjectId={setActiveProjectId}
                />
             </div>
