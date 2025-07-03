@@ -89,6 +89,8 @@ const priorityColors = [
 
 const durationValues = [5, 10, 15, 30, 45, 60, 90];
 
+const defaultProjectId = 'today';
+
 export {
    initialSettings,
    tasksTemplate,
@@ -97,4 +99,5 @@ export {
    projectModel,
    priorityColors,
    durationValues,
+   defaultProjectId,
 };
