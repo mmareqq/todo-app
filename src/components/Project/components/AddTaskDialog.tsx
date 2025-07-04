@@ -1,7 +1,7 @@
 import useForm from '@hooks/useForm';
 import generateId from '@utils/generateId';
 
-import TaskForm from '@components/TaskForm';
+import TaskForm from '@components/TaskForm/TaskForm';
 import Dialog from '@ui/Dialog';
 import { taskModel } from '@data/data';
 

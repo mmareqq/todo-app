@@ -21,7 +21,7 @@ const UpcomingProject = ({ project }: Props) => {
 
    return (
       <div className="oveflow-y-hidden grid h-svh content-start items-start">
-         <Title project={project} editable={false} />
+         <Title title={project.name} isEditable={false} />
          <UpcomingBody
             tasks={groupedTasks}
             editTask={editTask}

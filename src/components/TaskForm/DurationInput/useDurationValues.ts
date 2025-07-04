@@ -1,13 +1,13 @@
 import { durationValues } from '@data/data';
 import { useState, useEffect } from 'react';
 
-function getInititalValues() {
+const getInititalValues = () => {
    const values = localStorage.getItem('durationValues');
-   return values ? JSON.parse(values) : durationValues;
-}
+   return (values ? JSON.parse(values) : durationValues) as number[];
+};
 
 const useDurationValues = () => {
-   const [values, setValues] = useState<number[]>(getInititalValues);
+   const [values, setValues] = useState(getInititalValues);
 
    useEffect(() => {
       localStorage.setItem('durationValues', JSON.stringify(values));
@@ -22,7 +22,7 @@ const useDurationValues = () => {
          prevValues.filter((currValue) => currValue !== value),
       );
 
-   return [values, addValue, removeValue] as const;
+   return { values, addValue, removeValue };
 };
 
 export default useDurationValues;

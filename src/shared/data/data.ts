@@ -87,7 +87,7 @@ const priorityColors = [
    'text-priority-3',
 ];
 
-const durationValues = [5, 10, 15, 30, 45, 60, 90];
+const durationValues = [0, 5, 10, 15, 30, 45, 60, 90];
 
 const defaultProjectId = 'today';
 

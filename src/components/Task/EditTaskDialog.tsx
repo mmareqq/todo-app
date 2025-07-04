@@ -1,6 +1,6 @@
 import useForm from '@hooks/useForm';
 
-import TaskForm from '@components/TaskForm';
+import TaskForm from '@components/TaskForm/TaskForm';
 import Dialog from '@ui/Dialog';
 import type { Task } from '@data/types';
 

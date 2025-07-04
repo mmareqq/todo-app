@@ -4,7 +4,7 @@ import useDialogContext from '@hooks/useDialogContext';
 import { tasksTemplate } from '@data/data';
 import { TaskActions } from '@data/types';
 
-type Props = Pick<TaskActions, 'addTask' | 'removeTask'>;
+type Props = Pick<TaskActions, 'addTask'>;
 
 const Menu = ({ addTask }: Props) => {
    const { openDialog } = useDialogContext();
@@ -19,7 +19,6 @@ const Menu = ({ addTask }: Props) => {
                // @ts-expect-error
                // Only for dev, to be deleted
                e.target.classList.add('hidden');
-               console.log(e.target);
             }}
          >
             Load 5 tasks

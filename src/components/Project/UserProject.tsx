@@ -25,7 +25,10 @@ function UserProject({ project, editProject }: Props) {
       () => sortTasks(tasks, settings.sortMethod),
       [tasks, settings.sortMethod],
    );
-   const totalDuration = tasks.reduce((acc, task) => task.duration + acc, 0);
+   const totalDuration = useMemo(
+      () => tasks.reduce((acc, task) => task.duration + acc, 0),
+      [tasks],
+   );
 
    return (
       <div className="oveflow-y-hidden grid h-svh content-start items-start">
@@ -41,7 +44,7 @@ function UserProject({ project, editProject }: Props) {
          />
 
          <DialogProvider>
-            <Menu addTask={addTask} removeTask={removeTask} />
+            <Menu addTask={addTask} />
             <AddTaskDialog addTask={addTask} />
          </DialogProvider>
       </div>

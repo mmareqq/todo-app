@@ -61,7 +61,7 @@ const Task = ({ task, editTask, removeTask, animationDelay }: Props) => {
                </DialogProvider>
 
                <DeleteButton onRemove={() => removeTask(task.id)}>
-                  {task.name} {task.id}
+                  {task.name || task.id}
                </DeleteButton>
             </div>
          </div>

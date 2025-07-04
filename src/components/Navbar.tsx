@@ -30,7 +30,7 @@ const Navbar = ({
       const preset: Project[] = [];
       const custom: Project[] = [];
       projects.forEach((p) =>
-         p.createdByUser ? preset.push(p) : custom.push(p),
+         p.createdByUser ? custom.push(p) : preset.push(p),
       );
       return [preset, custom];
    }, [projects]);

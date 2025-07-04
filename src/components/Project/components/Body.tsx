@@ -8,7 +8,6 @@ type Props = Pick<TaskActions, 'editTask' | 'removeTask'> & {
 };
 
 const Body = ({ tasks, editTask, removeTask }: Props) => {
-   console.log(tasks);
    return (
       <div className="max-h-full overflow-y-auto">
          <div className="grid gap-4 overflow-x-hidden pr-1">
