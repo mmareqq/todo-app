@@ -1,5 +1,4 @@
 import useForm from '@hooks/useForm';
-import { initalizeTasksInStorage } from '@utils/localStorage';
 import generateId from '@utils/generateId';
 
 import ProjectForm from './Project/components/ProjectForm';
@@ -18,13 +17,12 @@ function AddProjectDialog({ addProject }: Props) {
    return (
       <Dialog
          onSuccess={() => {
-            const project = {
+            const project: Project = {
                id: generateId(),
                name: projectData.name,
                editable: true,
                createdByUser: true,
             };
-            initalizeTasksInStorage(project.id);
             addProject(project);
             resetForm();
          }}

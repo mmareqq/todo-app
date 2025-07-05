@@ -28,6 +28,7 @@ type ProjectActions = {
 
 type Task = {
    readonly id: string;
+   projectId: string;
    finished: boolean;
    name: string;
    priority: number;

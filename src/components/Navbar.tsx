@@ -42,7 +42,6 @@ const Navbar = ({
 
       const handleRemove = () => {
          removeProject(project.id);
-         localStorage.removeItem(`tasks-${project.id}`);
          if (isActive) setActiveProjectId(defaultProjectId);
       };
 

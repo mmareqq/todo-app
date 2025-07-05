@@ -1,9 +1,9 @@
-import type { Project } from '@data/types';
+import type { ProjectPayload } from '@data/types';
 import type { UpdateValue } from '@data/helperTypes';
 
 type Props = {
-   project: Project;
-   updateValue: UpdateValue<Project>;
+   project: ProjectPayload;
+   updateValue: UpdateValue<ProjectPayload>;
 };
 
 const ProjectForm = ({ project, updateValue }: Props) => {

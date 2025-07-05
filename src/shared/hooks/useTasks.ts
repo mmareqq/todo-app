@@ -1,27 +1,33 @@
-import { useEffect, useState } from 'react';
-import type { Project, Task } from '@data/types';
+import { useEffect, useState, useMemo } from 'react';
+import type { Task } from '@data/types';
 
-function useTasks(projectId: Project['id']) {
-   const [tasks, setTasks] = useState(() => getTasks(projectId));
+const getTasks = (): Task[] => {
+   const tasks = localStorage.getItem(`tasks`);
+   return tasks ? JSON.parse(tasks) : [];
+};
+
+const useTasks = (projectId: string) => {
+   const [allTasks, setAllTasks] = useState(getTasks);
+
+   const tasks = useMemo(
+      () => allTasks.filter((task) => task.projectId === projectId),
+      [allTasks, projectId],
+   );
 
    useEffect(() => {
-      setTasks(getTasks(projectId));
-   }, [projectId]);
-
-   useEffect(() => {
-      localStorage.setItem(`tasks-${projectId}`, JSON.stringify(tasks));
-   }, [tasks, projectId]);
+      localStorage.setItem(`tasks`, JSON.stringify(allTasks));
+   }, [allTasks]);
 
    const addTask = (newTask: Task) => {
-      setTasks((prevTasks) => [...prevTasks, newTask]);
+      setAllTasks((prevTasks) => [...prevTasks, newTask]);
    };
 
-   const removeTask = (id: Task['id']) => {
-      setTasks((prevTasks) => prevTasks.filter((task) => task.id != id));
+   const removeTask = (id: string) => {
+      setAllTasks((prevTasks) => prevTasks.filter((task) => task.id != id));
    };
 
    const editTask = (editedTask: Task) => {
-      setTasks((prevTasks) => {
+      setAllTasks((prevTasks) => {
          return prevTasks.map((task) =>
             task.id === editedTask.id ? editedTask : task,
          );
@@ -29,11 +35,6 @@ function useTasks(projectId: Project['id']) {
    };
 
    return { tasks, addTask, removeTask, editTask };
-}
-
-const getTasks = (projectId: Project['id']): Task[] => {
-   const tasks = localStorage.getItem(`tasks-${projectId}`);
-   return tasks ? JSON.parse(tasks) : [];
 };
 
 export default useTasks;
