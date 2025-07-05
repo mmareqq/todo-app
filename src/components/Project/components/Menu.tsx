@@ -1,12 +1,12 @@
 import Button from '@ui/Button';
 
 import useDialogContext from '@hooks/useDialogContext';
-import { tasksTemplate } from '@data/data';
+import getTasksTemplate from '@utils/getTasksTemplate';
 import { TaskActions } from '@data/types';
 
-type Props = Pick<TaskActions, 'addTask'>;
+type Props = Pick<TaskActions, 'addTask'> & { projectId: string };
 
-const Menu = ({ addTask }: Props) => {
+const Menu = ({ addTask, projectId }: Props) => {
    const { openDialog } = useDialogContext();
    return (
       <div className="mt-4 flex justify-end gap-4">
@@ -15,7 +15,8 @@ const Menu = ({ addTask }: Props) => {
             type="button"
             id="btn-tasks-debug"
             onClick={(e) => {
-               tasksTemplate.forEach((task) => addTask(task));
+               const template = getTasksTemplate(projectId);
+               template.forEach(addTask);
                // @ts-expect-error
                // Only for dev, to be deleted
                e.target.classList.add('hidden');

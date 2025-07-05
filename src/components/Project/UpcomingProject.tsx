@@ -28,7 +28,7 @@ const UpcomingProject = ({ project }: Props) => {
             removeTask={removeTask}
          />
          <DialogProvider>
-            <Menu addTask={addTask} />
+            <Menu addTask={addTask} projectId={project.id} />
             <AddTaskDialog addTask={addTask} />
          </DialogProvider>
       </div>

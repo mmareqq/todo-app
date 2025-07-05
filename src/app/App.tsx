@@ -9,7 +9,7 @@ import SettingsProvider from '@contexts/SettingsProvider';
 import useProjects from './useProjects';
 import useActiveProject from './useActiveProject';
 
-export default function App() {
+const App = () => {
    const { projects, addProject, editProject, removeProject } = useProjects();
    const { activeProject, setActiveProjectId } = useActiveProject(projects);
 
@@ -43,4 +43,6 @@ export default function App() {
          </div>
       </SettingsProvider>
    );
-}
+};
+
+export default App;
