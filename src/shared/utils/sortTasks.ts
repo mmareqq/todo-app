@@ -1,5 +1,7 @@
 import type { Task, SortMethod } from '@data/types';
 
+import { compareStrings } from './stringUtils';
+
 function sortTasks(tasks: Task[], method: SortMethod) {
    switch (method) {
       case 'priority':
@@ -40,11 +42,4 @@ function groupTasksByDate(tasks: Task[]) {
 function sortTasksByCreationDate(tasks: Task[]) {
    console.warn('sortTasksByCreationDate not implemented yet');
    return tasks;
-}
-
-function compareStrings(str1: string, str2: string) {
-   return str1.localeCompare(str2, undefined, {
-      sensitivity: 'base',
-      numeric: true,
-   });
 }

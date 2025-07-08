@@ -29,7 +29,7 @@ const UpcomingProject = ({ project }: Props) => {
          />
          <DialogProvider>
             <Menu addTask={addTask} projectId={project.id} />
-            <AddTaskDialog addTask={addTask} />
+            <AddTaskDialog addTask={addTask} projectId={project.id} />
          </DialogProvider>
       </div>
    );

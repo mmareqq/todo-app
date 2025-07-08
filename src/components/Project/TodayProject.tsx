@@ -17,10 +17,9 @@ import type { ProjectActions } from '@data/types';
 
 type Props = Pick<ProjectActions, 'project' | 'editProject'>;
 
-function UserProject({ project, editProject }: Props) {
+const TodayProject = ({ project, editProject }: Props) => {
    const { settings } = useSettingsContext();
    const { tasks, addTask, removeTask, editTask } = useTasks(project.id);
-
    const sortedTasks = useMemo(
       () => sortTasks(tasks, settings.sortMethod),
       [tasks, settings.sortMethod],
@@ -49,6 +48,6 @@ function UserProject({ project, editProject }: Props) {
          </DialogProvider>
       </div>
    );
-}
+};
 
-export default UserProject;
+export default TodayProject;
