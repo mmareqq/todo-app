@@ -1,8 +1,7 @@
 import { useRef } from 'react';
 import AnimateSlideIn from '@ui/AnimateSlideIn';
 
-import { formatDate } from '@utils/formatTime';
-import { formatDuration } from '@utils/formatTime';
+import { formatDate, formatDuration } from '@utils/time';
 
 import { HourGlassIcon } from '@assets/Icons';
 import DeleteButton from '@ui/DeleteButton';

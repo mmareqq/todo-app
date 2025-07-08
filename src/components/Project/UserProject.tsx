@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import DialogProvider from '@contexts/DialogProvider';
 import useSettingsContext from '@hooks/useSettingsContext';
 import useTasks from '@hooks/useTasks';
-import sortTasks from '@utils/sortTasks';
+import sortTasks from '@utils/tasks';
 
 import Title from './components/Title';
 import InfoPanel from './components/InfoPanel';

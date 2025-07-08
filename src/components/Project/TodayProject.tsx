@@ -1,9 +1,11 @@
 import { useMemo } from 'react';
 
 import DialogProvider from '@contexts/DialogProvider';
-import useSettingsContext from '@hooks/useSettingsContext';
 import useTasks from '@hooks/useTasks';
-import sortTasks from '@utils/sortTasks';
+import { sortTasks } from '@utils/tasks';
+
+import { getToday } from '@utils/time';
+import { formatDate } from '@utils/time';
 
 import Title from './components/Title';
 import InfoPanel from './components/InfoPanel';
@@ -18,12 +20,8 @@ import type { ProjectActions } from '@data/types';
 type Props = Pick<ProjectActions, 'project' | 'editProject'>;
 
 const TodayProject = ({ project, editProject }: Props) => {
-   const { settings } = useSettingsContext();
    const { tasks, addTask, removeTask, editTask } = useTasks(project.id);
-   const sortedTasks = useMemo(
-      () => sortTasks(tasks, settings.sortMethod),
-      [tasks, settings.sortMethod],
-   );
+   const sortedTasks = useMemo(() => sortTasks(tasks), [tasks]);
    const totalDuration = useMemo(
       () => tasks.reduce((acc, task) => task.duration + acc, 0),
       [tasks],
@@ -32,7 +30,10 @@ const TodayProject = ({ project, editProject }: Props) => {
    return (
       <div className="oveflow-y-hidden grid h-svh content-start items-start">
          <DialogProvider>
-            <Title title={project.name} isEditable={project.editable} />
+            <Title
+               title={`${project.name} - ${formatDate(getToday())}`}
+               isEditable={project.editable}
+            />
             <EditProjectDialog project={project} editProject={editProject} />
          </DialogProvider>
          <InfoPanel totalDuration={totalDuration} />

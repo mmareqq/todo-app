@@ -1,5 +1,5 @@
 import { HourGlassIcon } from '@assets/Icons';
-import { formatDuration } from '@utils/formatTime';
+import { formatDuration } from '@utils/time';
 import SortMenu from './SortMenu';
 
 type Props = { totalDuration: number };

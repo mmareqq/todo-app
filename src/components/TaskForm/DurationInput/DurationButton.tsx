@@ -1,5 +1,5 @@
 import Button from '@ui/Button';
-import { formatDuration } from '@utils/formatTime';
+import { formatDuration } from '@utils/time';
 import { twMerge } from 'tailwind-merge';
 import type { UpdateValue } from '@data/helperTypes';
 import type { TaskPayload } from '@data/types';

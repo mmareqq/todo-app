@@ -1,7 +1,7 @@
 import Button from '@ui/Button';
 
 import useDialogContext from '@hooks/useDialogContext';
-import getTasksTemplate from '@utils/getTasksTemplate';
+import { getTasksTemplate } from '@utils/tasks';
 import { TaskActions } from '@data/types';
 
 type Props = Pick<TaskActions, 'addTask'> & { projectId: string };

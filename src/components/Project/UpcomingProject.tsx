@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 
 import DialogProvider from '@contexts/DialogProvider';
 import useTasks from '@hooks/useTasks';
-import sortTasks from '@utils/sortTasks';
+import { groupTasksByDate } from '@utils/tasks';
 
 import Title from './components/Title';
 import UpcomingBody from './components/UpcomingBody';
@@ -17,7 +17,7 @@ type Props = {
 
 const UpcomingProject = ({ project }: Props) => {
    const { tasks, addTask, removeTask, editTask } = useTasks(project.id);
-   const groupedTasks = useMemo(() => sortTasks(tasks, 'groupByDate'), [tasks]);
+   const groupedTasks = useMemo(() => groupTasksByDate(tasks), [tasks]);
 
    return (
       <div className="oveflow-y-hidden grid h-svh content-start items-start">

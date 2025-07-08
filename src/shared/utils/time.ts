@@ -12,3 +12,16 @@ export const compareDates = (date1: string, date2: string) => {
    // -1 - after, 0 - equal, 1 - before
    return compareStrings(date1, date2);
 };
+
+export const formatDuration = (totalMinutes: number): string => {
+   const hours = Math.floor(totalMinutes / 60);
+   const minutes = totalMinutes % 60;
+   return [hours ? `${hours}h` : '', minutes ? `${minutes}min` : '']
+      .join(' ')
+      .trim();
+};
+
+export function formatDate(date: string) {
+   const [year, month, day] = date.split('-');
+   return `${day}.${month}.${year}`;
+}
