@@ -1,10 +1,12 @@
 import Task from '@components/Task';
-
-import type { Task as TaskType, TaskActions } from '@data/types';
 import Button from '@ui/Button';
 
-type Props = Pick<TaskActions, 'editTask' | 'removeTask'> & {
+import type { Task as TaskType, TaskActions } from '@data/types';
+
+type Props = {
    tasks: TaskType[];
+   editTask: TaskActions['editTask'];
+   removeTask: TaskActions['removeTask'];
 };
 
 const Body = ({ tasks, editTask, removeTask }: Props) => {

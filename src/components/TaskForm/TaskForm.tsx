@@ -1,9 +1,11 @@
 import type { TaskPayload } from '@data/types';
 import type { UpdateValue } from '@data/helperTypes';
+
 import NameInput from './NameInput';
 import PriorityInput from './PriorityInput';
 import DurationInput from './DurationInput';
 import DateInput from './DateInput';
+
 type Props = {
    task: TaskPayload;
    updateValue: UpdateValue<TaskPayload>;

@@ -5,8 +5,12 @@ import TaskForm from '@components/TaskForm';
 import Dialog from '@ui/Dialog';
 import { taskModel } from '@data/data';
 
-import type { Task, TaskActions, TaskPayload } from '@data/types';
-type Props = Pick<TaskActions, 'addTask'> & { projectId: string };
+import type { Task, TaskActions } from '@data/types';
+
+type Props = {
+   addTask: TaskActions['addTask'];
+   projectId: string;
+};
 
 const AddTaskDialog = ({ addTask, projectId }: Props) => {
    const [task, updateValue, resetForm] = useForm(taskModel);

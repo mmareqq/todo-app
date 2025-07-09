@@ -4,7 +4,10 @@ import useDialogContext from '@hooks/useDialogContext';
 import { getTasksTemplate } from '@utils/tasks';
 import { TaskActions } from '@data/types';
 
-type Props = Pick<TaskActions, 'addTask'> & { projectId: string };
+type Props = {
+   addTask: TaskActions['addTask'];
+   projectId: string;
+};
 
 const Menu = ({ addTask, projectId }: Props) => {
    const { openDialog } = useDialogContext();

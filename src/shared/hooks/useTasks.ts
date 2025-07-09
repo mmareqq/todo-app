@@ -2,7 +2,6 @@ import { useEffect, useState, useMemo } from 'react';
 import type { Task } from '@data/types';
 
 import { compareDates, getToday } from '@utils/time';
-import useSettingsContext from './useSettingsContext';
 
 const getTasks = (): Task[] => {
    const tasks = localStorage.getItem(`tasks`);
@@ -26,7 +25,6 @@ const filterTasks = (allTasks: Task[], projectId: string) => {
 
 const useTasks = (projectId: string) => {
    const [allTasks, setAllTasks] = useState(getTasks);
-   const { settings } = useSettingsContext();
 
    const tasks = useMemo(
       () => filterTasks(allTasks, projectId),
