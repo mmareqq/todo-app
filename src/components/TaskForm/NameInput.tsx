@@ -9,7 +9,7 @@ type Props = {
 const NameInput = ({ name, updateValue }: Props) => {
    return (
       <div>
-         <label htmlFor="taskName">Name</label>
+         <label htmlFor="taskName">Name:</label>
          <input
             className="ml-2 border"
             type="text"

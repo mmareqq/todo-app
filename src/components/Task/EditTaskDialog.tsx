@@ -18,9 +18,11 @@ const EditTaskDialog = ({ task, editTask }: Props) => {
    };
    const [formTask, updateValue, resetForm] = useForm(taskPayload);
 
-   const fullFormTask: Task = { ...task, ...formTask };
    return (
-      <Dialog onCancel={resetForm} onSuccess={() => editTask(fullFormTask)}>
+      <Dialog
+         onSuccess={() => editTask({ ...task, ...formTask })}
+         onCancel={resetForm}
+      >
          <TaskForm task={formTask} updateValue={updateValue} />
       </Dialog>
    );
