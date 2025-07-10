@@ -17,13 +17,12 @@ type Props = {
 
 const UpcomingProject = ({ project }: Props) => {
    const { tasks, addTask, removeTask, editTask } = useTasks(project.id);
-   const groupedTasks = useMemo(() => groupTasksByDate(tasks), [tasks]);
 
    return (
       <div className="oveflow-y-hidden grid h-svh content-start items-start">
          <Title title={project.name} isEditable={false} />
          <UpcomingBody
-            tasks={groupedTasks}
+            tasks={tasks}
             editTask={editTask}
             removeTask={removeTask}
          />

@@ -1,10 +1,23 @@
 import { compareStrings } from './stringUtils';
+
+const DAY_MINUTES = 24 * 60;
+const DAY_SECONDS = DAY_MINUTES * 60;
+const DAY_MS = DAY_SECONDS * 1000;
+
 export const getToday = () => {
    const date = new Date();
+   return convertDateToStr(date);
+};
+
+export const getNextDay = (date: string) => {
+   const nextDayDate = new Date(new Date(date).getTime() + DAY_MS);
+   return convertDateToStr(nextDayDate);
+};
+
+const convertDateToStr = (date: Date) => {
    const day = date.getDate().toString().padStart(2, '0');
    const month = (date.getMonth() + 1).toString().padStart(2, '0');
    const year = date.getFullYear();
-
    return `${year}-${month}-${day}`;
 };
 

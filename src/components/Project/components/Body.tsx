@@ -1,10 +1,10 @@
 import Task from '@components/Task';
 import Button from '@ui/Button';
 
-import type { Task as TaskType, TaskActions } from '@data/types';
+import type { TaskActions } from '@data/types';
 
 type Props = {
-   tasks: TaskType[];
+   tasks: TaskActions['task'][];
    editTask: TaskActions['editTask'];
    removeTask: TaskActions['removeTask'];
 };

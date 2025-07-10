@@ -1,4 +1,4 @@
-import type { Task, SortMethod } from '@data/types';
+import type { Task } from '@data/types';
 import generateId from './generateId';
 
 import { compareStrings } from './stringUtils';
@@ -34,8 +34,21 @@ function sortTasksByName(tasks: Task[]) {
    );
 }
 
+function sortTasksByDate(tasks: Task[]) {
+   return tasks.toSorted((task1, task2) =>
+      compareStrings(task1.date || '0', task2.date || '-1'),
+   );
+}
+
 export function groupTasksByDate(tasks: Task[]) {
-   return tasks;
+   const sortedTasks = sortTasksByDate(tasks);
+   const dates: Record<string, Task[]> = {};
+   sortedTasks.forEach((task) => {
+      if (!task.date) return;
+      if (dates[task.date]) dates[task.date].push(task);
+      else dates[task.date] = [task];
+   });
+   return dates;
 }
 
 export const getTasksTemplate = (projectId: string): Task[] => {
