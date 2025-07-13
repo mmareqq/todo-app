@@ -2,19 +2,15 @@ import type { Task } from '@data/types';
 import generateId from './generateId';
 
 import { compareStrings } from './stringUtils';
-import useSettingsContext from '@hooks/useSettingsContext';
-
-export function sortTasks(tasks: Task[]) {
-   const { settings } = useSettingsContext();
-   switch (settings.sortMethod) {
+import type { SortMethod } from '@data/types';
+export function sortTasks(tasks: Task[], sortMethod: SortMethod) {
+   switch (sortMethod) {
       case 'priority':
          return sortTasksByPriority(tasks);
       case 'name':
          return sortTasksByName(tasks);
       case 'duration':
          return sortTasksByDuration(tasks);
-      case 'groupByDate':
-         return groupTasksByDate(tasks);
       default:
          throw new Error('Wrong method for sorting tasks');
    }

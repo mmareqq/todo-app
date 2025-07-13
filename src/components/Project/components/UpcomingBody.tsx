@@ -49,8 +49,8 @@ const UpcomingBody = ({ tasks, editTask, removeTask }: Props) => {
                Remove all
             </Button>
             {Object.entries(dates).map(([date, tasks]) => (
-               <div>
-                  <h3 key={date}>{date}</h3>
+               <div key={date}>
+                  <h3>{date}</h3>
                   <ul>
                      {tasks.map((task, i) => {
                         return (

@@ -13,13 +13,18 @@ import EditProjectDialog from './components/EditProjectDialog';
 import AddTaskDialog from './components/AddTaskDialog';
 
 import type { ProjectActions } from '@data/types';
+import useSettingsContext from '@hooks/useSettingsContext';
 
 type Props = Pick<ProjectActions, 'project' | 'editProject'>;
 
 function UserProject({ project, editProject }: Props) {
    const { tasks, addTask, removeTask, editTask } = useTasks(project.id);
+   const { settings } = useSettingsContext();
+   const sortedTasks = useMemo(
+      () => sortTasks(tasks, settings.sortMethod),
+      [tasks],
+   );
 
-   const sortedTasks = useMemo(() => sortTasks(tasks), [tasks]);
    const totalDuration = useMemo(
       () => tasks.reduce((acc, task) => task.duration + acc, 0),
       [tasks],
