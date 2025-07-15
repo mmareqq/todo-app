@@ -1,8 +1,5 @@
-import { useMemo } from 'react';
-
 import DialogProvider from '@contexts/DialogProvider';
 import useTasks from '@hooks/useTasks';
-import { groupTasksByDate } from '@utils/tasks';
 
 import Title from './components/Title';
 import UpcomingBody from './components/UpcomingBody';

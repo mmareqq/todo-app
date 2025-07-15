@@ -1,10 +1,14 @@
-import Button from '@ui/Button';
-import Task from '@components/Task';
-
 import { useMemo } from 'react';
 
-import type { TaskActions } from '@data/types';
+import Button from '@ui/Button';
+import Task from '@components/Task';
 import { groupTasksByDate } from '@utils/tasks';
+
+import { formatDate } from '@utils/time';
+
+import type { TaskActions } from '@data/types';
+
+import { getDayOfWeek } from '@utils/time';
 
 type Props = {
    tasks: TaskActions['task'][];
@@ -14,26 +18,6 @@ type Props = {
 
 const UpcomingBody = ({ tasks, editTask, removeTask }: Props) => {
    const dates = useMemo(() => groupTasksByDate(tasks), [tasks]);
-
-   const renderTasks = (tasks: Task[]) => {
-      return tasks.map((task, i) => {
-         <Task
-            key={task.id}
-            task={task}
-            editTask={editTask}
-            removeTask={removeTask}
-            animationDelay={i * 0.05}
-         />;
-      });
-   };
-
-   const renderDates = () => {
-      for (const date in dates) {
-         const tasks = dates[date];
-         return renderTasks(tasks);
-      }
-   };
-
    return (
       <div className="max-h-full overflow-y-auto">
          <div className="grid gap-4 overflow-x-hidden pr-1">
@@ -48,9 +32,11 @@ const UpcomingBody = ({ tasks, editTask, removeTask }: Props) => {
             >
                Remove all
             </Button>
-            {Object.entries(dates).map(([date, tasks]) => (
+            {dates.map(([date, tasks]) => (
                <div key={date}>
-                  <h3>{date}</h3>
+                  <h3 className="opacity-50">
+                     {formatDate(date)} {getDayOfWeek(date)}
+                  </h3>
                   <ul>
                      {tasks.map((task, i) => {
                         return (

@@ -9,9 +9,34 @@ export const getToday = () => {
    return convertDateToStr(date);
 };
 
-export const getNextDay = (date: string) => {
+export const getDatesMap = (length = 365) => {
+   const dates = new Map<string, any[]>();
+   let currDay = getToday();
+   while (length > 0) {
+      dates.set(currDay, []);
+      currDay = getNextDay(currDay);
+      length -= 1;
+   }
+   return dates;
+};
+
+const getNextDay = (date: string) => {
    const nextDayDate = new Date(new Date(date).getTime() + DAY_MS);
    return convertDateToStr(nextDayDate);
+};
+
+export const getDayOfWeek = (date: string) => {
+   const dayNames = [
+      'Sunday',
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+   ];
+   const dateDay = new Date(date).getDay();
+   return dayNames[dateDay];
 };
 
 const convertDateToStr = (date: Date) => {

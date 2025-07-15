@@ -3,6 +3,9 @@ import generateId from './generateId';
 
 import { compareStrings } from './stringUtils';
 import type { SortMethod } from '@data/types';
+import { getDatesMap } from './time';
+import { convertMapToArray } from './convert';
+
 export function sortTasks(tasks: Task[], sortMethod: SortMethod) {
    switch (sortMethod) {
       case 'priority':
@@ -37,14 +40,17 @@ function sortTasksByDate(tasks: Task[]) {
 }
 
 export function groupTasksByDate(tasks: Task[]) {
-   const sortedTasks = sortTasksByDate(tasks);
-   const dates: Record<string, Task[]> = {};
-   sortedTasks.forEach((task) => {
+   const dates: Map<string, Task[]> = getDatesMap();
+   console.log('dates for the whole year: ', dates);
+
+   tasks.forEach((task) => {
       if (!task.date) return;
-      if (dates[task.date]) dates[task.date].push(task);
-      else dates[task.date] = [task];
+      const dateTasks = dates.get(task.date);
+      if (!dateTasks) return;
+      dateTasks.push(task);
    });
-   return dates;
+
+   return convertMapToArray(dates);
 }
 
 export const getTasksTemplate = (projectId: string): Task[] => {
