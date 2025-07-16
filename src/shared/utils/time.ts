@@ -7,7 +7,7 @@ const DAY_MS = DAY_SECONDS * 1000;
 export const getToday = () => convertDateToStr(new Date());
 
 export const getDatesMap = (length = 365) => {
-   const dates = new Map<string, unknown[]>();
+   const dates = new Map<string, any[]>();
    const today = getToday();
 
    for (let i = 0; i < length; i++) {

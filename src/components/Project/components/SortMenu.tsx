@@ -4,10 +4,11 @@ import { ChevronIcon } from '@assets/Icons';
 import AnimateExit from '@ui/AnimateExit';
 import DropdownItem from '@ui/DropdownItem';
 import Button from '@ui/Button';
+import type { SortMethod } from '@data/types';
 
 const SortMenu = () => {
    const [isOpen, setIsOpen] = useState(false);
-   const sortOptions = ['priority', 'duration', 'name'];
+   const sortOptions: SortMethod[] = ['priority', 'duration', 'name'];
 
    const toggleOpen = () => setIsOpen((p) => !p);
 

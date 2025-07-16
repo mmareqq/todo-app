@@ -18,11 +18,12 @@ import useSettingsContext from '@hooks/useSettingsContext';
 type Props = Pick<ProjectActions, 'project' | 'editProject'>;
 
 function UserProject({ project, editProject }: Props) {
-   const { tasks, addTask, removeTask, editTask } = useTasks(project.id);
    const { settings } = useSettingsContext();
+
+   const { tasks, addTask, removeTask, editTask } = useTasks(project.id);
    const sortedTasks = useMemo(
       () => sortTasks(tasks, settings.sortMethod),
-      [tasks],
+      [tasks, settings.sortMethod],
    );
 
    const totalDuration = useMemo(

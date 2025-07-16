@@ -1,17 +1,17 @@
+import useSettingsContext from '@hooks/useSettingsContext';
+import Button from './Button';
 import { Dot } from '@assets/Icons';
 import { capitalize } from '@utils/stringUtils';
-import Button from './Button';
 
-import useSettingsContext from '@hooks/useSettingsContext';
+import type { SortMethod } from '@data/types';
 
 type Props = {
-   value: string;
+   value: SortMethod;
    close: () => void;
 };
 
 const DropdownItem = ({ value, close }: Props) => {
    const { settings, updateSetting } = useSettingsContext();
-
    return (
       <div>
          <Button

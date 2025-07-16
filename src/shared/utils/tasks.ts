@@ -1,12 +1,12 @@
-import type { Task } from '@data/types';
 import generateId from './generateId';
 
 import { compareStrings } from './stringUtils';
-import type { SortMethod } from '@data/types';
 import { getDatesMap } from './time';
 import { convertMapToArray } from './convert';
 
-export function sortTasks(tasks: Task[], sortMethod: SortMethod) {
+import type { Task, SortMethod } from '@data/types';
+
+export const sortTasks = (tasks: Task[], sortMethod: SortMethod) => {
    switch (sortMethod) {
       case 'priority':
          return sortTasksByPriority(tasks);
@@ -17,7 +17,7 @@ export function sortTasks(tasks: Task[], sortMethod: SortMethod) {
       default:
          throw new Error('Wrong method for sorting tasks');
    }
-}
+};
 
 function sortTasksByPriority(tasks: Task[]) {
    return tasks.toSorted((task1, task2) => task2.priority - task1.priority);
@@ -41,13 +41,11 @@ function sortTasksByDate(tasks: Task[]) {
 
 export function groupTasksByDate(tasks: Task[]) {
    const dates: Map<string, Task[]> = getDatesMap();
-   console.log('dates for the whole year: ', dates);
 
    tasks.forEach((task) => {
       if (!task.date) return;
       const dateTasks = dates.get(task.date);
-      if (!dateTasks) return;
-      dateTasks.push(task);
+      if (dateTasks) dateTasks.push(task);
    });
 
    return convertMapToArray(dates);
@@ -62,7 +60,7 @@ export const getTasksTemplate = (projectId: string): Task[] => {
          name: 'Task 1',
          priority: 2,
          duration: 15,
-         date: null,
+         date: '2025-07-30',
          createdAt: new Date().toISOString(),
       },
       {
@@ -72,7 +70,7 @@ export const getTasksTemplate = (projectId: string): Task[] => {
          name: 'Task 2',
          priority: 0,
          duration: 90,
-         date: null,
+         date: '2025-08-01',
          createdAt: new Date().toISOString(),
       },
       {
@@ -82,7 +80,7 @@ export const getTasksTemplate = (projectId: string): Task[] => {
          name: 'Task 3',
          priority: 1,
          duration: 45,
-         date: null,
+         date: '2025-07-25',
          createdAt: new Date().toISOString(),
       },
       {
@@ -92,7 +90,7 @@ export const getTasksTemplate = (projectId: string): Task[] => {
          name: 'Task 4',
          priority: 2,
          duration: 15,
-         date: null,
+         date: '2025-08-10',
          createdAt: new Date().toISOString(),
       },
       {
@@ -102,7 +100,7 @@ export const getTasksTemplate = (projectId: string): Task[] => {
          name: 'Task 5',
          priority: 3,
          duration: 5,
-         date: null,
+         date: '2025-08-12',
          createdAt: new Date().toISOString(),
       },
    ];
