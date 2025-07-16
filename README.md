@@ -1,10 +1,10 @@
 # Todo List App
 
-Made using React, tailwind, motion library
+Made using React, Tailwind, motion library
 
-Implemented local storage to store user data
+- local storage to store user data
 
-Inspired by Todoist app
+The design and data structure inspired by Todoist app
 
 ## learned
 

@@ -4,25 +4,24 @@ const DAY_MINUTES = 24 * 60;
 const DAY_SECONDS = DAY_MINUTES * 60;
 const DAY_MS = DAY_SECONDS * 1000;
 
-export const getToday = () => {
-   const date = new Date();
-   return convertDateToStr(date);
-};
+export const getToday = () => convertDateToStr(new Date());
 
 export const getDatesMap = (length = 365) => {
-   const dates = new Map<string, any[]>();
-   let currDay = getToday();
-   while (length > 0) {
-      dates.set(currDay, []);
-      currDay = getNextDay(currDay);
-      length -= 1;
+   const dates = new Map<string, unknown[]>();
+   const today = getToday();
+
+   for (let i = 0; i < length; i++) {
+      const currDate = addDaysToDate(today, i);
+      dates.set(currDate, []);
    }
+
    return dates;
 };
 
-const getNextDay = (date: string) => {
-   const nextDayDate = new Date(new Date(date).getTime() + DAY_MS);
-   return convertDateToStr(nextDayDate);
+const addDaysToDate = (date: string, days: number) => {
+   const daysMS = DAY_MS * days;
+   const newDate = new Date(new Date(date).getTime() + daysMS);
+   return convertDateToStr(newDate);
 };
 
 export const getDayOfWeek = (date: string) => {
@@ -43,12 +42,11 @@ const convertDateToStr = (date: Date) => {
    const day = date.getDate().toString().padStart(2, '0');
    const month = (date.getMonth() + 1).toString().padStart(2, '0');
    const year = date.getFullYear();
-   return `${year}-${month}-${day}`;
+   return `${year}-${month}-${day}`; // 2025-05-25
 };
 
 export const compareDates = (date1: string, date2: string) => {
-   // -1 - after, 0 - equal, 1 - before
-   return compareStrings(date1, date2);
+   return compareStrings(date1, date2); // -1 - after, 0 - equal, 1 - before
 };
 
 export const formatDuration = (totalMinutes: number): string => {
@@ -57,9 +55,10 @@ export const formatDuration = (totalMinutes: number): string => {
    return [hours ? `${hours}h` : '', minutes ? `${minutes}min` : '']
       .join(' ')
       .trim();
+   // 3h 45min
 };
 
-export function formatDate(date: string) {
+export const formatDate = (date: string) => {
    const [year, month, day] = date.split('-');
-   return `${day}.${month}.${year}`;
-}
+   return `${day}.${month}.${year}`; // 15.05.2025
+};
