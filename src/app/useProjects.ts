@@ -11,7 +11,6 @@ const getProjects = (): Project[] => {
 const useProjects = () => {
    const [projects, setProjects] = useState(getProjects);
 
-   // Sync with localStorage
    useEffect(() => {
       localStorage.setItem('projects', JSON.stringify(projects));
    }, [projects]);

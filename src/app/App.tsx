@@ -29,7 +29,7 @@ const App = () => {
                />
             </div>
             <main>
-               <div className="main wrapper h-svh">
+               <div className="main h-svh">
                   <GrainEffect opacity={0.01} noiseValue={15} />
                   <GrainEffect
                      opacity={0.025}

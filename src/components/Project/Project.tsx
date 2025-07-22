@@ -1,5 +1,6 @@
 import UserProject from './UserProject';
 import UpcomingProject from './UpcomingProject';
+import StickyBoard from '@components/StickyBoard';
 
 import type { ProjectActions } from '@data/types';
 
@@ -11,6 +12,9 @@ const Project = ({ project, editProject }: Props) => {
    if (project.id === 'today')
       return <UserProject project={project} editProject={editProject} />;
 
+   if (project.id === 'sticky-board') {
+      return <StickyBoard />;
+   }
    return <UserProject project={project} editProject={editProject} />;
 };
 

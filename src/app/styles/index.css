@@ -34,3 +34,12 @@
    --color-warning-400: var(--color-yellow-600);
    --color-warning-700: var(--color-yellow-900);
 }
+
+@layer utilities {
+   .center-abs {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      translate: -50% -50%;
+   }
+}

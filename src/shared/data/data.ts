@@ -30,6 +30,12 @@ const appProjects: Project[] = [
       editable: false,
       createdByUser: false,
    },
+   {
+      id: 'sticky-board',
+      name: 'Sticky Board',
+      editable: false,
+      createdByUser: false,
+   },
 ];
 
 const priorityColors = [
