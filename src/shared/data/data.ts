@@ -1,9 +1,10 @@
+import generateId from '@utils/generateId';
 import type {
    Settings,
    TaskPayload,
-   Task,
    Project,
    ProjectPayload,
+   Note,
 } from './types';
 
 const initialSettings: Settings = {
@@ -49,6 +50,18 @@ const durationValues = [0, 5, 10, 15, 30, 45, 60, 90];
 
 const defaultProjectId = 'today';
 
+const exampleNote: Note = {
+   id: '1234--er-sdf-ads',
+   title: 'Mitochondrium',
+   description:
+      'Otoczone dwiema błonami organellum, obecne w większości komórek eukariotycznych. copy btn, edit btn, delete btn',
+   x: 150,
+   y: 300,
+   width: 200,
+   height: 200,
+   color: 'lime',
+};
+
 export {
    initialSettings,
    appProjects,
@@ -57,4 +70,5 @@ export {
    priorityColors,
    durationValues,
    defaultProjectId,
+   exampleNote,
 };

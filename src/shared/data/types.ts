@@ -26,6 +26,17 @@ type ProjectActions = {
    removeProject: (id: Project['id']) => void;
 };
 
+type Note = {
+   readonly id: string;
+   title: string;
+   description: string;
+   color?: string;
+   x: number;
+   y: number;
+   width: number;
+   height: number;
+};
+
 type Task = {
    readonly id: string;
    projectId: string;
@@ -74,4 +85,5 @@ export {
    Settings,
    SortMethod,
    SettingsContext,
+   Note,
 };
