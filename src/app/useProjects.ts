@@ -16,21 +16,19 @@ const useProjects = () => {
    }, [projects]);
 
    const addProject = (newProject: Project) => {
-      setProjects((prevProjects) => [...prevProjects, newProject]);
+      setProjects(prevProjects => [...prevProjects, newProject]);
    };
 
    const editProject = (newProject: Project) => {
-      setProjects((prevProjects) =>
-         prevProjects.map((project) =>
+      setProjects(prevProjects =>
+         prevProjects.map(project =>
             project.id === newProject.id ? newProject : project,
          ),
       );
    };
 
    const removeProject = (id: Project['id']) => {
-      setProjects((prevProjects) =>
-         prevProjects.filter((proj) => proj.id !== id),
-      );
+      setProjects(prevProjects => prevProjects.filter(proj => proj.id !== id));
    };
 
    return { projects, addProject, editProject, removeProject };

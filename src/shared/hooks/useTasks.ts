@@ -12,14 +12,14 @@ const filterTasks = (allTasks: Task[], projectId: string) => {
    const today = getToday();
    switch (projectId) {
       case 'today':
-         return allTasks.filter((task) => task.date === getToday());
+         return allTasks.filter(task => task.date === getToday());
       case 'upcoming':
-         return allTasks.filter((task) => {
+         return allTasks.filter(task => {
             if (!task.date) return false;
             return compareDates(today, task.date) <= 0;
          });
       default:
-         return allTasks.filter((task) => task.projectId === projectId);
+         return allTasks.filter(task => task.projectId === projectId);
    }
 };
 
@@ -36,16 +36,16 @@ const useTasks = (projectId: string) => {
    }, [allTasks]);
 
    const addTask = (newTask: Task) => {
-      setAllTasks((prevTasks) => [...prevTasks, newTask]);
+      setAllTasks(prevTasks => [...prevTasks, newTask]);
    };
 
    const removeTask = (id: string) => {
-      setAllTasks((prevTasks) => prevTasks.filter((task) => task.id != id));
+      setAllTasks(prevTasks => prevTasks.filter(task => task.id != id));
    };
 
    const editTask = (editedTask: Task) => {
-      setAllTasks((prevTasks) => {
-         return prevTasks.map((task) =>
+      setAllTasks(prevTasks => {
+         return prevTasks.map(task =>
             task.id === editedTask.id ? editedTask : task,
          );
       });

@@ -17,7 +17,7 @@ const Menu = ({ addTask, projectId }: Props) => {
             className="rounded-sm border-1 border-yellow-700 px-4 py-1"
             type="button"
             id="btn-tasks-debug"
-            onClick={(e) => {
+            onClick={e => {
                const template = getTasksTemplate(projectId);
                template.forEach(addTask);
                // @ts-expect-error

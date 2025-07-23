@@ -42,7 +42,7 @@ function sortTasksByDate(tasks: Task[]) {
 export function groupTasksByDate(tasks: Task[]) {
    const dates: Map<string, Task[]> = getDatesMap();
 
-   tasks.forEach((task) => {
+   tasks.forEach(task => {
       if (!task.date) return;
       const dateTasks = dates.get(task.date);
       if (dateTasks) dateTasks.push(task);

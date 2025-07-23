@@ -16,7 +16,7 @@ const App = () => {
    return (
       <SettingsProvider>
          <div className="body bg-primary-900 text-primary-50">
-            <div>
+            <div className="z-2">
                <h1 className="border-primary-500 m-4 ml-auto w-min border-r border-b p-2 font-mono text-3xl leading-none font-bold">
                   To <br /> Do
                </h1>

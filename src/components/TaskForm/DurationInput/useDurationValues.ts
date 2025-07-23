@@ -14,12 +14,12 @@ const useDurationValues = () => {
    }, [values]);
 
    const addValue = (value: number) => {
-      setValues((prevValues) => [...prevValues, value].sort((a, b) => a - b));
+      setValues(prevValues => [...prevValues, value].sort((a, b) => a - b));
    };
 
    const removeValue = (value: number) =>
-      setValues((prevValues) =>
-         prevValues.filter((currValue) => currValue !== value),
+      setValues(prevValues =>
+         prevValues.filter(currValue => currValue !== value),
       );
 
    return { values, addValue, removeValue };

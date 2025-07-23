@@ -10,7 +10,7 @@ const SortMenu = () => {
    const [isOpen, setIsOpen] = useState(false);
    const sortOptions: SortMethod[] = ['priority', 'duration', 'name'];
 
-   const toggleOpen = () => setIsOpen((p) => !p);
+   const toggleOpen = () => setIsOpen(p => !p);
 
    return (
       <div className="relative z-10">
@@ -30,7 +30,7 @@ const SortMenu = () => {
             hidden={isOpen}
             className='className="bg-primary-800 border-primary-600 outline-primary-600 outline-1" absolute inset-x-0 origin-top overflow-hidden rounded-sm'
          >
-            {sortOptions.map((option) => (
+            {sortOptions.map(option => (
                <DropdownItem key={option} value={option} close={toggleOpen} />
             ))}
          </AnimateExit>

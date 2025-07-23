@@ -29,7 +29,7 @@ const Navbar = ({
    const [presetProjects, customProjects] = useMemo(() => {
       const preset: Project[] = [];
       const custom: Project[] = [];
-      projects.forEach((p) =>
+      projects.forEach(p =>
          p.createdByUser ? custom.push(p) : preset.push(p),
       );
       return [preset, custom];
@@ -39,7 +39,6 @@ const Navbar = ({
       const isActive = project.id === activeProjectId;
 
       const handleClick = () => setActiveProjectId(project.id);
-
       const handleRemove = () => {
          removeProject(project.id);
          if (isActive) setActiveProjectId(defaultProjectId);

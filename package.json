@@ -1,38 +1,38 @@
 {
-  "name": "todo-app-2",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite --host",
-    "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview",
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --silent --verbose --no-stack-trace"
-  },
-  "dependencies": {
-    "@tailwindcss/vite": "^4.0.3",
-    "motion": "^12.4.10",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "tailwind-merge": "^3.0.2",
-    "tailwindcss": "^4.0.3"
-  },
-  "devDependencies": {
-    "@eslint/js": "^9.17.0",
-    "@types/jest": "^29.5.14",
-    "@types/react": "^18.3.22",
-    "@types/react-dom": "^18.3.7",
-    "@vitejs/plugin-react-swc": "^3.5.0",
-    "eslint": "^9.17.0",
-    "eslint-plugin-react": "^7.37.2",
-    "eslint-plugin-react-hooks": "^5.0.0",
-    "eslint-plugin-react-refresh": "^0.4.16",
-    "globals": "^15.14.0",
-    "jest": "^29.7.0",
-    "prettier": "^3.4.2",
-    "prettier-plugin-tailwindcss": "^0.6.11",
-    "typescript": "^5.8.3",
-    "vite": "^6.0.5"
-  }
+   "name": "todo-app-2",
+   "private": true,
+   "version": "0.0.0",
+   "type": "module",
+   "scripts": {
+      "dev": "vite --host",
+      "build": "vite build",
+      "lint": "eslint .",
+      "preview": "vite preview",
+      "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --silent --verbose --no-stack-trace"
+   },
+   "dependencies": {
+      "@tailwindcss/vite": "^4.0.3",
+      "motion": "^12.4.10",
+      "react": "^18.3.1",
+      "react-dom": "^18.3.1",
+      "tailwind-merge": "^3.0.2",
+      "tailwindcss": "^4.0.3"
+   },
+   "devDependencies": {
+      "@eslint/js": "^9.17.0",
+      "@types/jest": "^29.5.14",
+      "@types/react": "^18.3.22",
+      "@types/react-dom": "^18.3.7",
+      "@vitejs/plugin-react-swc": "^3.5.0",
+      "eslint": "^9.17.0",
+      "eslint-plugin-react": "^7.37.2",
+      "eslint-plugin-react-hooks": "^5.0.0",
+      "eslint-plugin-react-refresh": "^0.4.16",
+      "globals": "^15.14.0",
+      "jest": "^29.7.0",
+      "prettier": "^3.4.2",
+      "prettier-plugin-tailwindcss": "^0.6.11",
+      "typescript": "^5.8.3",
+      "vite": "^6.0.5"
+   }
 }

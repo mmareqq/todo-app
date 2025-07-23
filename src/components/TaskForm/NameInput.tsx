@@ -16,7 +16,7 @@ const NameInput = ({ name, updateValue }: Props) => {
             id="taskName"
             name="taskName"
             value={name}
-            onChange={(e) => updateValue('name', e.target.value)}
+            onChange={e => updateValue('name', e.target.value)}
          />
       </div>
    );

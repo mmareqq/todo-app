@@ -7,7 +7,7 @@ const useForm = <T extends object>(template: T) => {
    const resetForm = useCallback(() => setData({ ...template }), [template]);
 
    const updateValue: UpdateValue<T> = useCallback((key, value) => {
-      setData((prevData) => ({ ...prevData, [key]: value }));
+      setData(prevData => ({ ...prevData, [key]: value }));
    }, []);
    return [data, updateValue, resetForm] as const;
 };

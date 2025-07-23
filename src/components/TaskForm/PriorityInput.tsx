@@ -15,7 +15,7 @@ const PriorityInput = ({ priority, updateValue }: Props) => {
       <div className="grid gap-2">
          <div className="mb-1">Priority</div>
          <div className="flex justify-between">
-            {priorities.map((i) => {
+            {priorities.map(i => {
                const isActive = priority === i;
                return (
                   <label

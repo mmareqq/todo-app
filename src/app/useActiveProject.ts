@@ -10,13 +10,13 @@ const getActiveId = () => {
 const useActiveProject = (projects: Project[]) => {
    const [activeProjectId, setActiveProjectId] = useState(getActiveId);
    const defaultProject = useMemo(() => {
-      const p = projects.find((p) => p.id === defaultProjectId);
+      const p = projects.find(p => p.id === defaultProjectId);
       if (p) return p;
       throw new Error('default project always must be in the projects array');
    }, [projects]);
 
    const activeProject = useMemo(() => {
-      return projects.find((p) => p.id === activeProjectId) || defaultProject;
+      return projects.find(p => p.id === activeProjectId) || defaultProject;
    }, [projects, activeProjectId]);
 
    useEffect(() => {

@@ -23,7 +23,7 @@ const EditPanel = ({
       setInputVal('');
       const val = Number(inputVal);
 
-      if (values.some((v) => v === val)) return; // if already in the arr
+      if (values.some(v => v === val)) return; // if already in the arr
       addValue(val);
    };
 

@@ -27,7 +27,7 @@ const DurationInput = ({ duration, updateValue }: Props) => {
             />
          </div>
          <ul className="flex flex-wrap items-center gap-2">
-            {values.map((val) => (
+            {values.map(val => (
                <DurationButton
                   key={val}
                   val={val}

@@ -17,7 +17,7 @@ const ProjectForm = ({ project, updateValue }: Props) => {
                id="projectName"
                name="projectName"
                value={project.name}
-               onChange={(e) => {
+               onChange={e => {
                   updateValue('name', e.target.value);
                }}
             />

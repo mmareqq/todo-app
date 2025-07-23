@@ -30,7 +30,7 @@ const useSettings = () => {
    }, [settings]);
 
    const updateSetting: SettingsContextType['updateSetting'] = (key, value) => {
-      setSettings((prevSettings) => ({ ...prevSettings, [key]: value }));
+      setSettings(prevSettings => ({ ...prevSettings, [key]: value }));
    };
 
    return { settings, updateSetting };

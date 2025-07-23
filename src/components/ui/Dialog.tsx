@@ -19,7 +19,7 @@ const Dialog = ({ children, onCancel, onSuccess }: Props) => {
       <dialog ref={dialogRef} className="dialog rounded-md">
          <div className="bg-primary-800 p-10">
             <form
-               onSubmit={(e) => {
+               onSubmit={e => {
                   e.preventDefault();
                   onSuccess?.();
 
