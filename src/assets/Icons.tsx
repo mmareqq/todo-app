@@ -248,3 +248,21 @@ export function PlusIcon({ size = 20, ...props }: Props) {
       </svg>
    );
 }
+
+export function DragIcon({ size = 20, ...props }: Props) {
+   return (
+      <svg
+         xmlns="http://www.w3.org/2000/svg"
+         viewBox="0 0 12 16"
+         width={size}
+         {...props}
+      >
+         <circle cx="3" cy="2" r="2" fill="currentColor" />
+         <circle cx="9" cy="2" r="2" fill="currentColor" />
+         <circle cx="3" cy="8" r="2" fill="currentColor" />
+         <circle cx="9" cy="8" r="2" fill="currentColor" />
+         <circle cx="3" cy="14" r="2" fill="currentColor" />
+         <circle cx="9" cy="14" r="2" fill="currentColor" />
+      </svg>
+   );
+}
