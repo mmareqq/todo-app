@@ -1,7 +1,8 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useCallback } from 'react';
 import { DragIcon } from '@assets/Icons';
-
+import { assertDivEl } from '@utils/assert';
 import type { Note } from '@data/types';
+import useStrictRef from '@hooks/useStrictRef';
 
 type Props = {
    note: Note;
@@ -9,123 +10,8 @@ type Props = {
    removeNote: (id: Note['id']) => void;
 };
 
-// TODO add start pos
 const Note = ({ note, editNote, removeNote }: Props) => {
-   const noteRef = useRef<HTMLDivElement>(null!);
-   const offsetRef = useRef({ x: 0, y: 0, startX: 0, startY: 0 });
-   const offsets = offsetRef.current;
-   const [dragging, setDragging] = useState(false);
-
-   const stopDrag = () => setDragging(false);
-   const startDrag = () => setDragging(true);
-
-   const onMouseUp = () => {
-      stopDrag();
-
-      const el = noteRef.current;
-      editNote({ ...note, x: el.offsetLeft, y: el.offsetTop });
-   };
-
-   useEffect(() => {
-      if (!dragging) return;
-      document.addEventListener('mousemove', moveElement);
-      document.addEventListener('mouseup', onMouseUp);
-
-      return () => {
-         document.removeEventListener('mousemove', moveElement);
-         document.removeEventListener('mouseup', onMouseUp);
-      };
-   }, [dragging]);
-
-   const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
-      startDrag();
-      offsets.startX = e.clientX;
-      offsets.startY = e.clientY;
-
-      const stickyBoard = noteRef.current.parentElement!;
-      stickyBoard.addEventListener('mouseleave', stopDrag);
-   };
-
-   const moveElement = (e: MouseEvent) => {
-      updateOffsets({ x: e.clientX, y: e.clientY });
-
-      const newOffset = getNewOffset();
-      placeNote(newOffset.left, newOffset.top);
-   };
-
-   const placeNote = (x: number, y: number) => {
-      const el = noteRef.current;
-      el.style.left = x + 'px';
-      el.style.top = y + 'px';
-   };
-
-   const updateOffsets = (mousePos: { x: number; y: number }) => {
-      // calculate mouse move
-      offsets.x = offsets.startX - mousePos.x;
-      offsets.y = offsets.startY - mousePos.y;
-
-      // update start pos to curr mouse pos
-      offsets.startX = mousePos.x;
-      offsets.startY = mousePos.y;
-   };
-
-   const getNewOffset = () => {
-      const el = noteRef.current;
-
-      const stickyBoard = el.parentElement;
-      if (!stickyBoard) throw new Error('note has to be inside sticky board');
-
-      // screen borders
-      const borderWidth = 8;
-      const maxTop =
-         stickyBoard.offsetHeight - el.offsetHeight + offsets.y - borderWidth;
-      const maxLeft =
-         stickyBoard.offsetWidth - el.offsetWidth + offsets.x - borderWidth;
-
-      // new offset adjusted with the place of where mouse grabbed the el
-      let left = el.offsetLeft - offsets.x;
-      let top = el.offsetTop - offsets.y;
-
-      const addAnimation = () => {
-         stickyBoard.addEventListener('animationend', removeAnimation);
-         stickyBoard.classList.add('bound-animation');
-      };
-
-      const removeAnimation = () => {
-         stickyBoard.classList.remove('bound-animation');
-         stickyBoard.removeEventListener('animationend', removeAnimation);
-      };
-
-      let isOutside = false;
-
-      if (top < 0) {
-         top = 0;
-         isOutside = true;
-      }
-
-      if (left < 0) {
-         left = 0;
-         isOutside = true;
-      }
-
-      if (top > maxTop) {
-         top = maxTop;
-         isOutside = true;
-      }
-
-      if (left > maxLeft) {
-         left = maxLeft;
-         isOutside = true;
-      }
-
-      if (isOutside) addAnimation();
-
-      return { left, top };
-   };
-
-   useEffect(() => {
-      placeNote(note.x, note.y);
-   }, []);
+   const { noteRef, dragging, handleMouseDown } = useNoteDrag(note, editNote);
 
    return (
       <div
@@ -158,6 +44,133 @@ const Note = ({ note, editNote, removeNote }: Props) => {
          <p className="text-sm text-white/70">{note.description}</p>
       </div>
    );
+};
+
+const useDragState = () => {
+   const [dragging, setDragging] = useState(false);
+
+   const stopDrag = () => setDragging(false);
+   const startDrag = () => setDragging(true);
+
+   return [dragging, stopDrag, startDrag] as const;
+};
+
+const useNoteDrag = (note: Note, editNote: Props['editNote']) => {
+   const offsetRef = useRef({ x: 0, y: 0, startX: 0, startY: 0 });
+   const offsets = offsetRef.current;
+   const [dragging, stopDrag, startDrag] = useDragState();
+
+   const [noteRef, getNoteEl] = useStrictRef<HTMLDivElement>();
+   const getBoardEl = () => {
+      const boardEl = getNoteEl().parentElement;
+      assertDivEl(boardEl);
+      if (boardEl.dataset.type !== 'sticky-board') {
+         throw new Error('Expected sticky-board el');
+      }
+      return boardEl;
+   };
+
+   const onMouseUp = () => {
+      stopDrag();
+      const noteEl = getNoteEl();
+      editNote({ ...note, x: noteEl.offsetLeft, y: noteEl.offsetTop });
+   };
+
+   // document event listeners
+   useEffect(() => {
+      if (!dragging) return;
+      document.addEventListener('mousemove', moveElement);
+      document.addEventListener('mouseup', onMouseUp);
+
+      return () => {
+         document.removeEventListener('mousemove', moveElement);
+         document.removeEventListener('mouseup', onMouseUp);
+      };
+   }, [dragging]);
+
+   const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+      startDrag();
+      offsets.startX = e.clientX;
+      offsets.startY = e.clientY;
+   };
+
+   const moveElement = (e: MouseEvent) => {
+      updateOffsets(e.clientX, e.clientY);
+
+      const newOffset = getNewOffset();
+      placeNote(newOffset.left, newOffset.top);
+   };
+
+   const placeNote = (x: number, y: number) => {
+      const noteEl = getNoteEl();
+      noteEl.style.left = x + 'px';
+      noteEl.style.top = y + 'px';
+   };
+
+   const updateOffsets = (mouseX: number, mouseY: number) => {
+      // calculate mouse move
+      offsets.x = offsets.startX - mouseX;
+      offsets.y = offsets.startY - mouseY;
+
+      // update start pos to curr mouse pos
+      offsets.startX = mouseX;
+      offsets.startY = mouseY;
+   };
+
+   const getNewOffset = () => {
+      const noteEl = getNoteEl();
+
+      // new offset adjusted with the place of where mouse grabbed the noteEl
+      const left = noteEl.offsetLeft - offsets.x;
+      const top = noteEl.offsetTop - offsets.y;
+
+      const [newLeft, newTop] = getOffsetInBound(left, top);
+      if (left !== newLeft || top !== newTop) addBorderAnimation();
+
+      return { left: newLeft, top: newTop };
+   };
+
+   // Adjust offset if outside of board
+   const getOffsetInBound = (left: number, top: number) => {
+      const boardEl = getBoardEl();
+      const noteEl = getNoteEl();
+
+      // screen borders
+      const borderWidth = 4;
+
+      const minLeft = borderWidth;
+      const minTop = borderWidth;
+
+      const maxTop =
+         boardEl.offsetHeight - noteEl.offsetHeight + offsets.y - borderWidth;
+      const maxLeft =
+         boardEl.offsetWidth - noteEl.offsetWidth + offsets.x - borderWidth;
+
+      if (left < minLeft) left = minLeft;
+      if (top < minTop) top = minTop;
+      if (left > maxLeft) left = maxLeft;
+      if (top > maxTop) top = maxTop;
+
+      return [left, top];
+   };
+
+   const addBorderAnimation = () => {
+      const boardEl = getBoardEl();
+      boardEl.addEventListener('animationend', removeBorderAnimation);
+      boardEl.classList.add('bound-animation');
+   };
+
+   const removeBorderAnimation = () => {
+      const boardEl = getBoardEl();
+      boardEl.classList.remove('bound-animation');
+      boardEl.removeEventListener('animationend', removeBorderAnimation);
+   };
+
+   useEffect(() => {
+      placeNote(note.x, note.y);
+   }, []);
+
+   return { noteRef, dragging, handleMouseDown };
 };
 
 export default Note;

@@ -29,6 +29,7 @@ const StickyBoard = () => {
 
    return (
       <div
+         data-type="sticky-board"
          onClick={handleClick}
          className="sticky-board relative h-full w-full overflow-hidden"
       >
