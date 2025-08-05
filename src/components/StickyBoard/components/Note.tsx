@@ -1,8 +1,9 @@
 import { useRef, useState, useEffect, useCallback } from 'react';
 import { DragIcon } from '@assets/Icons';
 import { assertDivEl } from '@utils/assert';
-import type { Note } from '@data/types';
 import useStrictRef from '@hooks/useStrictRef';
+
+import type { Note } from '@data/types';
 
 type Props = {
    note: Note;
@@ -46,15 +47,6 @@ const Note = ({ note, editNote, removeNote }: Props) => {
    );
 };
 
-const useDragState = () => {
-   const [dragging, setDragging] = useState(false);
-
-   const stopDrag = () => setDragging(false);
-   const startDrag = () => setDragging(true);
-
-   return [dragging, stopDrag, startDrag] as const;
-};
-
 const useNoteDrag = (note: Note, editNote: Props['editNote']) => {
    const offsetRef = useRef({ x: 0, y: 0, startX: 0, startY: 0 });
    const offsets = offsetRef.current;
@@ -70,23 +62,26 @@ const useNoteDrag = (note: Note, editNote: Props['editNote']) => {
       return boardEl;
    };
 
+   // adding event listeners
+   useEffect(() => {
+      if (!dragging) return;
+      const boardEl = getBoardEl();
+      boardEl.addEventListener('mousemove', moveElement);
+      boardEl.addEventListener('mouseup', onMouseUp);
+      boardEl.addEventListener('mouseleave', stopDrag);
+
+      return () => {
+         boardEl.removeEventListener('mousemove', moveElement);
+         boardEl.removeEventListener('mouseup', onMouseUp);
+         boardEl.removeEventListener('mouseleave', stopDrag);
+      };
+   }, [dragging]);
+
    const onMouseUp = () => {
       stopDrag();
       const noteEl = getNoteEl();
       editNote({ ...note, x: noteEl.offsetLeft, y: noteEl.offsetTop });
    };
-
-   // document event listeners
-   useEffect(() => {
-      if (!dragging) return;
-      document.addEventListener('mousemove', moveElement);
-      document.addEventListener('mouseup', onMouseUp);
-
-      return () => {
-         document.removeEventListener('mousemove', moveElement);
-         document.removeEventListener('mouseup', onMouseUp);
-      };
-   }, [dragging]);
 
    const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
       startDrag();
@@ -171,6 +166,15 @@ const useNoteDrag = (note: Note, editNote: Props['editNote']) => {
    }, []);
 
    return { noteRef, dragging, handleMouseDown };
+};
+
+const useDragState = () => {
+   const [dragging, setDragging] = useState(false);
+
+   const stopDrag = () => setDragging(false);
+   const startDrag = () => setDragging(true);
+
+   return [dragging, stopDrag, startDrag] as const;
 };
 
 export default Note;
