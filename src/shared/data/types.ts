@@ -37,6 +37,13 @@ type Note = {
    height: number;
 };
 
+type NoteActions = {
+   note: Note;
+   addNote: (newNote: Note) => void;
+   editNote: (newNote: Note) => void;
+   removeNote: (noteId: Note['id']) => void;
+};
+
 type Task = {
    readonly id: string;
    projectId: string;
@@ -86,4 +93,5 @@ export {
    SortMethod,
    SettingsContext,
    Note,
+   NoteActions,
 };

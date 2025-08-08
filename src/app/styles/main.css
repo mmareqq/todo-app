@@ -12,7 +12,7 @@
 
 :root {
    --clr-success: oklch(52.7% 0.154 150.069);
-   --clr-error: oklch(46.193% 0.17183 23.771 / 0.776);
+   --clr-error: oklch(51.79% 0.13837 42.535 / 0.776);
 }
 
 html {
@@ -131,6 +131,13 @@ button {
    100% {
       scale: 1 1;
    }
+}
+
+[data-type='note'] {
+   position: absolute;
+   transition:
+      box-shadow 0.1s ease-out,
+      scale 0.1s;
 }
 
 .sticky-board {

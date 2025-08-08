@@ -1,5 +1,5 @@
 import useNotes from './useNotes';
-import Note from './components/Note';
+import Note from './components/Note/Note';
 import { exampleNote } from '@data/data';
 import generateId from '@utils/generateId';
 
