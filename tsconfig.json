@@ -7,7 +7,7 @@
          "ESNext"
       ],
       "jsx": "react-jsx",
-      "moduleResolution": "node",
+      "moduleResolution": "bundler",
       "baseUrl": "src",
       "paths": {
          "@ui/*": [
@@ -36,10 +36,10 @@
       "esModuleInterop": true,
       "skipLibCheck": true,
       "forceConsistentCasingInFileNames": true,
-      "allowJs": true,
       "noEmit": true
    },
    "include": [
-      "src"
+      "src",
+      "eslint.config.ts"
    ]
 }

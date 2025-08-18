@@ -1,14 +1,9 @@
 import type { ReactNode } from 'react';
-import type { UpdateValue } from './helperTypes';
+import type { UpdateValue } from './helperTypes.ts';
 
 type Children = { children?: ReactNode };
 
-type SortMethod =
-   | 'priority'
-   | 'name'
-   | 'creation-date'
-   | 'duration'
-   | 'groupByDate';
+type SortMethod = 'priority' | 'name' | 'duration' | 'date';
 
 type Project = {
    readonly id: string;

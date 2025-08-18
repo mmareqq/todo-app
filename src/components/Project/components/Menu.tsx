@@ -20,8 +20,7 @@ const Menu = ({ addTask, projectId }: Props) => {
             onClick={e => {
                const template = getTasksTemplate(projectId);
                template.forEach(addTask);
-               // @ts-expect-error
-               // Only for dev, to be deleted
+               //@ts-expect-error just for testing, to be deleted anyway
                e.target.classList.add('hidden');
             }}
          >

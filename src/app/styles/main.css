@@ -13,6 +13,9 @@
 :root {
    --clr-success: oklch(52.7% 0.154 150.069);
    --clr-error: oklch(51.79% 0.13837 42.535 / 0.776);
+
+   --board-max-width: 2000px;
+   --board-max-height: 1000px;
 }
 
 html {
@@ -141,8 +144,22 @@ button {
 }
 
 .sticky-board {
+   max-width: var(--board-max-width);
+   max-height: var(--board-max-height);
+   height: 100svh;
+   position: relative;
+   overflow: auto;
+   scrollbar-gutter: stable;
+
    --box-shadow: inset 0 0 0.75rem;
    box-shadow: var(--box-shadow) transparent;
+}
+
+.ghost {
+   width: 1px;
+   height: 1px;
+   position: absolute;
+   left: 2000px;
 }
 
 .bound-animation {

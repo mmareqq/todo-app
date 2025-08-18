@@ -14,6 +14,9 @@ export const sortTasks = (tasks: Task[], sortMethod: SortMethod) => {
          return sortTasksByName(tasks);
       case 'duration':
          return sortTasksByDuration(tasks);
+      case 'date':
+         return sortTasksByDate(tasks);
+
       default:
          throw new Error('Wrong method for sorting tasks');
    }

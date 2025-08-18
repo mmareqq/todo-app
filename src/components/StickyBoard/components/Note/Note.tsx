@@ -1,6 +1,5 @@
 import { DragIcon } from '@assets/Icons';
 import useNoteDrag from './useNoteDrag';
-
 import type { Note } from '@data/types';
 
 type Props = {
@@ -10,7 +9,7 @@ type Props = {
 };
 
 const Note = ({ note, editNote, removeNote }: Props) => {
-   const { noteRef, dragging, onMouseDown } = useNoteDrag(note, editNote);
+   const { noteRef, dragging } = useNoteDrag(note, editNote);
 
    const styles = {
       borderColor: note.color,
@@ -37,7 +36,6 @@ const Note = ({ note, editNote, removeNote }: Props) => {
             <div
                data-type="note-grab"
                className="cursor-grab active:cursor-grabbing"
-               onMouseDown={onMouseDown}
             >
                <DragIcon
                   className="pointer-events-none text-white/70"

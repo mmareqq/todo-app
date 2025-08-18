@@ -16,7 +16,7 @@ const App = () => {
    return (
       <SettingsProvider>
          <div className="body bg-primary-900 text-primary-50">
-            <div className="z-2">
+            <div>
                <h1 className="border-primary-500 m-4 ml-auto w-min border-r border-b p-2 font-mono text-3xl leading-none font-bold">
                   To <br /> Do
                </h1>
@@ -28,17 +28,10 @@ const App = () => {
                   setActiveProjectId={setActiveProjectId}
                />
             </div>
-            <main>
-               <div className="main h-svh">
-                  <GrainEffect opacity={0.01} noiseValue={15} />
-                  <GrainEffect
-                     opacity={0.025}
-                     color="#E0AC69"
-                     noiseValue={15}
-                  />
-
-                  <Project project={activeProject} editProject={editProject} />
-               </div>
+            <main className="h-svh w-full">
+               <GrainEffect opacity={0.03} noiseValue={10} />
+               <GrainEffect opacity={0.025} color="#E0AC69" noiseValue={1} />
+               <Project project={activeProject} editProject={editProject} />
             </main>
          </div>
       </SettingsProvider>
