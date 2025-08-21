@@ -4,16 +4,14 @@ import useDragState from './useDragState';
 import { animateEl } from '@utils/animate';
 import type { NoteActions, Note } from '@data/types';
 
-const BORDER_WIDTH = 3; // space from the edge of the board
-const BOARD_WIDTH = 2000;
-const BOARD_HEIGHT = 1000;
-
+const BORDER_WIDTH = 7; // space from the edge of the board
+const BOARD_WIDTH = 1800;
 const useNoteDrag = (note: Note, editNote: NoteActions['editNote']) => {
    const positionRef = useRef({ startX: 0, startY: 0, deltaX: 0, deltaY: 0 });
    const [dragging, stopDrag, startDrag] = useDragState();
    const { getNoteEl, getBoardEl, noteRef } = useNoteAndBoardRefs();
 
-   const placeNote = useCallback(
+   const moveNote = useCallback(
       (x: number, y: number) => {
          const noteEl = getNoteEl();
          noteEl.style.left = x + 'px';
@@ -22,9 +20,29 @@ const useNoteDrag = (note: Note, editNote: NoteActions['editNote']) => {
       [getNoteEl],
    );
 
+   const clampToBoard = useCallback(
+      (left: number, top: number) => {
+         const noteEl = getNoteEl();
+
+         const minLeft = BORDER_WIDTH;
+         const maxLeft = BOARD_WIDTH - BORDER_WIDTH;
+         const minTop = BORDER_WIDTH;
+         const maxTop = getBoardEl().offsetHeight - BORDER_WIDTH;
+
+         const newLeft =
+            Math.min(Math.max(left, minLeft) + noteEl.offsetWidth, maxLeft) -
+            noteEl.offsetWidth;
+         const newTop =
+            Math.min(Math.max(top, minTop) + noteEl.offsetHeight, maxTop) -
+            noteEl.offsetHeight;
+
+         return [newLeft, newTop];
+      },
+      [getNoteEl, getBoardEl],
+   );
+
    const calculateNewPos = useCallback(() => {
       const noteEl = getNoteEl();
-      console.log('delta', positionRef.current);
       const left = noteEl.offsetLeft - positionRef.current.deltaX;
       const top = noteEl.offsetTop - positionRef.current.deltaY;
 
@@ -36,10 +54,10 @@ const useNoteDrag = (note: Note, editNote: NoteActions['editNote']) => {
       }
 
       return { left: newLeft, top: newTop };
-   }, [getBoardEl, getNoteEl]);
+   }, [getBoardEl, getNoteEl, clampToBoard]);
 
    useEffect(() => {
-      placeNote(note.x, note.y);
+      moveNote(note.x, note.y);
       // eslint-disable-next-line react-hooks/exhaustive-deps
    }, []);
 
@@ -49,9 +67,9 @@ const useNoteDrag = (note: Note, editNote: NoteActions['editNote']) => {
          updateOffsets(e.clientX, e.clientY);
 
          const newOffset = calculateNewPos();
-         placeNote(newOffset.left, newOffset.top);
+         moveNote(newOffset.left, newOffset.top);
       },
-      [calculateNewPos, placeNote],
+      [calculateNewPos, moveNote],
    );
 
    const updateOffsets = (mouseX: number, mouseY: number) => {
@@ -64,13 +82,6 @@ const useNoteDrag = (note: Note, editNote: NoteActions['editNote']) => {
       pos.startY = mouseY;
    };
 
-   // save note position on drop
-   const onMouseUp = useCallback(() => {
-      stopDrag();
-      const noteEl = getNoteEl();
-      editNote({ ...note, x: noteEl.offsetLeft, y: noteEl.offsetTop });
-   }, [editNote, getNoteEl, note, stopDrag]);
-
    const initalizeDrag = useCallback(
       (e: MouseEvent) => {
          startDrag();
@@ -79,12 +90,23 @@ const useNoteDrag = (note: Note, editNote: NoteActions['editNote']) => {
       [startDrag],
    );
 
+   const finishDrag = useCallback(() => {
+      stopDrag();
+      const noteEl = getNoteEl();
+      noteEl.scrollIntoView({ behavior: 'smooth' });
+      editNote({ ...note, x: noteEl.offsetLeft, y: noteEl.offsetTop });
+   }, [editNote, getNoteEl, note, stopDrag]);
+
    // event listeners
    useEffect(() => {
-      const noteEl = getNoteEl();
-      noteEl.addEventListener('mousedown', initalizeDrag);
+      const dragArea = getNoteEl().querySelector(
+         '[data-type="drag-area"]',
+      ) as HTMLElement;
+      if (!dragArea) throwElError('note drag area');
+
+      dragArea.addEventListener('mousedown', initalizeDrag);
       return () => {
-         noteEl.removeEventListener('mousedown', initalizeDrag);
+         dragArea.removeEventListener('mousedown', initalizeDrag);
       };
    }, [getNoteEl, initalizeDrag]);
 
@@ -92,15 +114,15 @@ const useNoteDrag = (note: Note, editNote: NoteActions['editNote']) => {
       if (!dragging) return;
       const boardEl = getBoardEl();
       boardEl.addEventListener('mousemove', onMouseMove);
-      boardEl.addEventListener('mouseup', onMouseUp);
-      boardEl.addEventListener('mouseleave', stopDrag);
+      boardEl.addEventListener('mouseup', finishDrag);
+      boardEl.addEventListener('mouseleave', finishDrag);
 
       return () => {
          boardEl.removeEventListener('mousemove', onMouseMove);
-         boardEl.removeEventListener('mouseup', onMouseUp);
-         boardEl.removeEventListener('mouseleave', stopDrag);
+         boardEl.removeEventListener('mouseup', finishDrag);
+         boardEl.removeEventListener('mouseleave', finishDrag);
       };
-   }, [dragging, getBoardEl, stopDrag, onMouseMove, onMouseUp]);
+   }, [dragging, getBoardEl, finishDrag, onMouseMove]);
 
    return { noteRef, dragging };
 };
@@ -127,18 +149,6 @@ const useNoteAndBoardRefs = () => {
 
 const throwElError = (name: string): never => {
    throw new Error(`Tried to access ${name} element that doesn't exist`);
-};
-
-const clampToBoard = (left: number, top: number) => {
-   const minLeft = BORDER_WIDTH;
-   const maxLeft = BOARD_WIDTH - BORDER_WIDTH;
-   const minTop = BORDER_WIDTH;
-   const maxTop = BOARD_HEIGHT - BORDER_WIDTH;
-
-   const newLeft = Math.min(Math.max(left, minLeft), maxLeft);
-   const newTop = Math.min(Math.max(top, minTop), maxTop);
-
-   return [newLeft, newTop];
 };
 
 export default useNoteDrag;

@@ -7,15 +7,13 @@
 
 * {
    scrollbar-color: currentColor transparent;
-   scrollbar-width: thin;
 }
 
 :root {
    --clr-success: oklch(52.7% 0.154 150.069);
-   --clr-error: oklch(51.79% 0.13837 42.535 / 0.776);
+   --clr-error: oklch(44.794% 0.17702 28.413 / 0.616);
 
    --board-max-width: 2000px;
-   --board-max-height: 1000px;
 }
 
 html {
@@ -145,21 +143,24 @@ button {
 
 .sticky-board {
    max-width: var(--board-max-width);
-   max-height: var(--board-max-height);
    height: 100svh;
+   overflow-y: hidden;
    position: relative;
-   overflow: auto;
-   scrollbar-gutter: stable;
-
-   --box-shadow: inset 0 0 0.75rem;
+   overflow-x: auto;
+   scroll-behavior: smooth;
+   --box-shadow: inset 0 0 1rem;
    box-shadow: var(--box-shadow) transparent;
 }
 
-.ghost {
-   width: 1px;
-   height: 1px;
+.test {
+   z-index: -1;
    position: absolute;
-   left: 2000px;
+   border: 2px solid yellow;
+   width: 200px;
+   height: 916px;
+}
+
+[data-type='note'] {
 }
 
 .bound-animation {

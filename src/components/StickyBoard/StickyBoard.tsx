@@ -2,36 +2,29 @@ import useNotes from './useNotes';
 import Note from './components/Note/Note';
 import { exampleNote } from '@data/data';
 import generateId from '@utils/generateId';
+import { useRef } from 'react';
 
 const StickyBoard = () => {
    const { notes, addNote, editNote, removeNote, setNotes } = useNotes();
+   const boardRef = useRef<HTMLDivElement | null>(null);
+
    const addNewNote = (x: number, y: number) => {
       const newNote = {
          id: generateId(),
          title: 'Note 1',
          description: 'Exmaple note soomething pimpoeri',
          color: 'blue',
-         x: x - 50,
-         y: y - 20,
+         x: boardRef.current!.scrollLeft + x,
+         y: boardRef.current!.scrollTop + y,
          width: 100,
          height: 100,
       };
       addNote(newNote);
    };
 
-   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-      if (e.target !== e.currentTarget) return;
-      addNewNote(e.clientX - 207, e.clientY);
-   };
-
    return (
       <div className="relative h-full">
-         <div
-            data-type="sticky-board"
-            onClick={handleClick}
-            className="sticky-board"
-         >
-            <div className="ghost"></div>
+         <div ref={boardRef} data-type="sticky-board" className="sticky-board">
             {notes.map(note => (
                <Note
                   key={note.id}
@@ -56,6 +49,12 @@ const StickyBoard = () => {
                onClick={() => setNotes([])}
             >
                Reset
+            </button>
+            <button
+               className="rounded-xl border px-5 py-0.5"
+               onClick={() => addNewNote(200, 20)}
+            >
+               Add Note
             </button>
          </div>
       </div>
