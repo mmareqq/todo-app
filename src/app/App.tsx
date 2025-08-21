@@ -1,6 +1,6 @@
 import './styles/main.css';
 
-import GrainEffect from '@assets/GrainEffect.jsx';
+import GrainEffect from '@ui/GrainEffect.js';
 import Project from '@components/Project';
 import Navbar from '@components/Navbar.jsx';
 

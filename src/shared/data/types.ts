@@ -32,6 +32,8 @@ type Note = {
    height: number;
 };
 
+type NotePayload = Pick<Note, 'title' | 'description'>;
+
 type NoteActions = {
    note: Note;
    addNote: (newNote: Note) => void;
@@ -89,4 +91,5 @@ export {
    SettingsContext,
    Note,
    NoteActions,
+   NotePayload,
 };

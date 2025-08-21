@@ -266,3 +266,24 @@ export function DragIcon({ size = 20, ...props }: Props) {
       </svg>
    );
 }
+
+export function CancelIcon({ size = 20, ...props }: Props) {
+   return (
+      <svg
+         xmlns="http://www.w3.org/2000/svg"
+         width={size}
+         height={size}
+         viewBox="0 0 24 24"
+         {...props}
+      >
+         <path
+            fill="none"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2.5}
+            d="M18 6L6 18m12 0L6 6"
+         ></path>
+      </svg>
+   );
+}
