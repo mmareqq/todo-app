@@ -12,3 +12,18 @@ export const animateEl = (el: HTMLElement, animClassName: string) => {
 
    animate();
 };
+
+export const transitionEl = (el: HTMLElement, transitionClassName: string) => {
+   const transition = () => {
+      el.classList.add(transitionClassName);
+      el.addEventListener('transitionend', removeTransition);
+   };
+
+   // resets animation
+   const removeTransition = () => {
+      el.classList.remove(transitionClassName);
+      el.removeEventListener('transitionend', removeTransition);
+   };
+
+   transition();
+};

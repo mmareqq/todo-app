@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ChangeEventHandler, useState } from 'react';
 import useNoteDrag from './useNoteDrag';
 import type { Note, NotePayload, NoteActions } from '@data/types';
 import Button from '@ui/Button';
@@ -32,7 +32,7 @@ const Note = ({ note, editNote, removeNote }: Props) => {
       <div
          ref={noteRef}
          data-type="note"
-         className="bg-primary-800 flex flex-col justify-between overflow-hidden rounded-sm border select-none"
+         className="bg-primary-800 flex flex-col justify-between overflow-hidden rounded-t-md border select-none"
          style={dragging ? draggingStyles : styles}
       >
          {editing ? (
@@ -91,7 +91,7 @@ const NoteEditingBody = ({
    removeNote,
    disableEditing,
 }: EditingProps) => {
-   const [editedNote, setEditedNote] = useState({
+   const [editedNote, setEditedNote] = useState<NotePayload>({
       title: note.title,
       description: note.description,
    });
@@ -100,6 +100,21 @@ const NoteEditingBody = ({
       editNote({ ...note, ...editedNote });
       disableEditing();
    };
+
+   const onTitleChange: ChangeEventHandler<HTMLInputElement> = e => {
+      setEditedNote(p => ({
+         ...p,
+         title: e.target.value,
+      }));
+   };
+
+   const onDescChange: ChangeEventHandler<HTMLTextAreaElement> = e => {
+      setEditedNote(p => ({
+         ...p,
+         description: e.target.value,
+      }));
+   };
+
    return (
       <>
          <div
@@ -114,12 +129,7 @@ const NoteEditingBody = ({
                className="input outline-primary-500 focus:outline-primary-300 m-0 w-full px-0.5 outline-1 focus:outline-1"
                type="text"
                value={editedNote.title}
-               onChange={e =>
-                  setEditedNote(p => ({
-                     ...p,
-                     title: e.target.value,
-                  }))
-               }
+               onChange={onTitleChange}
             />
          </div>
          <div className="mt-1 block h-full px-1">
@@ -127,14 +137,11 @@ const NoteEditingBody = ({
                spellCheck={false}
                className="textarea bg-primary-800 border-primary-700 outline-primary-500 text-primary-300 focus:outline-primary-300 px-0.5 text-sm outline-1"
                value={editedNote.description}
-               onChange={e => {
-                  setEditedNote(p => ({
-                     ...p,
-                     description: e.target.value,
-                  }));
-               }}
-            ></textarea>
+               onChange={onDescChange}
+               placeholder="description..."
+            />
          </div>
+
          <div className="flex items-center justify-end gap-1 p-1">
             <DeleteButton iconSize={20} onRemove={() => removeNote(note.id)}>
                {note.title} note

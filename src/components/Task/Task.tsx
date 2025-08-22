@@ -22,19 +22,19 @@ type Props = {
 };
 
 const Task = ({ task, editTask, removeTask, animationDelay }: Props) => {
-   const taskRef = useRef<HTMLDivElement>(null);
    return (
       <AnimateSlideIn delayMS={animationDelay}>
          <div
-            ref={taskRef}
+            data-type="task"
             className="task bg-primary-800 border-primary-600 flex items-center gap-2 border px-4 py-2"
          >
             <button
                type="button"
                className={`h-5 w-5 border-2 bg-current/10 ${priorityColors[task.priority]}`}
-               onClick={() => {
-                  if (!taskRef.current) return;
-                  taskRef.current.classList.add('exit-animation');
+               onClick={e => {
+                  e.currentTarget
+                     .closest('[data-type="task"]')
+                     ?.classList.add('exit-animation');
                   setTimeout(() => removeTask(task.id), 800);
                }}
             >
