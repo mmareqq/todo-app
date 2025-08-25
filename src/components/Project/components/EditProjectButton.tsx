@@ -11,7 +11,7 @@ const EditProjectButton = ({ label }: Props) => {
    return (
       <Button variant="icon" onClick={openDialog}>
          <span className="sr-only">{label}</span>
-         <EditIcon />
+         <EditIcon size={20} />
       </Button>
    );
 };

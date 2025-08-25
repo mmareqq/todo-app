@@ -2,7 +2,6 @@ import AnimateSlideIn from '@ui/AnimateSlideIn';
 
 import { formatDate, formatDuration } from '@utils/time';
 
-import { HourGlassIcon } from '@assets/Icons';
 import DeleteButton from '@ui/DeleteButton';
 import EditTaskButton from './EditTaskButton';
 
@@ -42,14 +41,15 @@ const Task = ({ task, editTask, removeTask, animationDelay }: Props) => {
 
             <div>{task.name}</div>
 
-            {task.date && <div>{formatDate(task.date)}</div>}
+            {task.date && (
+               <div className="text-current/70">{formatDate(task.date)}</div>
+            )}
 
-            <div className="ml-auto flex items-center">
+            <div className="ml-auto flex items-center gap-1">
                <div
-                  className="mr-4 flex items-center gap-1"
+                  className="mr-2 flex items-center gap-1 text-current/70"
                   hidden={!task.duration}
                >
-                  <HourGlassIcon width={12} />
                   {formatDuration(task.duration)}
                </div>
 
@@ -58,7 +58,7 @@ const Task = ({ task, editTask, removeTask, animationDelay }: Props) => {
                   <EditTaskDialog editTask={editTask} task={task} />
                </DialogProvider>
 
-               <DeleteButton onRemove={() => removeTask(task.id)}>
+               <DeleteButton iconSize={20} onRemove={() => removeTask(task.id)}>
                   {task.name || task.id}
                </DeleteButton>
             </div>

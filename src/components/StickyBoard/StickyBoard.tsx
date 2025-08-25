@@ -55,7 +55,7 @@ const StickyBoard = () => {
             />
          ))}
 
-         <div className="m-1">
+         <div className="m-2">
             <Button variant="dropdown" className="p-1" onClick={toggleMenu}>
                <MenuIcon />
             </Button>

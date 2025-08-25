@@ -9,7 +9,7 @@ const EditTaskButton = ({ children }: Children) => {
    return (
       <Button variant="icon" onClick={openDialog}>
          <span className="sr-only">edit: {children}</span>
-         <EditIcon size={24} />
+         <EditIcon />
       </Button>
    );
 };
