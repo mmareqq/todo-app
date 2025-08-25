@@ -1,23 +1,23 @@
 import Button from '@ui/Button';
 import { formatDuration } from '@utils/time';
-import { twMerge } from 'tailwind-merge';
+
 import type { UpdateValue } from '@data/helperTypes';
 import type { TaskPayload } from '@data/types';
 
 type DurationBtnProps = {
    val: number;
    removeValue: (val: number) => void;
+   updateValue: UpdateValue<TaskPayload>;
    isEditing: boolean;
    duration: number;
-   updateValue: UpdateValue<TaskPayload>;
 };
 
 const DurationButton = ({
    val,
+   updateValue,
    removeValue,
    isEditing,
    duration,
-   updateValue,
 }: DurationBtnProps) => {
    const isActive = duration === val;
    const isDeletable = val !== 0;
@@ -28,26 +28,15 @@ const DurationButton = ({
       if (isActive) updateValue('duration', 0);
    };
 
-   const styleDefault =
-      'hover:bg-primary-700/50 border border-primary-700 px-2';
-   const styleActive = twMerge(
-      styleDefault,
-      'bg-accent-900/10 shadow shadow-accent-950/50 border-accent-900 pointer-events-none',
-   );
-
    return (
       <li className="group relative">
-         <Button
-            variant="square"
-            className={isActive ? styleActive : styleDefault}
-            onClick={onClick}
-         >
+         <Button variant="glass" active={isActive} onClick={onClick}>
             {formatDuration(val) || 'None'}
          </Button>
 
          {isDeletable && isEditing && (
             <Button
-               variant="square"
+               variant="none"
                className="hover:bg-primary-700 right text-normal invisible absolute inset-0 rounded-xs transition-none group-hover:visible"
                onClick={onRemove}
             >

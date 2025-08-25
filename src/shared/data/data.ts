@@ -1,10 +1,10 @@
-import generateId from '@utils/generateId';
 import type {
    Settings,
    TaskPayload,
    Project,
    ProjectPayload,
    Note,
+   NoteColor,
 } from './types';
 
 const initialSettings: Settings = {
@@ -50,16 +50,20 @@ const durationValues = [0, 5, 10, 15, 30, 45, 60, 90];
 
 const defaultProjectId = 'today';
 
-const exampleNote: Note = {
-   id: '1234--er-sdf-ads',
-   title: 'Mitochondrium',
-   description:
-      'Otoczone dwiema błonami organellum, obecne w większości komórek eukariotycznych. copy btn, edit btn, delete btn',
-   x: 150,
-   y: 300,
-   width: 200,
-   height: 200,
-   color: 'lime',
+const noteColors: Record<NoteColor, string> = {
+   red: '#C61B1B',
+   orange: '#F76300',
+   yellow: '#FFDB26',
+   green: '#2A9A35',
+   blue: '#0978F6',
+   purple: '#921EFF',
+};
+
+const noteSizes = {
+   sm: { w: 150, h: 150 },
+   md: { w: 200, h: 200 },
+   lg: { w: 250, h: 250 },
+   xl: { w: 300, h: 300 },
 };
 
 export {
@@ -70,5 +74,6 @@ export {
    priorityColors,
    durationValues,
    defaultProjectId,
-   exampleNote,
+   noteSizes,
+   noteColors,
 };

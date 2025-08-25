@@ -1,4 +1,3 @@
-import { useRef } from 'react';
 import AnimateSlideIn from '@ui/AnimateSlideIn';
 
 import { formatDate, formatDuration } from '@utils/time';

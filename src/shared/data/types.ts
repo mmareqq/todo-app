@@ -25,7 +25,7 @@ type Note = {
    readonly id: string;
    title: string;
    description: string;
-   color?: string;
+   color: NoteColor;
    x: number;
    y: number;
    width: number;
@@ -33,6 +33,8 @@ type Note = {
 };
 
 type NotePayload = Pick<Note, 'title' | 'description'>;
+
+type NoteColor = 'blue' | 'red' | 'green' | 'orange' | 'purple' | 'yellow';
 
 type NoteActions = {
    note: Note;
@@ -92,4 +94,5 @@ export {
    Note,
    NoteActions,
    NotePayload,
+   NoteColor,
 };

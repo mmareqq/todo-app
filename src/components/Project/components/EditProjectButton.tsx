@@ -9,7 +9,7 @@ const EditProjectButton = ({ label }: Props) => {
    const { openDialog } = useDialogContext();
 
    return (
-      <Button variant="square" onClick={openDialog}>
+      <Button variant="icon" onClick={openDialog}>
          <span className="sr-only">{label}</span>
          <EditIcon />
       </Button>

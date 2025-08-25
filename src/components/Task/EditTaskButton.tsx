@@ -7,7 +7,7 @@ import type { Children } from '@data/types';
 const EditTaskButton = ({ children }: Children) => {
    const { openDialog } = useDialogContext();
    return (
-      <Button variant="square" onClick={openDialog}>
+      <Button variant="icon" onClick={openDialog}>
          <span className="sr-only">edit: {children}</span>
          <EditIcon size={24} />
       </Button>

@@ -287,3 +287,85 @@ export function CancelIcon({ size = 20, ...props }: Props) {
       </svg>
    );
 }
+
+export function SizeSIcon({ size = 20, ...props }: Props) {
+   return (
+      <svg
+         xmlns="http://www.w3.org/2000/svg"
+         width={size}
+         height={size}
+         viewBox="2 2 20 20"
+         {...props}
+      >
+         <path
+            fill="currentColor"
+            d="M11 7c-1.1 0-2 .9-2 2v2a2 2 0 0 0 2 2h2v2H9v2h4c1.11 0 2-.89 2-2v-2a2 2 0 0 0-2-2h-2V9h4V7z"
+         ></path>
+      </svg>
+   );
+}
+
+export function SizeMIcon({ size = 20, ...props }: Props) {
+   return (
+      <svg
+         xmlns="http://www.w3.org/2000/svg"
+         width={size}
+         height={size}
+         viewBox="2 2 20 20"
+         {...props}
+      >
+         <path
+            fill="currentColor"
+            d="M9 7c-1.1 0-2 .9-2 2v8h2V9h2v7h2V9h2v8h2V9a2 2 0 0 0-2-2z"
+         ></path>
+      </svg>
+   );
+}
+
+export function SizeLIcon({ size = 20, ...props }: Props) {
+   return (
+      <svg
+         xmlns="http://www.w3.org/2000/svg"
+         width={size}
+         height={size}
+         viewBox="2 2 20 20"
+         {...props}
+      >
+         <path fill="currentColor" d="M9 7v10h6v-2h-4V7z"></path>
+      </svg>
+   );
+}
+
+export function SizeXLIcon({ size = 20, ...props }: Props) {
+   return (
+      <svg
+         xmlns="http://www.w3.org/2000/svg"
+         width={size}
+         height={size}
+         viewBox="2 2 20 20"
+         {...props}
+      >
+         <path
+            fill="currentColor"
+            d="M6 7h2l1 2.5L10 7h2l-2 5l2 5h-2l-1-2.5L8 17H6l2-5zm7 0h2v8h4v2h-6z"
+         ></path>
+      </svg>
+   );
+}
+
+export function MenuIcon({ size = 20, ...props }: Props) {
+   return (
+      <svg
+         xmlns="http://www.w3.org/2000/svg"
+         width={size}
+         height={size}
+         viewBox="2 2 12 12"
+         {...props}
+      >
+         <path
+            fill="currentColor"
+            d="M7 4c0-.14 0-.209.008-.267a.85.85 0 0 1 .725-.725C7.79 3 7.86 3 8 3s.209 0 .267.008a.85.85 0 0 1 .725.725C9 3.79 9 3.86 9 4s0 .209-.008.267a.85.85 0 0 1-.725.725C8.21 5 8.14 5 8 5s-.209 0-.267-.008a.85.85 0 0 1-.725-.725C7 4.21 7 4.14 7 4m0 4c0-.14 0-.209.008-.267a.85.85 0 0 1 .725-.725C7.79 7 7.86 7 8 7s.209 0 .267.008a.85.85 0 0 1 .725.725C9 7.79 9 7.86 9 8s0 .209-.008.267a.85.85 0 0 1-.725.725C8.21 9 8.14 9 8 9s-.209 0-.267-.008a.85.85 0 0 1-.725-.725C7 8.21 7 8.14 7 8m0 4c0-.139 0-.209.008-.267a.85.85 0 0 1 .724-.724c.059-.008.128-.008.267-.008s.21 0 .267.008a.85.85 0 0 1 .724.724c.008.058.008.128.008.267s0 .209-.008.267a.85.85 0 0 1-.724.724c-.058.008-.128.008-.267.008s-.209 0-.267-.008a.85.85 0 0 1-.724-.724C7 12.209 7 12.139 7 12"
+         ></path>
+      </svg>
+   );
+}

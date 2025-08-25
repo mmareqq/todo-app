@@ -148,7 +148,6 @@ button {
 }
 
 [data-type='note'] {
-   position: absolute;
    transition:
       box-shadow 0.1s ease-out,
       scale 0.1s;

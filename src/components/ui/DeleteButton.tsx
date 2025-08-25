@@ -26,7 +26,7 @@ const DeleteButtonContent = ({ onRemove, iconSize, children }: Props) => {
    const { openDialog } = useDialogContext();
    return (
       <>
-         <Button className="self-center" variant="square" onClick={openDialog}>
+         <Button className="self-center" variant="icon" onClick={openDialog}>
             <span className="sr-only">delete: {children}</span>
             <TrashIcon size={iconSize} />
          </Button>
