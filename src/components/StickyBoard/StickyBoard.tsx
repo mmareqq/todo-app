@@ -29,16 +29,14 @@ const StickyBoard = () => {
    };
 
    const [menuOpen, setMenuOpen] = useState(false);
+
    const toggleMenu = () => setMenuOpen(p => !p);
 
    const resetNotes = () => {
       setNotes([]);
       toggleMenu();
    };
-   const onAddNote = () => {
-      addNewNote(225, 50);
-      toggleMenu();
-   };
+
    const toggleGrid = () => {
       boardRef.current!.classList.toggle('sticky-board--grid');
       toggleMenu();
@@ -55,37 +53,36 @@ const StickyBoard = () => {
             />
          ))}
 
-         <div className="m-2">
-            <Button variant="dropdown" className="p-1" onClick={toggleMenu}>
-               <MenuIcon />
-            </Button>
-
-            <AnimateExit
-               hidden={menuOpen}
-               className="bg-primary-800 border-primary-600 absolute flex origin-top flex-col overflow-hidden rounded-sm border"
-            >
-               <Button
-                  variant="dropdown"
-                  className="border-none"
-                  onClick={resetNotes}
-               >
-                  Reset
+         <div className="m-2 flex gap-2">
+            <div>
+               <Button variant="dropdown" className="p-1" onClick={toggleMenu}>
+                  <MenuIcon />
                </Button>
-               <Button
-                  variant="dropdown"
-                  className="border-none"
-                  onClick={onAddNote}
+               <AnimateExit
+                  hidden={menuOpen}
+                  className="bg-primary-800 border-primary-600 absolute flex origin-top flex-col overflow-hidden rounded-md border"
                >
-                  Add Note
+                  <Button
+                     variant="dropdown"
+                     className="rounded-none border-none"
+                     onClick={toggleGrid}
+                  >
+                     Toggle grid
+                  </Button>
+                  <Button
+                     variant="dropdown"
+                     className="border-none"
+                     onClick={resetNotes}
+                  >
+                     Reset
+                  </Button>
+               </AnimateExit>
+            </div>
+            <div>
+               <Button variant="secondary" onClick={() => addNewNote(225, 50)}>
+                  Add note
                </Button>
-               <Button
-                  variant="dropdown"
-                  className="border-none"
-                  onClick={toggleGrid}
-               >
-                  Use grid
-               </Button>
-            </AnimateExit>
+            </div>
          </div>
       </div>
    );

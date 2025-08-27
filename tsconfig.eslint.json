@@ -1,12 +1,7 @@
 {
    "extends": "./tsconfig.json",
-   "include": [
-      "src",
-      "eslint.config.ts"
-   ],
-   "exclude": [
-      "node_modules"
-   ],
+   "include": ["src", "eslint.config.ts"],
+   "exclude": ["node_modules"],
    "compilerOptions": {
       "moduleResolution": "nodenext",
       "allowJs": true,

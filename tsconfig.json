@@ -2,35 +2,18 @@
    "compilerOptions": {
       "target": "ESNext",
       "module": "ESNext",
-      "lib": [
-         "DOM",
-         "ESNext"
-      ],
+      "lib": ["DOM", "ESNext"],
       "jsx": "react-jsx",
       "moduleResolution": "bundler",
       "baseUrl": "src",
       "paths": {
-         "@ui/*": [
-            "components/ui/*"
-         ],
-         "@assets/*": [
-            "assets/*"
-         ],
-         "@data/*": [
-            "shared/data/*"
-         ],
-         "@contexts/*": [
-            "shared/contexts/*"
-         ],
-         "@hooks/*": [
-            "shared/hooks/*"
-         ],
-         "@utils/*": [
-            "shared/utils/*"
-         ],
-         "@components/*": [
-            "components/*"
-         ]
+         "@ui/*": ["components/ui/*"],
+         "@assets/*": ["assets/*"],
+         "@data/*": ["shared/data/*"],
+         "@contexts/*": ["shared/contexts/*"],
+         "@hooks/*": ["shared/hooks/*"],
+         "@utils/*": ["shared/utils/*"],
+         "@components/*": ["components/*"]
       },
       "strict": true,
       "esModuleInterop": true,
@@ -38,8 +21,5 @@
       "forceConsistentCasingInFileNames": true,
       "noEmit": true
    },
-   "include": [
-      "src",
-      "eslint.config.ts"
-   ]
+   "include": ["src", "eslint.config.ts"]
 }
