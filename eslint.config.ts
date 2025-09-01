@@ -24,7 +24,7 @@ export default [
          ...tsPlugin.configs.recommended.rules,
          ...react.configs.recommended.rules,
          ...reactHooks.configs.recommended.rules,
-         '@typescript-eslint/no-unused-vars': ['warn'],
+         '@typescript-eslint/no-unused-vars': 'warn',
          'no-unused-vars': 'off',
          'react/prop-types': 'off',
          'react/react-in-jsx-scope': 'off',

@@ -1,7 +1,14 @@
 {
    "extends": "./tsconfig.json",
-   "include": ["src", "eslint.config.ts"],
-   "exclude": ["node_modules"],
+   "include": [
+      "src",
+      "eslint.config.ts",
+      "tailwind.config.ts",
+      "vite.config.ts"
+   ],
+   "exclude": [
+      "node_modules"
+   ],
    "compilerOptions": {
       "moduleResolution": "nodenext",
       "allowJs": true,

@@ -27,7 +27,7 @@ const EditPanel = ({
       addValue(val);
    };
 
-   const handleInputChange = (e: any) => {
+   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const val = e.target.value;
       if (val.length > 3) return;
       if (val.length === 0 || /^\d+$/.test(val)) setInputVal(val); // only numbers
@@ -44,13 +44,13 @@ const EditPanel = ({
                   placeholder="0"
                   onChange={handleInputChange}
                />
-               <Button variant="square" onClick={handleAddValue}>
+               <Button variant="icon" onClick={handleAddValue}>
                   <PlusIcon size={18} />
                </Button>
             </div>
          )}
 
-         <Button variant="square" onClick={toggleIsEditing}>
+         <Button variant="icon" onClick={toggleIsEditing}>
             {isEditing ? <CheckMarkIcon /> : <EditIcon />}
          </Button>
       </div>

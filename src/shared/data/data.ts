@@ -3,7 +3,6 @@ import type {
    TaskPayload,
    Project,
    ProjectPayload,
-   Note,
    NoteColor,
 } from './types';
 
