@@ -17,7 +17,7 @@ const useActiveProject = (projects: Project[]) => {
 
    const activeProject = useMemo(() => {
       return projects.find(p => p.id === activeProjectId) || defaultProject;
-   }, [projects, activeProjectId]);
+   }, [projects, activeProjectId, defaultProject]);
 
    useEffect(() => {
       localStorage.setItem('activeProjectId', activeProjectId);
