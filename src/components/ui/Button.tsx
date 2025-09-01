@@ -13,7 +13,7 @@ type Props = {
 const styles = {
    none: '',
    primary: twMerge(
-      'border-accent-700 shadow-accent-700/20 hover:bg-accent-700 h-10 rounded-sm border px-10 py-1 transition-colors duration-300 hover:shadow-lg',
+      'border-accent-700 shadow-accent-700/30 hover:bg-accent-700 rounded-sm border px-10 py-1 transition-all duration-300 hover:shadow-lg',
    ),
 
    secondary: twMerge(
