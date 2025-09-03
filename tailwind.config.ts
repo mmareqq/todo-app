@@ -1,5 +1,5 @@
 export default {
-   content: ['./src/**/*.{js,jsx,ts,tsx}'],
+   content: ['./frontend/**/*.{js,jsx,ts,tsx}'],
    plugins: [],
    safeList: {},
 };
