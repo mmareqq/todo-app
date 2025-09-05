@@ -1,34 +1,20 @@
 import 'dotenv/config';
 import express from 'express';
-import mysql from 'mysql2/promise';
+import { QUERIES } from './db/queries';
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-function getEnvVar(key: string) {
-   const val = process.env[key];
-   if (!val) {
-      throw new Error(`Missing required environment variable: ${key}`);
+app.get('/api/projects/:projectId', async (req, res) => {
+   try {
+      const [rows] = await QUERIES.getUsers();
+      // @ts-expect-error TO BE DELETED
+      res.send(JSON.stringify(rows[0].id));
+   } catch (err) {
+      console.log(err);
+      res.send('something went wrong. couldnt load data from db');
    }
-   return val;
-}
-
-try {
-   const conn = await mysql.createConnection({
-      port: parseInt(getEnvVar('SINGLESTORE_PORT')),
-      host: getEnvVar('SINGLESTORE_HOST'),
-      user: getEnvVar('SINGLESTORE_USER'),
-      database: getEnvVar('SINGLESTORE_DB_NAME'),
-      password: getEnvVar('SINGLESTORE_PASSWORD'),
-      ssl: {},
-   });
-} catch (err) {
-   console.log(err);
-   process.exit(1);
-}
-
-app.get('/api/projects/:projectId', (req, res) => {
-   res.send(`Getting project  ${req.params.projectId} from DB`);
+   res.send();
 });
 
 app.get('/', (req, res) => {
