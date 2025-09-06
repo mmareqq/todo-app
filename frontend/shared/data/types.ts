@@ -50,13 +50,13 @@ type Task = {
    name: string;
    priority: TaskPriority;
    duration: number;
-   date: string | null;
+   dueDate: string | null;
    readonly createdAt: string;
 };
 
 type TaskPriority = 0 | 1 | 2 | 3;
 
-type TaskPayload = Pick<Task, 'name' | 'priority' | 'duration' | 'date'>;
+type TaskPayload = Pick<Task, 'name' | 'priority' | 'duration' | 'dueDate'>;
 
 type TaskActions = {
    task: Task;

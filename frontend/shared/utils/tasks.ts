@@ -38,7 +38,7 @@ function sortTasksByName(tasks: Task[]) {
 
 function sortTasksByDate(tasks: Task[]) {
    return tasks.toSorted((task1, task2) =>
-      compareStrings(task1.date || '0', task2.date || '-1'),
+      compareStrings(task1.dueDate || '0', task2.dueDate || '-1'),
    );
 }
 
@@ -46,8 +46,8 @@ export function groupTasksByDate(tasks: Task[]) {
    const dates = getDatesMap<Task>();
 
    tasks.forEach(task => {
-      if (!task.date) return;
-      const dateTasks = dates.get(task.date);
+      if (!task.dueDate) return;
+      const dateTasks = dates.get(task.dueDate);
       if (dateTasks) dateTasks.push(task);
    });
 
@@ -63,7 +63,7 @@ export const getTasksTemplate = (projectId: string): Task[] => {
          name: 'Task 1',
          priority: 2,
          duration: 15,
-         date: '2025-07-30',
+         dueDate: '2025-07-30',
          createdAt: new Date().toISOString(),
       },
       {
@@ -73,7 +73,7 @@ export const getTasksTemplate = (projectId: string): Task[] => {
          name: 'Task 2',
          priority: 0,
          duration: 90,
-         date: '2025-08-01',
+         dueDate: '2025-08-01',
          createdAt: new Date().toISOString(),
       },
       {
@@ -83,7 +83,7 @@ export const getTasksTemplate = (projectId: string): Task[] => {
          name: 'Task 3',
          priority: 1,
          duration: 45,
-         date: '2025-07-25',
+         dueDate: '2025-07-25',
          createdAt: new Date().toISOString(),
       },
       {
@@ -93,7 +93,7 @@ export const getTasksTemplate = (projectId: string): Task[] => {
          name: 'Task 4',
          priority: 2,
          duration: 15,
-         date: '2025-08-10',
+         dueDate: '2025-08-10',
          createdAt: new Date().toISOString(),
       },
       {
@@ -103,7 +103,7 @@ export const getTasksTemplate = (projectId: string): Task[] => {
          name: 'Task 5',
          priority: 3,
          duration: 5,
-         date: '2025-08-12',
+         dueDate: '2025-08-12',
          createdAt: new Date().toISOString(),
       },
    ];

@@ -41,8 +41,8 @@ const Task = ({ task, editTask, removeTask, animationDelay }: Props) => {
 
             <div>{task.name}</div>
 
-            {task.date && (
-               <div className="text-current/70">{formatDate(task.date)}</div>
+            {task.dueDate && (
+               <div className="text-current/70">{formatDate(task.dueDate)}</div>
             )}
 
             <div className="ml-auto flex items-center gap-1">

@@ -17,7 +17,7 @@ const TaskForm = ({ task, updateValue }: Props) => {
          <NameInput name={task.name} updateValue={updateValue} />
          <PriorityInput priority={task.priority} updateValue={updateValue} />
          <DurationInput duration={task.duration} updateValue={updateValue} />
-         <DateInput date={task.date} updateValue={updateValue} />
+         <DateInput date={task.dueDate} updateValue={updateValue} />
       </div>
    );
 };

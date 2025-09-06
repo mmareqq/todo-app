@@ -12,11 +12,11 @@ const filterTasks = (allTasks: Task[], projectId: string) => {
    const today = getToday();
    switch (projectId) {
       case 'today':
-         return allTasks.filter(task => task.date === getToday());
+         return allTasks.filter(task => task.dueDate === getToday());
       case 'upcoming':
          return allTasks.filter(task => {
-            if (!task.date) return false;
-            return compareDates(today, task.date) <= 0;
+            if (!task.dueDate) return false;
+            return compareDates(today, task.dueDate) <= 0;
          });
       default:
          return allTasks.filter(task => task.projectId === projectId);

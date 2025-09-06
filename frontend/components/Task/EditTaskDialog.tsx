@@ -14,7 +14,7 @@ const EditTaskDialog = ({ task, editTask }: Props) => {
       name: task.name,
       priority: task.priority,
       duration: task.duration,
-      date: task.date,
+      dueDate: task.dueDate,
    };
    const [formTask, updateValue, resetForm] = useForm(taskPayload);
 
