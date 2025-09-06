@@ -48,11 +48,13 @@ type Task = {
    projectId: string;
    completed: boolean;
    name: string;
-   priority: number;
+   priority: TaskPriority;
    duration: number;
    date: string | null;
    readonly createdAt: string;
 };
+
+type TaskPriority = 0 | 1 | 2 | 3;
 
 type TaskPayload = Pick<Task, 'name' | 'priority' | 'duration' | 'date'>;
 
@@ -87,6 +89,7 @@ export {
    Task,
    TaskPayload,
    TaskActions,
+   TaskPriority,
    Dialog,
    Settings,
    SortMethod,

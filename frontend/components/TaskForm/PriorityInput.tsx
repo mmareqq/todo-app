@@ -2,15 +2,15 @@ import { PriorityIcon } from '@assets/Icons';
 import { priorityColors } from '@data/data';
 
 import type { UpdateValue } from '@data/helperTypes';
-import type { TaskPayload } from '@data/types';
+import type { TaskPayload, TaskPriority } from '@data/types';
 
 type Props = {
-   priority: number;
+   priority: TaskPriority;
    updateValue: UpdateValue<TaskPayload>;
 };
 
 const PriorityInput = ({ priority, updateValue }: Props) => {
-   const priorities = [0, 1, 2, 3];
+   const priorities: TaskPriority[] = [0, 1, 2, 3];
    return (
       <div className="grid gap-2">
          <div className="mb-1">Priority</div>
