@@ -8,8 +8,7 @@ type SortMethod = 'priority' | 'name' | 'duration' | 'date';
 type Project = {
    readonly id: string;
    name: string;
-   readonly editable: boolean;
-   readonly createdByUser: boolean;
+   readonly type: 'custom' | 'preset';
 };
 
 type ProjectPayload = Pick<Project, 'name'>;

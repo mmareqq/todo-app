@@ -19,7 +19,7 @@ const ProjectButton = ({ project, onClick, onRemove }: Props) => {
          >
             {project.name}
          </Button>
-         {project.editable && (
+         {project.type === 'custom' && (
             <DeleteButton onRemove={onRemove}>{project.name}</DeleteButton>
          )}
       </div>

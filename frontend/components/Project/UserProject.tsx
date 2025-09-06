@@ -26,7 +26,10 @@ function UserProject({ project, editProject }: Props) {
    return (
       <div className="oveflow-y-hidden wrapper grid h-svh content-start items-start">
          <DialogProvider>
-            <Title title={project.name} isEditable={project.editable} />
+            <Title
+               title={project.name}
+               isEditable={project.type === 'custom'}
+            />
             <EditProjectDialog project={project} editProject={editProject} />
          </DialogProvider>
 

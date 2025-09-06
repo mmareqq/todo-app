@@ -24,18 +24,16 @@ const taskModel: TaskPayload = {
 const projectModel: ProjectPayload = { name: '' };
 
 const appProjects: Project[] = [
-   { id: 'today', name: 'Today', editable: false, createdByUser: false },
+   { id: 'today', name: 'Today', type: 'preset' },
    {
       id: 'upcoming',
       name: 'Upcoming',
-      editable: false,
-      createdByUser: false,
+      type: 'preset',
    },
    {
       id: 'sticky-board',
       name: 'Sticky Board',
-      editable: false,
-      createdByUser: false,
+      type: 'preset',
    },
 ];
 

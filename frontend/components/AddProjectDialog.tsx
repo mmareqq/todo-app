@@ -20,8 +20,7 @@ function AddProjectDialog({ addProject }: Props) {
             const project: Project = {
                id: generateId(),
                name: projectData.name,
-               editable: true,
-               createdByUser: true,
+               type: 'custom',
             };
             addProject(project);
             resetForm();
