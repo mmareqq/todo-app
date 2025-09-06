@@ -2,7 +2,7 @@ import { useState } from 'react';
 import useNoteDrag from './useNoteDrag';
 import type { Note, NoteActions } from '@data/types';
 
-import { noteColors } from '@data/data';
+import { noteColors, noteSizes } from '@data/data';
 
 import NoteBody from './NoteBody';
 import EditingNoteBody from './EditingNoteBody';
@@ -24,11 +24,11 @@ const Note = ({ note, editNote, removeNote }: Props) => {
    const [editing, enableEditing, disableEditing] = useEditingState();
 
    const styles = {
-      borderColor: noteColors[note.color],
-      height: note.height + 'px',
-      width: note.width + 'px',
+      width: noteSizes[note.size].w + 'px',
+      height: noteSizes[note.size].h + 'px',
       left: note.x,
       top: note.y,
+      borderColor: noteColors[note.color],
    };
 
    const draggingStyles = {

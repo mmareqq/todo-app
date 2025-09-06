@@ -20,7 +20,7 @@ const AddTaskDialog = ({ addTask, projectId }: Props) => {
             const newTask: Task = {
                id: generateId(),
                projectId: projectId,
-               finished: false,
+               completed: false,
                createdAt: new Date().toISOString(),
                ...task,
             };

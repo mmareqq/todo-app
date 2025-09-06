@@ -43,7 +43,7 @@ function sortTasksByDate(tasks: Task[]) {
 }
 
 export function groupTasksByDate(tasks: Task[]) {
-   const dates: Map<string, Task[]> = getDatesMap();
+   const dates = getDatesMap<Task>();
 
    tasks.forEach(task => {
       if (!task.date) return;
@@ -59,7 +59,7 @@ export const getTasksTemplate = (projectId: string): Task[] => {
       {
          id: generateId(),
          projectId: projectId,
-         finished: false,
+         completed: false,
          name: 'Task 1',
          priority: 2,
          duration: 15,
@@ -69,7 +69,7 @@ export const getTasksTemplate = (projectId: string): Task[] => {
       {
          id: generateId(),
          projectId: projectId,
-         finished: false,
+         completed: false,
          name: 'Task 2',
          priority: 0,
          duration: 90,
@@ -79,7 +79,7 @@ export const getTasksTemplate = (projectId: string): Task[] => {
       {
          id: generateId(),
          projectId: projectId,
-         finished: false,
+         completed: false,
          name: 'Task 3',
          priority: 1,
          duration: 45,
@@ -89,7 +89,7 @@ export const getTasksTemplate = (projectId: string): Task[] => {
       {
          id: generateId(),
          projectId: projectId,
-         finished: false,
+         completed: false,
          name: 'Task 4',
          priority: 2,
          duration: 15,
@@ -99,7 +99,7 @@ export const getTasksTemplate = (projectId: string): Task[] => {
       {
          id: generateId(),
          projectId: projectId,
-         finished: false,
+         completed: false,
          name: 'Task 5',
          priority: 3,
          duration: 5,

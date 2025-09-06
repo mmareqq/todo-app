@@ -1,5 +1,10 @@
 import { useState } from 'react';
-import type { NotePayload, NoteActions, NoteColor } from '@data/types';
+import type {
+   NotePayload,
+   NoteActions,
+   NoteColor,
+   NoteSize,
+} from '@data/types';
 
 import { CheckMarkIcon } from '@assets/Icons';
 import Button from '@ui/Button';
@@ -9,8 +14,6 @@ import SizeMenu from './SizeMenu';
 import ColorPicker from './ColorPicker';
 
 import { noteSizes } from '@data/data';
-
-type NoteSizeType = keyof typeof noteSizes;
 
 type EditingProps = Pick<NoteActions, 'note' | 'editNote' | 'removeNote'> & {
    disableEditing: () => void;
@@ -73,17 +76,14 @@ const EditingNoteBody = ({
 
          <div className="flex items-center justify-between p-1">
             <SizeMenu
-               editNoteSize={(size: NoteSizeType) => {
+               editNoteSize={(size: NoteSize) => {
                   console.log('chagning note size ', size);
                   editNote({
                      ...note,
-                     width: noteSizes[size].w,
-                     height: noteSizes[size].h,
+                     size: size,
                   });
                }}
-               isBtnActive={(size: NoteSizeType) =>
-                  noteSizes[size].w === note.width
-               }
+               isBtnActive={(size: NoteSize) => note.size === size}
             />
             <div className="flex">
                <DeleteButton iconSize={20} onRemove={() => removeNote(note.id)}>

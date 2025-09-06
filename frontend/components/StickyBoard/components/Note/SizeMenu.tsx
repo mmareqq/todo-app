@@ -2,12 +2,11 @@ import Button from '@ui/Button';
 import { SizeMIcon, SizeLIcon, SizeSIcon, SizeXLIcon } from '@assets/Icons';
 
 import { noteSizes } from '@data/data';
-
-type NoteSizeType = keyof typeof noteSizes;
+import { NoteSize } from '@data/types';
 
 type SizeMenuType = {
-   editNoteSize: (size: NoteSizeType) => void;
-   isBtnActive: (size: NoteSizeType) => boolean;
+   editNoteSize: (size: NoteSize) => void;
+   isBtnActive: (size: NoteSize) => boolean;
 };
 
 const SizeMenu = ({ editNoteSize, isBtnActive }: SizeMenuType) => {
@@ -46,7 +45,7 @@ const SizeMenu = ({ editNoteSize, isBtnActive }: SizeMenuType) => {
 };
 
 type SizeBtnProps = {
-   size: NoteSizeType;
+   size: NoteSize;
    onClick: () => void;
    active: boolean;
    Icon: JSX.Element;

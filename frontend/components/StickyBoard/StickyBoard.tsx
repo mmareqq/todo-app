@@ -22,8 +22,7 @@ const StickyBoard = () => {
          color: 'blue',
          x: boardRef.current!.scrollLeft + x,
          y: boardRef.current!.scrollTop + y,
-         width: noteSizes.md.w,
-         height: noteSizes.md.h,
+         size: 'md',
       };
       addNote(newNote);
    };
@@ -79,7 +78,7 @@ const StickyBoard = () => {
                </AnimateExit>
             </div>
             <div>
-               <Button variant="secondary" onClick={() => addNewNote(225, 50)}>
+               <Button variant="secondary" onClick={() => addNewNote(150, 50)}>
                   Add note
                </Button>
             </div>

@@ -4,6 +4,7 @@ import type {
    Project,
    ProjectPayload,
    NoteColor,
+   NoteSize,
 } from './types';
 
 const initialSettings: Settings = {
@@ -58,7 +59,7 @@ const noteColors: Record<NoteColor, string> = {
    purple: '#921EFF',
 };
 
-const noteSizes = {
+const noteSizes: Record<NoteSize, { w: number; h: number }> = {
    sm: { w: 150, h: 150 },
    md: { w: 200, h: 200 },
    lg: { w: 250, h: 250 },

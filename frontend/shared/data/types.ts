@@ -28,9 +28,10 @@ type Note = {
    color: NoteColor;
    x: number;
    y: number;
-   width: number;
-   height: number;
+   size: NoteSize;
 };
+
+type NoteSize = 'sm' | 'md' | 'lg' | 'xl';
 
 type NotePayload = Pick<Note, 'title' | 'description'>;
 
@@ -46,7 +47,7 @@ type NoteActions = {
 type Task = {
    readonly id: string;
    projectId: string;
-   finished: boolean;
+   completed: boolean;
    name: string;
    priority: number;
    duration: number;
@@ -95,4 +96,5 @@ export {
    NoteActions,
    NotePayload,
    NoteColor,
+   NoteSize,
 };

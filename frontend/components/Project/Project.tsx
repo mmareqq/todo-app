@@ -9,9 +9,6 @@ type Props = Pick<ProjectActions, 'project' | 'editProject'>;
 const Project = ({ project, editProject }: Props) => {
    if (project.id === 'upcoming') return <UpcomingProject project={project} />;
 
-   if (project.id === 'today')
-      return <UserProject project={project} editProject={editProject} />;
-
    if (project.id === 'sticky-board') {
       return <StickyBoard />;
    }
