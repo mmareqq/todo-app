@@ -1,14 +1,13 @@
+import { useRef, useState } from 'react';
+import type { Note as NoteType } from '@data/types';
+import AnimateExit from '@ui/AnimateExit';
+
 import useNotes from './useNotes';
 import Note from './components/Note/Note';
 import generateId from '@utils/generateId';
-import { useRef, useState } from 'react';
-import { noteSizes } from '@data/data';
-import type { Note as NoteType } from '@data/types';
 import Button from '@ui/Button';
 
 import { MenuIcon } from '@assets/Icons';
-
-import AnimateExit from '@ui/AnimateExit';
 
 const StickyBoard = () => {
    const { notes, addNote, editNote, removeNote, setNotes } = useNotes();
@@ -27,18 +26,10 @@ const StickyBoard = () => {
       addNote(newNote);
    };
 
-   const [menuOpen, setMenuOpen] = useState(false);
-
-   const toggleMenu = () => setMenuOpen(p => !p);
-
-   const resetNotes = () => {
-      setNotes([]);
-      toggleMenu();
-   };
+   const resetNotes = () => setNotes([]);
 
    const toggleGrid = () => {
       boardRef.current!.classList.toggle('sticky-board--grid');
-      toggleMenu();
    };
 
    return (
@@ -53,36 +44,55 @@ const StickyBoard = () => {
          ))}
 
          <div className="m-2 flex gap-2">
-            <div>
-               <Button variant="dropdown" className="p-1" onClick={toggleMenu}>
-                  <MenuIcon />
-               </Button>
-               <AnimateExit
-                  hidden={menuOpen}
-                  className="bg-primary-800 border-primary-600 absolute flex origin-top flex-col overflow-hidden rounded-md border"
-               >
-                  <Button
-                     variant="dropdown"
-                     className="rounded-none border-none"
-                     onClick={toggleGrid}
-                  >
-                     Toggle grid
-                  </Button>
-                  <Button
-                     variant="dropdown"
-                     className="border-none"
-                     onClick={resetNotes}
-                  >
-                     Reset
-                  </Button>
-               </AnimateExit>
-            </div>
-            <div>
-               <Button variant="secondary" onClick={() => addNewNote(150, 50)}>
-                  Add note
-               </Button>
-            </div>
+            <Menu toggleGrid={toggleGrid} resetNotes={resetNotes} />
+            <Button variant="secondary" onClick={() => addNewNote(150, 50)}>
+               Add note
+            </Button>
          </div>
+      </div>
+   );
+};
+
+const Menu = ({
+   toggleGrid,
+   resetNotes,
+}: {
+   toggleGrid: () => void;
+   resetNotes: () => void;
+}) => {
+   const [menuOpen, setMenuOpen] = useState(false);
+   const toggleMenu = () => setMenuOpen(p => !p);
+
+   return (
+      <div>
+         <Button variant="dropdown" className="p-1" onClick={toggleMenu}>
+            <MenuIcon />
+         </Button>
+         <AnimateExit
+            hidden={menuOpen}
+            className="bg-primary-800 border-primary-600 absolute flex origin-top flex-col overflow-hidden rounded-md border"
+         >
+            <Button
+               variant="dropdown"
+               className="border-none"
+               onClick={() => {
+                  toggleGrid();
+                  toggleMenu();
+               }}
+            >
+               Toggle grid
+            </Button>
+            <Button
+               variant="dropdown"
+               className="border-none"
+               onClick={() => {
+                  resetNotes();
+                  toggleMenu();
+               }}
+            >
+               Reset
+            </Button>
+         </AnimateExit>
       </div>
    );
 };

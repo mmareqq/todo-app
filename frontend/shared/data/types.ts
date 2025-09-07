@@ -3,7 +3,7 @@ import type { UpdateValue } from './helperTypes.ts';
 
 type Children = { children?: ReactNode };
 
-type SortMethod = 'priority' | 'name' | 'duration' | 'date';
+type SortMethod = 'priority' | 'name' | 'duration' | 'dueDate';
 
 type Project = {
    readonly id: string;
@@ -20,29 +20,6 @@ type ProjectActions = {
    removeProject: (id: Project['id']) => void;
 };
 
-type Note = {
-   readonly id: string;
-   title: string;
-   description: string;
-   color: NoteColor;
-   x: number;
-   y: number;
-   size: NoteSize;
-};
-
-type NoteSize = 'sm' | 'md' | 'lg' | 'xl';
-
-type NotePayload = Pick<Note, 'title' | 'description'>;
-
-type NoteColor = 'blue' | 'red' | 'green' | 'orange' | 'purple' | 'yellow';
-
-type NoteActions = {
-   note: Note;
-   addNote: (newNote: Note) => void;
-   editNote: (newNote: Note) => void;
-   removeNote: (noteId: Note['id']) => void;
-};
-
 type Task = {
    readonly id: string;
    projectId: string;
@@ -54,7 +31,7 @@ type Task = {
    readonly createdAt: string;
 };
 
-type TaskPriority = 0 | 1 | 2 | 3;
+type TaskPriority = 'none' | 'low' | 'medium' | 'high';
 
 type TaskPayload = Pick<Task, 'name' | 'priority' | 'duration' | 'dueDate'>;
 
@@ -63,6 +40,26 @@ type TaskActions = {
    addTask: (newTask: Task) => void;
    editTask: (newTask: Task) => void;
    removeTask: (id: Task['id']) => void;
+};
+
+type Note = {
+   readonly id: string;
+   title: string;
+   description: string;
+   color: NoteColor;
+   x: number;
+   y: number;
+   size: NoteSize;
+};
+
+type NoteSize = 'sm' | 'md' | 'lg' | 'xl';
+type NotePayload = Pick<Note, 'title' | 'description'>;
+type NoteColor = 'blue' | 'red' | 'green' | 'orange' | 'purple' | 'yellow';
+type NoteActions = {
+   note: Note;
+   addNote: (newNote: Note) => void;
+   editNote: (newNote: Note) => void;
+   removeNote: (noteId: Note['id']) => void;
 };
 
 type Dialog = {

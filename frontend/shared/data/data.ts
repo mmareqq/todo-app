@@ -16,9 +16,9 @@ const initialSettings: Settings = {
 
 const taskModel: TaskPayload = {
    name: '',
-   priority: 0,
+   priority: 'none',
    duration: 0,
-   date: '',
+   dueDate: '',
 };
 
 const projectModel: ProjectPayload = { name: '' };
@@ -37,12 +37,12 @@ const appProjects: Project[] = [
    },
 ];
 
-const priorityColors = [
-   'text-priority-0',
-   'text-priority-1',
-   'text-priority-2',
-   'text-priority-3',
-];
+const priorityColors = {
+   none: 'text-priority-0',
+   low: 'text-priority-1',
+   medium: 'text-priority-2',
+   high: 'text-priority-3',
+};
 
 const durationValues = [0, 5, 10, 15, 30, 45, 60, 90];
 

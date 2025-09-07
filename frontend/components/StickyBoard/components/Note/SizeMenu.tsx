@@ -1,7 +1,6 @@
 import Button from '@ui/Button';
 import { SizeMIcon, SizeLIcon, SizeSIcon, SizeXLIcon } from '@assets/Icons';
 
-import { noteSizes } from '@data/data';
 import { NoteSize } from '@data/types';
 
 type SizeMenuType = {
@@ -10,58 +9,29 @@ type SizeMenuType = {
 };
 
 const SizeMenu = ({ editNoteSize, isBtnActive }: SizeMenuType) => {
+   const sizes: NoteSize[] = ['sm', 'md', 'lg', 'xl'];
+   const icons: Record<NoteSize, JSX.Element> = {
+      sm: <SizeSIcon />,
+      md: <SizeMIcon />,
+      lg: <SizeLIcon />,
+      xl: <SizeXLIcon />,
+   };
+
    return (
       <div className="flex gap-1">
-         <SizeButton
-            size="sm"
-            onClick={() => editNoteSize('sm')}
-            active={isBtnActive('sm')}
-            Icon={<SizeSIcon />}
-         />
-         <SizeButton
-            size="md"
-            onClick={() => editNoteSize('md')}
-            active={isBtnActive('md')}
-            Icon={<SizeMIcon />}
-         />
-         {!isBtnActive('sm') && (
-            <SizeButton
-               size="lg"
-               onClick={() => editNoteSize('lg')}
-               active={isBtnActive('lg')}
-               Icon={<SizeLIcon />}
-            />
-         )}
-         {!isBtnActive('sm') && !isBtnActive('md') && (
-            <SizeButton
-               size="xl"
-               onClick={() => editNoteSize('xl')}
-               active={isBtnActive('xl')}
-               Icon={<SizeXLIcon />}
-            />
-         )}
+         {sizes.map(size => (
+            <Button
+               key={size}
+               variant="glass"
+               className="p-0.75"
+               active={isBtnActive(size)}
+               onClick={() => editNoteSize(size)}
+            >
+               <span className="sr-only">{size} size</span>
+               {icons[size]}
+            </Button>
+         ))}
       </div>
-   );
-};
-
-type SizeBtnProps = {
-   size: NoteSize;
-   onClick: () => void;
-   active: boolean;
-   Icon: JSX.Element;
-};
-
-const SizeButton = ({ size, onClick, active, Icon }: SizeBtnProps) => {
-   return (
-      <Button
-         variant="glass"
-         className="p-0.75"
-         active={active}
-         onClick={onClick}
-      >
-         <span className="sr-only">{size} size</span>
-         {Icon}
-      </Button>
    );
 };
 

@@ -12,8 +12,8 @@ const DateInput = ({ date, updateValue }: Props) => {
          <span>Date:</span>
          <input
             type="date"
-            id="task-date"
-            name="task-date"
+            id="task-dueDate"
+            name="task-dueDate"
             value={date ?? ''}
             onChange={e => updateValue('dueDate', e.target.value)}
          />

@@ -14,8 +14,8 @@ export const sortTasks = (tasks: Task[], sortMethod: SortMethod) => {
          return sortTasksByName(tasks);
       case 'duration':
          return sortTasksByDuration(tasks);
-      case 'date':
-         return sortTasksByDate(tasks);
+      case 'dueDate':
+         return sortTasksByDueDate(tasks);
 
       default:
          throw new Error('Wrong method for sorting tasks');
@@ -23,7 +23,15 @@ export const sortTasks = (tasks: Task[], sortMethod: SortMethod) => {
 };
 
 function sortTasksByPriority(tasks: Task[]) {
-   return tasks.toSorted((task1, task2) => task2.priority - task1.priority);
+   const order = {
+      none: 0,
+      low: 1,
+      medium: 2,
+      high: 3,
+   };
+   return tasks.toSorted(
+      (task1, task2) => order[task2.priority] - order[task1.priority],
+   );
 }
 
 function sortTasksByDuration(tasks: Task[]) {
@@ -36,7 +44,7 @@ function sortTasksByName(tasks: Task[]) {
    );
 }
 
-function sortTasksByDate(tasks: Task[]) {
+function sortTasksByDueDate(tasks: Task[]) {
    return tasks.toSorted((task1, task2) =>
       compareStrings(task1.dueDate || '0', task2.dueDate || '-1'),
    );
@@ -61,7 +69,7 @@ export const getTasksTemplate = (projectId: string): Task[] => {
          projectId: projectId,
          completed: false,
          name: 'Task 1',
-         priority: 2,
+         priority: 'high',
          duration: 15,
          dueDate: '2025-07-30',
          createdAt: new Date().toISOString(),
@@ -71,7 +79,7 @@ export const getTasksTemplate = (projectId: string): Task[] => {
          projectId: projectId,
          completed: false,
          name: 'Task 2',
-         priority: 0,
+         priority: 'medium',
          duration: 90,
          dueDate: '2025-08-01',
          createdAt: new Date().toISOString(),
@@ -81,7 +89,7 @@ export const getTasksTemplate = (projectId: string): Task[] => {
          projectId: projectId,
          completed: false,
          name: 'Task 3',
-         priority: 1,
+         priority: 'low',
          duration: 45,
          dueDate: '2025-07-25',
          createdAt: new Date().toISOString(),
@@ -91,7 +99,7 @@ export const getTasksTemplate = (projectId: string): Task[] => {
          projectId: projectId,
          completed: false,
          name: 'Task 4',
-         priority: 2,
+         priority: 'high',
          duration: 15,
          dueDate: '2025-08-10',
          createdAt: new Date().toISOString(),
@@ -101,7 +109,7 @@ export const getTasksTemplate = (projectId: string): Task[] => {
          projectId: projectId,
          completed: false,
          name: 'Task 5',
-         priority: 3,
+         priority: 'none',
          duration: 5,
          dueDate: '2025-08-12',
          createdAt: new Date().toISOString(),
