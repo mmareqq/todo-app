@@ -15,6 +15,7 @@
       "moduleResolution": "nodenext",
       "allowJs": true,
       "checkJs": false,
-      "noEmit": true
+      "noEmit": true,
+      "exactOptionalPropertyTypes": true
    }
 }

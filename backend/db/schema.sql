@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS
       id INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL,
       project_id INTEGER NOT NULL,
       `name` VARCHAR(255) NOT NULL,
+      completed BOOLEAN NOT NULL,
       priority ENUM('none', 'low', 'medium', 'high') NOT NULL,
       duration INTEGER NOT NULL,
       due_date DATETIME,

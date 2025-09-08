@@ -1,4 +1,4 @@
-type Props = { size?: number } & React.SVGAttributes<SVGElement>;
+type Props = { size?: number | undefined } & React.SVGAttributes<SVGElement>;
 
 export function TrashIcon({ size = 20, ...props }: Props) {
    return (

@@ -10,6 +10,9 @@
       "moduleResolution": "bundler",
       "baseUrl": ".",
       "paths": {
+         "@types": [
+            "shared/data/types"
+         ],
          "@shared/*": [
             "shared/*"
          ],
@@ -42,7 +45,8 @@
       "esModuleInterop": true,
       "skipLibCheck": true,
       "forceConsistentCasingInFileNames": true,
-      "noEmit": true
+      "noEmit": true,
+      "exactOptionalPropertyTypes": true
    },
    "include": [
       "frontend",

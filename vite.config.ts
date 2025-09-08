@@ -13,6 +13,7 @@ export default defineConfig({
    plugins: [react(), tailwindcss()],
    resolve: {
       alias: {
+         '@types': path.resolve(__dirname, 'shared/data/types'),
          '@shared': path.resolve(__dirname, 'shared'),
          '@frontend/data': path.resolve(__dirname, 'frontend/shared/data'),
          '@frontend/utils': path.resolve(__dirname, 'frontend/shared/utils'),
