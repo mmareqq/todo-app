@@ -2,7 +2,7 @@ import useForm from '@hooks/useForm';
 
 import TaskForm from '@components/TaskForm';
 import Dialog from '@ui/Dialog';
-import type { TaskPayload, Task, TaskActions } from '@data/types';
+import type { TaskPayload, Task, TaskActions } from '@frontend/data/types';
 
 type Props = {
    task: Task;

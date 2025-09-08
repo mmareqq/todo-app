@@ -1,4 +1,4 @@
-import type { Dialog, Children } from '@data/types';
+import type { Dialog, Children } from '@frontend/data/types';
 import { useState } from 'react';
 
 import DialogContext from './DialogContext';

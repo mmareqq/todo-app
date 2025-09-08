@@ -13,13 +13,15 @@ export default defineConfig({
    plugins: [react(), tailwindcss()],
    resolve: {
       alias: {
+         '@shared': path.resolve(__dirname, 'shared'),
+         '@frontend/data': path.resolve(__dirname, 'frontend/shared/data'),
+         '@frontend/utils': path.resolve(__dirname, 'frontend/shared/utils'),
+         '@frontend/shared': path.resolve(__dirname, 'frontend/shared'),
          '@components': path.resolve(__dirname, 'frontend/components'),
          '@assets': path.resolve(__dirname, 'frontend/assets'),
          '@ui': path.resolve(__dirname, 'frontend/components/ui'),
          '@hooks': path.resolve(__dirname, 'frontend/shared/hooks'),
-         '@data': path.resolve(__dirname, 'frontend/shared/data'),
          '@contexts': path.resolve(__dirname, 'frontend/shared/contexts'),
-         '@utils': path.resolve(__dirname, 'frontend/shared/utils'),
       },
    },
 });

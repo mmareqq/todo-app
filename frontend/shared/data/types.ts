@@ -36,7 +36,6 @@ type TaskPriority = 'none' | 'low' | 'medium' | 'high';
 type TaskPayload = Pick<Task, 'name' | 'priority' | 'duration' | 'dueDate'>;
 
 type TaskActions = {
-   task: Task;
    addTask: (newTask: Task) => void;
    editTask: (newTask: Task) => void;
    removeTask: (id: Task['id']) => void;

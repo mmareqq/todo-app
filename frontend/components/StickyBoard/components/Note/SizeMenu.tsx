@@ -1,7 +1,7 @@
 import Button from '@ui/Button';
 import { SizeMIcon, SizeLIcon, SizeSIcon, SizeXLIcon } from '@assets/Icons';
 
-import { NoteSize } from '@data/types';
+import { NoteSize } from '@frontend/data/types';
 
 type SizeMenuType = {
    editNoteSize: (size: NoteSize) => void;

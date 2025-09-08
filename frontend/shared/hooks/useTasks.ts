@@ -1,7 +1,7 @@
 import { useEffect, useState, useMemo } from 'react';
-import type { Task } from '@data/types';
+import type { Task } from '@frontend/data/types';
 
-import { compareDates, getToday } from '@utils/time';
+import { compareDates, getToday } from '@frontend/utils/time';
 
 const getTasks = (): Task[] => {
    const tasks = localStorage.getItem(`tasks`);

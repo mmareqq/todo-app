@@ -4,7 +4,7 @@ import { ChevronIcon } from '@assets/Icons';
 import AnimateExit from '@ui/AnimateExit';
 import DropdownItem from '@ui/DropdownItem';
 import Button from '@ui/Button';
-import type { SortMethod } from '@data/types';
+import type { SortMethod } from '@frontend/data/types';
 
 const SortMenu = () => {
    const [isOpen, setIsOpen] = useState(false);

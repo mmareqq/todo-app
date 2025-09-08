@@ -6,7 +6,7 @@ import UpcomingBody from './components/UpcomingBody';
 import Menu from './components/Menu';
 import AddTaskDialog from './components/AddTaskDialog';
 
-import type { Project } from '@data/types';
+import type { Project } from '@frontend/data/types';
 
 type Props = {
    project: Project;

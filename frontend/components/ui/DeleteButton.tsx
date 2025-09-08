@@ -5,7 +5,7 @@ import DialogProvider from '@contexts/DialogProvider';
 import Dialog from '@ui/Dialog';
 import Button from '@ui/Button';
 
-import type { Children } from '@data/types';
+import type { Children } from '@frontend/data/types';
 
 type Props = {
    onRemove: () => void;

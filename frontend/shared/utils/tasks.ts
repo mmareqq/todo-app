@@ -4,7 +4,7 @@ import { compareStrings } from './stringUtils';
 import { getDatesMap } from './time';
 import { convertMapToArray } from './convert';
 
-import type { Task, SortMethod } from '@data/types';
+import type { Task, SortMethod } from '@frontend/data/types';
 
 export const sortTasks = (tasks: Task[], sortMethod: SortMethod) => {
    switch (sortMethod) {
@@ -23,7 +23,7 @@ export const sortTasks = (tasks: Task[], sortMethod: SortMethod) => {
 };
 
 function sortTasksByPriority(tasks: Task[]) {
-   const order = {
+   const order: Record<Task['priority'], number> = {
       none: 0,
       low: 1,
       medium: 2,

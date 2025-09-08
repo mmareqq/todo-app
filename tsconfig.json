@@ -8,28 +8,34 @@
       ],
       "jsx": "react-jsx",
       "moduleResolution": "bundler",
-      "baseUrl": "frontend",
+      "baseUrl": ".",
       "paths": {
+         "@shared/*": [
+            "shared/*"
+         ],
          "@ui/*": [
-            "components/ui/*"
+            "frontend/components/ui/*"
          ],
          "@assets/*": [
-            "assets/*"
+            "frontend/assets/*"
          ],
-         "@data/*": [
-            "shared/data/*"
+         "@frontend/shared/*": [
+            "frontend/shared/data/*"
          ],
          "@contexts/*": [
-            "shared/contexts/*"
+            "frontend/shared/contexts/*"
          ],
          "@hooks/*": [
-            "shared/hooks/*"
+            "frontend/shared/hooks/*"
          ],
-         "@utils/*": [
-            "shared/utils/*"
+         "@frontend/utils/*": [
+            "frontend/shared/utils/*"
+         ],
+         "@frontend/data/*": [
+            "frontend/shared/data/*"
          ],
          "@components/*": [
-            "components/*"
+            "frontend/components/*"
          ]
       },
       "strict": true,
@@ -41,6 +47,7 @@
    "include": [
       "frontend",
       "backend",
+      "shared",
       "eslint.config.ts"
    ]
 }

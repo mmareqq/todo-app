@@ -1,8 +1,8 @@
 import Button from '@ui/Button';
-import { formatDuration } from '@utils/time';
+import { formatDuration } from '@frontend/utils/time';
 
-import type { UpdateValue } from '@data/helperTypes';
-import type { TaskPayload } from '@data/types';
+import type { UpdateValue } from '@frontend/data/helperTypes';
+import type { TaskPayload } from '@frontend/data/types';
 
 type DurationBtnProps = {
    val: number;

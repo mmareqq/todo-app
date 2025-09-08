@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { appProjects } from '@data/data';
+import { appProjects } from '@frontend/data/data';
 
-import type { Project } from '@data/types';
+import type { Project } from '@frontend/data/types';
 
 const getProjects = (): Project[] => {
    const projects = localStorage.getItem('projects');

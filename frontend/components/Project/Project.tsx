@@ -2,7 +2,7 @@ import UserProject from './UserProject';
 import UpcomingProject from './UpcomingProject';
 import StickyBoard from '@components/StickyBoard';
 
-import type { ProjectActions } from '@data/types';
+import type { ProjectActions } from '@frontend/data/types';
 
 type Props = Pick<ProjectActions, 'project' | 'editProject'>;
 

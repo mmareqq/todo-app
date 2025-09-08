@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react';
 import useDialogContext from '@hooks/useDialogContext';
 
-import type { Children } from '@data/types';
+import type { Children } from '@frontend/data/types';
 import Button from './Button';
 
 type Props = {

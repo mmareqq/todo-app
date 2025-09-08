@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 
-import type { Project } from '@data/types';
-import { defaultProjectId } from '@data/data';
+import type { Project } from '@frontend/data/types';
+import { defaultProjectId } from '@frontend/data/data';
 
 const getActiveId = () => {
    return localStorage.getItem('activeProjectId') || defaultProjectId;

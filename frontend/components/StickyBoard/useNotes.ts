@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-import type { Note } from '@data/types';
+import type { Note } from '@frontend/data/types';
 
 const getNotes = (): Note[] => {
    const notes = localStorage.getItem('notes');

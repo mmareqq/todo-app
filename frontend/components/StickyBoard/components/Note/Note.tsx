@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import useNoteDrag from './useNoteDrag';
-import type { Note, NoteActions } from '@data/types';
+import type { Note, NoteActions } from '@frontend/data/types';
 
-import { noteColors, noteSizes } from '@data/data';
+import { noteColors, noteSizes } from '@frontend/data/data';
 
 import NoteBody from './NoteBody';
 import EditingNoteBody from './EditingNoteBody';

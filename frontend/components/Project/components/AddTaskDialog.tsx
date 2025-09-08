@@ -1,11 +1,11 @@
 import useForm from '@hooks/useForm';
-import generateId from '@utils/generateId';
+import generateId from '@frontend/utils/generateId';
 
 import TaskForm from '@components/TaskForm';
 import Dialog from '@ui/Dialog';
-import { taskModel } from '@data/data';
+import { taskModel } from '@frontend/data/data';
 
-import type { Task, TaskActions } from '@data/types';
+import type { Task, TaskActions } from '@frontend/data/types';
 
 type Props = {
    addTask: TaskActions['addTask'];

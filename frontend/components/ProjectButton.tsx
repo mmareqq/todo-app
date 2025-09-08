@@ -1,7 +1,7 @@
 import DeleteButton from '@ui/DeleteButton';
 import Button from '@ui/Button';
 
-import type { Project } from '@data/types';
+import type { Project } from '@frontend/data/types';
 
 type Props = {
    project: Project;

@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import SettingsContext from './SettingsContext';
-import { initialSettings } from '@data/data';
+import { initialSettings } from '@frontend/data/data';
 
 import type {
    SettingsContext as SettingsContextType,
    Settings,
    Children,
-} from '@data/types';
+} from '@frontend/data/types';
 
 const SettingsProvider = ({ children }: Children) => {
    const contextValue = useSettings();

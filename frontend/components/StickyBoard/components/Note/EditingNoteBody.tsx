@@ -4,7 +4,7 @@ import type {
    NoteActions,
    NoteColor,
    NoteSize,
-} from '@data/types';
+} from '@frontend/data/types';
 
 import { CheckMarkIcon } from '@assets/Icons';
 import Button from '@ui/Button';
@@ -13,7 +13,7 @@ import DeleteButton from '@ui/DeleteButton';
 import SizeMenu from './SizeMenu';
 import ColorPicker from './ColorPicker';
 
-import { noteSizes } from '@data/data';
+import { noteSizes } from '@frontend/data/data';
 
 type EditingProps = Pick<NoteActions, 'note' | 'editNote' | 'removeNote'> & {
    disableEditing: () => void;

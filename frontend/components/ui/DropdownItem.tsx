@@ -1,9 +1,9 @@
 import useSettingsContext from '@hooks/useSettingsContext';
 import Button from './Button';
 import { Dot } from '@assets/Icons';
-import { capitalize } from '@utils/stringUtils';
+import { capitalize } from '@frontend/utils/stringUtils';
 
-import type { SortMethod } from '@data/types';
+import type { SortMethod } from '@frontend/data/types';
 
 type Props = {
    value: SortMethod;

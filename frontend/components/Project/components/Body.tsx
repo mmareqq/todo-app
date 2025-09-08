@@ -1,12 +1,12 @@
 import { useMemo } from 'react';
 import Task from '@components/Task';
 import Button from '@ui/Button';
-import { sortTasks } from '@utils/tasks';
+import { sortTasks } from '@frontend/utils/tasks';
 
-import type { TaskActions } from '@data/types';
+import type { Task as TaskType, TaskActions } from '@frontend/data/types';
 
 type Props = {
-   tasks: TaskActions['task'][];
+   tasks: TaskType[];
    editTask: TaskActions['editTask'];
    removeTask: TaskActions['removeTask'];
 };

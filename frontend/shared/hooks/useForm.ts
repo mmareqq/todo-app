@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import type { UpdateValue } from '@data/helperTypes';
+import type { UpdateValue } from '@frontend/data/helperTypes';
 
 const useForm = <T extends object>(template: T) => {
    const [data, setData] = useState(template);

@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import type { SettingsContext } from '@data/types';
+import type { SettingsContext } from '@frontend/data/types';
 
 const SettingsContext = createContext<SettingsContext | null>(null);
 

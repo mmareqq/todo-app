@@ -1,5 +1,5 @@
-import type { ProjectPayload } from '@data/types';
-import type { UpdateValue } from '@data/helperTypes';
+import type { ProjectPayload } from '@frontend/data/types';
+import type { UpdateValue } from '@frontend/data/helperTypes';
 
 type Props = {
    project: ProjectPayload;

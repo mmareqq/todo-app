@@ -1,4 +1,4 @@
-import { durationValues } from '@data/data';
+import { durationValues } from '@frontend/data/data';
 import { useState, useEffect } from 'react';
 
 const getInititalValues = () => {

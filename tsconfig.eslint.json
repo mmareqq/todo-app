@@ -3,6 +3,7 @@
    "include": [
       "frontend",
       "backend",
+      "shared",
       "eslint.config.ts",
       "tailwind.config.ts",
       "vite.config.ts"

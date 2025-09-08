@@ -2,7 +2,7 @@ import { EditIcon } from '@assets/Icons';
 import Button from '@ui/Button';
 import useDialogContext from '@hooks/useDialogContext';
 
-import type { Children } from '@data/types';
+import type { Children } from '@frontend/data/types';
 
 const EditTaskButton = ({ children }: Children) => {
    const { openDialog } = useDialogContext();

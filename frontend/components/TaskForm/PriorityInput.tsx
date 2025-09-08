@@ -1,8 +1,8 @@
 import { PriorityIcon } from '@assets/Icons';
-import { priorityColors } from '@data/data';
+import { priorityColors } from '@frontend/data/data';
 
-import type { UpdateValue } from '@data/helperTypes';
-import type { TaskPayload, TaskPriority } from '@data/types';
+import type { UpdateValue } from '@frontend/data/helperTypes';
+import type { TaskPayload, TaskPriority } from '@frontend/data/types';
 
 type Props = {
    priority: TaskPriority;

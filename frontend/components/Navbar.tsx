@@ -4,10 +4,10 @@ import DialogProvider from '@contexts/DialogProvider';
 import ButtonAddProject from './ButtonAddProject';
 import AddProjectDialog from './AddProjectDialog';
 
-import { defaultProjectId } from '@data/data';
+import { defaultProjectId } from '@frontend/data/data';
 
-import type { Project } from '@data/types';
-import type { StateSetter } from '@data/helperTypes';
+import type { Project } from '@frontend/data/types';
+import type { StateSetter } from '@frontend/data/helperTypes';
 
 type Id = Project['id'];
 

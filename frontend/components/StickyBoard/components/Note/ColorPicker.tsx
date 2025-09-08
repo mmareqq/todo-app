@@ -1,5 +1,5 @@
-import type { NoteColor } from '@data/types';
-import { noteColors } from '@data/data';
+import type { NoteColor } from '@frontend/data/types';
+import { noteColors } from '@frontend/data/data';
 
 type ColorPickerType = {
    selectedColor: NoteColor;

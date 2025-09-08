@@ -1,8 +1,8 @@
 import { useEffect, useRef, useCallback } from 'react';
 import useDragState from './useDragState';
 
-import { animateEl, transitionEl } from '@utils/animate';
-import type { NoteActions, Note } from '@data/types';
+import { animateEl, transitionEl } from '@frontend/utils/animate';
+import type { NoteActions, Note } from '@frontend/data/types';
 
 const BORDER_WIDTH = 7; // space from the edge of the board
 const BOARD_WIDTH = 1800;

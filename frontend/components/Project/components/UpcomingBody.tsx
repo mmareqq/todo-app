@@ -2,16 +2,14 @@ import { useMemo } from 'react';
 
 import Button from '@ui/Button';
 import Task from '@components/Task';
-import { groupTasksByDate } from '@utils/tasks';
 
-import { formatDate } from '@utils/time';
+import { groupTasksByDate } from '@frontend/utils/tasks';
+import { formatDate, getDayOfWeek } from '@frontend/utils/time';
 
-import type { TaskActions } from '@data/types';
-
-import { getDayOfWeek } from '@utils/time';
+import type { Task as TaskType, TaskActions } from '@frontend/data/types';
 
 type Props = {
-   tasks: TaskActions['task'][];
+   tasks: TaskType[];
    editTask: TaskActions['editTask'];
    removeTask: TaskActions['removeTask'];
 };

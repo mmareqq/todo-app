@@ -1,5 +1,5 @@
-import type { UpdateValue } from '@data/helperTypes';
-import type { TaskPayload } from '@data/types';
+import type { UpdateValue } from '@frontend/data/helperTypes';
+import type { TaskPayload } from '@frontend/data/types';
 
 type Props = {
    name: string;

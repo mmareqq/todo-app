@@ -1,4 +1,4 @@
-import type { Note } from '@data/types';
+import type { Note } from '@frontend/data/types';
 import Button from '@ui/Button';
 
 import { EditIcon } from '@assets/Icons';

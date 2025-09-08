@@ -1,6 +1,6 @@
 import { WarningIcon } from '@assets/Icons';
 
-import type { Children } from '@data/types';
+import type { Children } from '@frontend/data/types';
 
 type Props = {
    includeIcon?: boolean;

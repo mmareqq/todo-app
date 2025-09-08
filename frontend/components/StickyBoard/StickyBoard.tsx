@@ -1,10 +1,10 @@
 import { useRef, useState } from 'react';
-import type { Note as NoteType } from '@data/types';
+import type { Note as NoteType } from '@frontend/data/types';
 import AnimateExit from '@ui/AnimateExit';
 
 import useNotes from './useNotes';
 import Note from './components/Note/Note';
-import generateId from '@utils/generateId';
+import generateId from '@frontend/utils/generateId';
 import Button from '@ui/Button';
 
 import { MenuIcon } from '@assets/Icons';

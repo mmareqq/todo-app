@@ -1,6 +1,6 @@
 import AnimateSlideIn from '@ui/AnimateSlideIn';
 
-import { formatDate, formatDuration } from '@utils/time';
+import { formatDate, formatDuration } from '@frontend/utils/time';
 
 import DeleteButton from '@ui/DeleteButton';
 import EditTaskButton from './EditTaskButton';
@@ -8,14 +8,14 @@ import EditTaskButton from './EditTaskButton';
 import DialogProvider from '@contexts/DialogProvider';
 import EditTaskDialog from './EditTaskDialog';
 
-import { priorityColors } from '@data/data';
+import { priorityColors } from '@frontend/data/data';
 
-import type { Task } from '@data/types';
+import type { Task as TaskType, TaskActions } from '@frontend/data/types';
 
 type Props = {
-   task: Task;
-   editTask: (newTask: Task) => void;
-   removeTask: (id: Task['id']) => void;
+   task: TaskType;
+   editTask: TaskActions['editTask'];
+   removeTask: TaskActions['removeTask'];
    animationDelay: number;
 };
 

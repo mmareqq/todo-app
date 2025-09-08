@@ -3,7 +3,7 @@ import useForm from '@hooks/useForm';
 import ProjectForm from '@components/Project/components/ProjectForm';
 import Dialog from '@ui/Dialog';
 
-import type { ProjectActions, ProjectPayload } from '@data/types';
+import type { ProjectActions, ProjectPayload } from '@frontend/data/types';
 
 type Props = Pick<ProjectActions, 'project' | 'editProject'>;
 

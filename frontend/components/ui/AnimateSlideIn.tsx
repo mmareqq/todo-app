@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import type { Children } from '@data/types';
+import type { Children } from '@frontend/data/types';
 
 type Props = {
    delayMS: number;
