@@ -5,9 +5,9 @@ const z_ProjectCreate = z.object({
    name: z.string(),
 });
 
-const z_ProjectUpdate = z_ProjectCreate.optional();
+const z_ProjectUpdate = z_ProjectCreate.partial();
 
-type ProjectUpdate = NonNullable<z.infer<typeof z_ProjectUpdate>>;
+type ProjectUpdate = Partial<z.infer<typeof z_ProjectCreate>>;
 
 type Project = {
    readonly id: Id;

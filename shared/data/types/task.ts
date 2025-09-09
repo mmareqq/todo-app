@@ -9,7 +9,7 @@ const z_TaskPriority = z.union([
 ]);
 
 const z_TaskCreate = z.object({
-   name: z.string(),
+   name: z.string().optional(),
    projectId: z_Id,
    completed: z.boolean(),
    priority: z_TaskPriority,
@@ -17,9 +17,9 @@ const z_TaskCreate = z.object({
    dueDate: z.union([z.string(), z.null()]),
 });
 
-const z_TaskUpdate = z_TaskCreate.optional();
+const z_TaskUpdate = z_TaskCreate.partial();
 
-type TaskUpdate = NonNullable<z.infer<typeof z_TaskUpdate>>;
+type TaskUpdate = Partial<z.infer<typeof z_TaskCreate>>;
 
 type TaskPriority = z.infer<typeof z_TaskPriority>;
 

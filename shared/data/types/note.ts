@@ -20,9 +20,9 @@ const z_NoteCreate = z.object({
    size: z_NoteSize,
 });
 
-const z_NoteUpdate = z_NoteCreate.optional();
+const z_NoteUpdate = z_NoteCreate.partial();
 
-type NoteUpdate = NonNullable<z.infer<typeof z_NoteUpdate>>;
+type NoteUpdate = Partial<z.infer<typeof z_NoteCreate>>;
 
 type NoteCreate = z.infer<typeof z_NoteCreate>;
 type NoteColor = z.infer<typeof z_NoteColor>;
