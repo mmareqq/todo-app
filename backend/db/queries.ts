@@ -7,7 +7,6 @@ import type {
    NoteUpdate,
    Id,
 } from '@types';
-
 import pool from './connection';
 
 export const MUTATIONS = {
@@ -18,7 +17,7 @@ export const MUTATIONS = {
    addTask: (task: TaskCreate) => {
       const { projectId, name, completed, priority, duration, dueDate } = task;
       return pool.query(
-         'INSERT INTO `tasks` (`projectId`, `name`, `completed`, `priority`, `duration`, `dueDate`) VALUES (?, ?, ?, ?, ?, ?)',
+         'INSERT INTO `tasks` (`project_id`, `name`, `completed`, `priority`, `duration`, `due_date`) VALUES (?, ?, ?, ?, ?, ?)',
          [projectId, name, completed, priority, duration, dueDate],
       );
    },
@@ -42,19 +41,29 @@ export const MUTATIONS = {
    updateNote: (id: Id, note: NoteUpdate) => updateElement(id, note),
 };
 
-const updateElement = <T extends object>(id: Id, updates: T) => {
-   const fieldsToUpdate = Object.keys(updates) as (keyof T)[];
-   if (!fieldsToUpdate.length) {
+const toSnakeCase = (s: string) =>
+   s
+      .replace(/([A-Z])/g, '_$1')
+      .replace(/[^a-z0-9_]/gi, '_')
+      .toLowerCase();
+
+const updateElement = <T extends Record<string, T[keyof T]>>(
+   id: Id,
+   updates: T,
+) => {
+   type Value = T[keyof T];
+   const entries = Object.entries(updates).filter(([, v]) => v !== undefined);
+   if (!entries.length) {
       console.warn('no values provided to update task');
-      return;
+      return Promise.resolve([]);
    }
-   const setClause = fieldsToUpdate
-      .map(field => `\`${String(field)}\` = ?`)
+   const setClause = entries
+      .map(([key]) => `\`${toSnakeCase(key)}\` = ?`)
       .join(', ');
-   const values: (T[keyof T] | Id)[] = fieldsToUpdate.map(
-      field => updates[field],
-   );
+
+   const values: (Value | Id)[] = entries.map(([, v]) => v);
    values.push(id);
+
    return pool.query(`UPDATE tasks SET ${setClause} WHERE id=?`, values);
 };
 
@@ -63,6 +72,8 @@ export const QUERIES = {
    getTasksByProjectId: (id: Id) =>
       pool.query('SELECT * FROM tasks WHERE project_id=?', [id]),
    getNotes: () => pool.query('SELECT * FROM notes'),
+   getProject: (id: Id) =>
+      pool.query('SELECT * FROM projects where id=?', [id]),
 };
 // Update all fields at once
 //

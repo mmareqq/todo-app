@@ -7,15 +7,15 @@ const z_ProjectCreate = z.object({
 
 const z_ProjectUpdate = z_ProjectCreate.partial();
 
-type ProjectUpdate = Partial<z.infer<typeof z_ProjectCreate>>;
+type ProjectCreate = z.infer<typeof z_ProjectCreate>;
+
+type ProjectUpdate = Partial<ProjectCreate>;
 
 type Project = {
    readonly id: Id;
    name: string;
    readonly type: 'custom' | 'preset';
 };
-
-type ProjectCreate = z.infer<typeof z_ProjectCreate>;
 
 export {
    z_ProjectCreate,

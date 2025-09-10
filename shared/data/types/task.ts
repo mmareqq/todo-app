@@ -9,7 +9,7 @@ const z_TaskPriority = z.union([
 ]);
 
 const z_TaskCreate = z.object({
-   name: z.string().optional(),
+   name: z.string(),
    projectId: z_Id,
    completed: z.boolean(),
    priority: z_TaskPriority,
@@ -19,11 +19,10 @@ const z_TaskCreate = z.object({
 
 const z_TaskUpdate = z_TaskCreate.partial();
 
-type TaskUpdate = Partial<z.infer<typeof z_TaskCreate>>;
+type TaskCreate = z.infer<typeof z_TaskCreate>;
+type TaskUpdate = Partial<TaskCreate>;
 
 type TaskPriority = z.infer<typeof z_TaskPriority>;
-
-type TaskCreate = z.infer<typeof z_TaskCreate>;
 
 type Task = {
    readonly id: Id;

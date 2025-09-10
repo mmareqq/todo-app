@@ -22,9 +22,9 @@ const z_NoteCreate = z.object({
 
 const z_NoteUpdate = z_NoteCreate.partial();
 
-type NoteUpdate = Partial<z.infer<typeof z_NoteCreate>>;
-
 type NoteCreate = z.infer<typeof z_NoteCreate>;
+type NoteUpdate = Partial<NoteCreate>;
+
 type NoteColor = z.infer<typeof z_NoteColor>;
 type NoteSize = z.infer<typeof z_NoteSize>;
 

@@ -1,95 +1,163 @@
-import 'dotenv/config';
 import express from 'express';
+import 'dotenv/config';
 import { MUTATIONS, QUERIES } from './db/queries';
-import z from 'zod';
-const port = process.env.PORT || 3000;
+import safeParseBody from './utils/safeParse';
+import cleanUndefined from './utils/cleanUndefined';
+import {
+   z_ProjectCreate,
+   z_TaskCreate,
+   z_NoteCreate,
+   z_ProjectUpdate,
+   z_TaskUpdate,
+   z_NoteUpdate,
+} from '@types';
 
+const port = process.env.PORT || 3000;
 const app = express();
 app.use(express.json());
 
+// curl -X GET http://localhost:3000/api/projects -H "Content-Type: application/json"
 app.get('/api/projects', async (req, res) => {
    try {
-      const projects = await QUERIES.getAllProjects();
+      const [projects] = await QUERIES.getAllProjects();
       res.status(200).json(projects);
+      return projects;
    } catch (err) {
       console.log(err);
       res.send('something went wrong.');
    }
 });
 
-const ProjectCreateType = z.object({
-   name: z.string(),
-});
-
-// add project
+// curl -X POST http://localhost:3000/api/projects  -d '{"name":"New curl Project"}' -H "Content-Type: application/json"
 app.post('/api/projects', async (req, res) => {
-   const projectParse = ProjectCreateType.safeParse(req.body);
-   if (!projectParse.success) throw new Error();
    try {
-      const metaData = await MUTATIONS.addProject(projectParse.data);
-      res.status(201).json(metaData);
+      const projectData = safeParseBody(z_ProjectCreate, req.body);
+      const [result] = await MUTATIONS.addProject(projectData);
+      res.status(201).json(result);
    } catch (err) {
       console.log(err);
       res.send('something went wrong.');
    }
 });
 
-// update project
+// curl -X PATCH http://localhost:3000/api/projects/1125899906842628  -d '{"name":"Curl project edited"}' -H "Content-Type: application/json"
 app.patch('/api/projects/:projectId', async (req, res) => {
-   const projectUpdates = req.body;
    try {
-      const metaData = await MUTATIONS.updateProject(
-         req.params.projectId,
-         projectUpdates,
+      const projectId = req.params.projectId;
+      const projectUpdates = cleanUndefined(
+         safeParseBody(z_ProjectUpdate, req.body),
       );
-      res.status(200).json(metaData);
+      const [result] = await MUTATIONS.updateProject(projectId, projectUpdates);
+      res.status(200).json(result);
    } catch (err) {
       console.log(err);
       res.send('something went wrong.');
    }
 });
-// delete project
+
+// curl -X DELETE http://localhost:3000/api/projects/2251799813685250
 app.delete('/api/projects/:projectId', async (req, res) => {
    try {
-      const metaData = await MUTATIONS.deleteProject(req.params.projectId);
-      res.status(200).json(metaData);
+      const projectId = req.params.projectId;
+      const [result] = await MUTATIONS.deleteProject(projectId);
+      res.status(200).json(result);
    } catch (err) {
       console.log(err);
       res.send('something went wrong.');
    }
 });
 
-// --- TASKS ---
-// get tasks from a project by id
+// tasks
+// curl -X GET http://localhost:3000/api/projects/2251799813685250/tasks
 app.get('/api/projects/:projectId/tasks', async (req, res) => {
    try {
+      const projectId = req.params.projectId;
+      const [tasks] = await QUERIES.getTasksByProjectId(projectId);
+      res.status(200).json(tasks);
+      return tasks;
    } catch (err) {
       console.log(err);
       res.send('something went wrong.');
    }
 });
 
-// add task
-app.post('/api/projects/:projectId/tasks', async (req, res) => {
+// curl -X POST http://localhost:3000/api/tasks -d '{"name": "Test task", "projectId": "1125899906842628", "completed": false, "priority": "none", "duration": 45, "dueDate": "2025-09-11"}' -H "Content-Type: application/json"
+app.post('/api/tasks', async (req, res) => {
    try {
+      const task = safeParseBody(z_TaskCreate, req.body);
+      const [result] = await MUTATIONS.addTask(task);
+      res.status(200).json(result);
    } catch (err) {
-      console.log(err);
-      res.send('something went wrong.');
+      console.log('asdfasdfasdf');
+      console.log('err', err);
+      res.status(500).json('something went wrong.');
    }
 });
 
-// updating task
 app.patch('/api/tasks/:taskId', async (req, res) => {
    try {
+      const taskId = req.params.taskId;
+      const taskUpdates = cleanUndefined(safeParseBody(z_TaskUpdate, req.body));
+
+      const [result] = await MUTATIONS.updateTask(taskId, taskUpdates);
+      res.status(200).json(result);
    } catch (err) {
       console.log(err);
       res.send('something went wrong.');
    }
 });
 
-// deleting task
 app.delete('/api/tasks/:taskId', async (req, res) => {
    try {
+      const taskId = req.params.taskId;
+      const [result] = await MUTATIONS.deleteTask(taskId);
+      res.status(200).json(result);
+   } catch (err) {
+      console.log(err);
+      res.send('something went wrong.');
+   }
+});
+
+// notes
+app.get('/api/notes', async (req, res) => {
+   try {
+      const [notes] = await QUERIES.getNotes();
+      res.status(200).json(notes);
+      return notes;
+   } catch (err) {
+      console.log(err);
+      res.send('something went wrong.');
+   }
+});
+
+app.post('/api/notes', async (req, res) => {
+   try {
+      const note = safeParseBody(z_NoteCreate, req.body);
+      const [result] = await MUTATIONS.addNote(note);
+      res.status(200).json(result);
+   } catch (err) {
+      console.log(err);
+      res.send('something went wrong.');
+   }
+});
+
+app.patch('/api/notes/:noteId', async (req, res) => {
+   try {
+      const noteId = req.params.noteId;
+      const noteUpdates = cleanUndefined(safeParseBody(z_NoteUpdate, req.body));
+      const [result] = await MUTATIONS.updateNote(noteId, noteUpdates);
+      res.status(200).json(result);
+   } catch (err) {
+      console.log(err);
+      res.send('something went wrong.');
+   }
+});
+
+app.delete('/api/notes/:noteId', async (req, res) => {
+   try {
+      const noteId = req.params.noteId;
+      const [result] = await MUTATIONS.deleteNote(noteId);
+      res.status(200).json(result);
    } catch (err) {
       console.log(err);
       res.send('something went wrong.');
@@ -98,42 +166,4 @@ app.delete('/api/tasks/:taskId', async (req, res) => {
 
 app.listen(port, () => {
    console.log(`server listening on port ${port}`);
-});
-
-// --- NOTES ---
-
-// get all notes
-app.get('/api/notes', async (req, res) => {
-   try {
-   } catch (err) {
-      console.log(err);
-      res.send('something went wrong.');
-   }
-});
-
-// add note
-app.post('/api/notes/:noteId', async (req, res) => {
-   try {
-   } catch (err) {
-      console.log(err);
-      res.send('something went wrong.');
-   }
-});
-
-// update note
-app.patch('/api/notes/:noteId', async (req, res) => {
-   try {
-   } catch (err) {
-      console.log(err);
-      res.send('something went wrong.');
-   }
-});
-
-// delete note
-app.delete('/api/notes/:noteId', async (req, res) => {
-   try {
-   } catch (err) {
-      console.log(err);
-      res.send('something went wrong.');
-   }
 });
