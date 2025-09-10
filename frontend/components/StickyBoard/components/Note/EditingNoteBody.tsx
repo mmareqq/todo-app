@@ -13,8 +13,6 @@ import DeleteButton from '@ui/DeleteButton';
 import SizeMenu from './SizeMenu';
 import ColorPicker from './ColorPicker';
 
-import { noteSizes } from '@frontend/data/data';
-
 type EditingProps = Pick<NoteActions, 'note' | 'editNote' | 'removeNote'> & {
    disableEditing: () => void;
 };

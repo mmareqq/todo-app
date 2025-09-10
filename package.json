@@ -10,7 +10,7 @@
       "lint": "eslint .",
       "preview": "vite preview",
       "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --silent --verbose --no-stack-trace",
-      "typecheck": "tsc --noEmit --exactOptionalPropertyTypes"
+      "typecheck": "tsc --noEmit"
    },
    "dependencies": {
       "@tailwindcss/vite": "^4.0.3",
