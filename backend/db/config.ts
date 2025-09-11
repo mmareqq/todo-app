@@ -1,19 +1,12 @@
 import 'dotenv/config';
-
-function getEnvVar(key: string) {
-   const val = process.env[key];
-   if (!val) {
-      throw new Error(`Missing required environment variable: ${key}`);
-   }
-   return val;
-}
+import env from '../utils/envSchema';
 
 const config = {
-   port: parseInt(getEnvVar('SINGLESTORE_PORT')),
-   host: getEnvVar('SINGLESTORE_HOST'),
-   user: getEnvVar('SINGLESTORE_USER'),
-   database: getEnvVar('SINGLESTORE_DB_NAME'),
-   password: getEnvVar('SINGLESTORE_PASSWORD'),
+   port: env.SINGLESTORE_PORT,
+   host: env.SINGLESTORE_HOST,
+   user: env.SINGLESTORE_USER,
+   database: env.SINGLESTORE_DB_NAME,
+   password: env.SINGLESTORE_PASSWORD,
    ssl: {},
    waitForConnections: true,
    connectionLimit: 10,
