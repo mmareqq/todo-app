@@ -5,7 +5,3 @@ export type Prettify<T> = {
 export type strictOptional<T> = Prettify<{
    [K in keyof T]?: Exclude<T[K], undefined>;
 }>;
-
-export type JSON<T> = {
-   [K in keyof T]: T[K];
-};

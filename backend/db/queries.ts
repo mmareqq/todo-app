@@ -24,7 +24,7 @@ export const MUTATIONS = {
    addNote: (note: NoteCreate) => {
       const { title, description, color, x, y, size } = note;
       return pool.query(
-         'INSERT INTO `projects` (`title`, `description`, `color`, `x`, `y`, `size`) VALUES (?, ?, ?, ?, ?, ?)',
+         'INSERT INTO `notes` (`title`, `description`, `color`, `x`, `y`, `size`) VALUES (?, ?, ?, ?, ?, ?)',
          [title, description, color, x, y, size],
       );
    },
@@ -32,13 +32,14 @@ export const MUTATIONS = {
    deleteProject: (projectId: Id) =>
       pool.query('DELETE FROM `projects` WHERE `id`=?', [projectId]),
    deleteTask: (taskId: Id) =>
-      pool.query('DELETE FROM `projects` WHERE `id`=?', [taskId]),
+      pool.query('DELETE FROM `tasks` WHERE `id`=?', [taskId]),
    deleteNote: (noteId: Id) =>
-      pool.query('DELETE FROM `projects` WHERE `id`=?', [noteId]),
+      pool.query('DELETE FROM `notes` WHERE `id`=?', [noteId]),
 
-   updateProject: (id: Id, proj: ProjectUpdate) => updateElement(id, proj),
-   updateTask: (id: Id, task: TaskUpdate) => updateElement(id, task),
-   updateNote: (id: Id, note: NoteUpdate) => updateElement(id, note),
+   updateProject: (id: Id, proj: ProjectUpdate) =>
+      updateElement(id, proj, 'projects'),
+   updateTask: (id: Id, task: TaskUpdate) => updateElement(id, task, 'tasks'),
+   updateNote: (id: Id, note: NoteUpdate) => updateElement(id, note, 'notes'),
 };
 
 const toSnakeCase = (s: string) =>
@@ -50,6 +51,7 @@ const toSnakeCase = (s: string) =>
 const updateElement = <T extends Record<string, T[keyof T]>>(
    id: Id,
    updates: T,
+   tableName: 'projects' | 'tasks' | 'notes',
 ) => {
    type Value = T[keyof T];
    const entries = Object.entries(updates).filter(([, v]) => v !== undefined);
@@ -64,7 +66,7 @@ const updateElement = <T extends Record<string, T[keyof T]>>(
    const values: (Value | Id)[] = entries.map(([, v]) => v);
    values.push(id);
 
-   return pool.query(`UPDATE tasks SET ${setClause} WHERE id=?`, values);
+   return pool.query(`UPDATE ${tableName} SET ${setClause} WHERE id=?`, values);
 };
 
 export const QUERIES = {

@@ -32,7 +32,6 @@ type Task = {
    priority: TaskPriority;
    duration: number;
    dueDate: string | null;
-   readonly createdAt: string;
 };
 
 export {
