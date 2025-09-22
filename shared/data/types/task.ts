@@ -1,12 +1,17 @@
 import z from 'zod';
-import { z_Id, Id } from './id';
+import { z_Id } from './id';
 
-const z_TaskPriority = z.union([
-   z.literal('none'),
-   z.literal('low'),
-   z.literal('medium'),
-   z.literal('high'),
-]);
+const z_TaskPriority = z.literal(['none', 'low', 'medium', 'high']);
+
+const z_Task = z.object({
+   id: z_Id.readonly(),
+   projectId: z.string(),
+   completed: z.boolean(),
+   name: z.string(),
+   priority: z_TaskPriority,
+   duration: z.number(),
+   dueDate: z.union([z.string(), z.null()]),
+});
 
 const z_TaskCreate = z.object({
    name: z.string(),
@@ -24,17 +29,10 @@ type TaskUpdate = Partial<TaskCreate>;
 
 type TaskPriority = z.infer<typeof z_TaskPriority>;
 
-type Task = {
-   readonly id: Id;
-   projectId: string;
-   completed: boolean;
-   name: string;
-   priority: TaskPriority;
-   duration: number;
-   dueDate: string | null;
-};
+type Task = z.infer<typeof z_Task>;
 
 export {
+   z_Task,
    z_TaskCreate,
    z_TaskUpdate,
    TaskPriority,

@@ -1,22 +1,23 @@
 import z from 'zod';
-import { Id } from './id';
+import { z_Id } from './id';
 
-const z_ProjectCreate = z.object({
+const z_Project = z.object({
+   id: z_Id.readonly(),
    name: z.string(),
+   type: z.literal(['custom', 'preset']).readonly(),
 });
+
+const z_ProjectCreate = z_Project.pick({ name: true });
 
 const z_ProjectUpdate = z_ProjectCreate.partial();
 
 type ProjectCreate = z.infer<typeof z_ProjectCreate>;
 type ProjectUpdate = Partial<ProjectCreate>;
 
-type Project = {
-   readonly id: Id;
-   name: string;
-   readonly type: 'custom' | 'preset';
-};
+type Project = z.infer<typeof z_Project>;
 
 export {
+   z_Project,
    z_ProjectCreate,
    z_ProjectUpdate,
    Project,

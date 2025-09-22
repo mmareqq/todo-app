@@ -52,6 +52,6 @@
       "frontend",
       "backend",
       "shared",
-      "eslint.config.ts"
+      "eslint.config.ts",
    ]
 }

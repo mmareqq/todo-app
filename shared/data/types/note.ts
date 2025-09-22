@@ -1,7 +1,7 @@
 import z from 'zod';
-import { Id } from './id';
+import { z_Id } from './id';
 
-const z_NoteColor = z.enum([
+const z_NoteColor = z.literal([
    'blue',
    'red',
    'green',
@@ -9,7 +9,18 @@ const z_NoteColor = z.enum([
    'purple',
    'yellow',
 ]);
-const z_NoteSize = z.enum(['sm', 'md', 'lg', 'xl']);
+
+const z_NoteSize = z.literal(['sm', 'md', 'lg', 'xl']);
+
+const z_Note = z.object({
+   id: z_Id.readonly(),
+   title: z.string(),
+   description: z.string(),
+   color: z_NoteColor,
+   x: z.number(),
+   y: z.number(),
+   size: z_NoteSize,
+});
 
 const z_NoteCreate = z.object({
    title: z.string(),
@@ -28,22 +39,15 @@ type NoteUpdate = Partial<NoteCreate>;
 type NoteColor = z.infer<typeof z_NoteColor>;
 type NoteSize = z.infer<typeof z_NoteSize>;
 
-type Note = {
-   readonly id: Id;
-   title: string;
-   description: string;
-   color: NoteColor;
-   x: number;
-   y: number;
-   size: NoteSize;
-};
+type Note = z.infer<typeof z_Note>;
 
 export {
+   z_Note,
    z_NoteCreate,
    z_NoteUpdate,
+   Note,
    NoteCreate,
    NoteColor,
    NoteUpdate,
    NoteSize,
-   Note,
 };
