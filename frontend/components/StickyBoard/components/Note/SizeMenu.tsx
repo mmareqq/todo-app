@@ -28,8 +28,8 @@ const SizeMenu = ({ editNoteSize, isBtnActive }: SizeMenuType) => {
                   className="p-0.75"
                   active={isBtnActive(size)}
                   onClick={() => editNoteSize(size)}
+                  aria-label={`${size} size`}
                >
-                  <span className="sr-only">{size} size</span>
                   {icons[size]}
                </Button>
             );

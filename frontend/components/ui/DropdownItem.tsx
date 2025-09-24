@@ -32,8 +32,10 @@ const DropdownItem = ({ value, close }: Props) => {
             <span>{capitalize(value)}</span>
          </Button>
          <div className="sr-only">
-            <label htmlFor={value}>{value}</label>
-            <input type="radio" id={value} value={value} />
+            <label>
+               {value}
+               <input type="radio" id={value} value={value} />
+            </label>
          </div>
       </div>
    );

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { appProjects } from '@frontend/data/data';
 
-import type { Project } from '@frontend/data/types';
+import type { Project, Id } from '@frontend/data/types';
 
 const getProjects = (): Project[] => {
    const projects = localStorage.getItem('projects');
@@ -27,7 +27,7 @@ const useProjects = () => {
       );
    };
 
-   const removeProject = (id: Project['id']) => {
+   const removeProject = (id: Id) => {
       setProjects(prevProjects => prevProjects.filter(proj => proj.id !== id));
    };
 

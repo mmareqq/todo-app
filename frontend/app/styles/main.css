@@ -5,8 +5,9 @@
    box-sizing: border-box;
 }
 
-* {
-   scrollbar-color: currentColor transparent;
+.custom-scrollbar,
+html {
+   scrollbar-color: oklch(34% 0 0) transparent;
 }
 
 :root {
@@ -25,9 +26,8 @@ body {
 }
 
 .body {
-   height: 100svh;
    display: grid;
-   grid-template-columns: auto 1fr;
+   grid-template-columns: min(14rem, 100%) 1fr;
    font-family: 'Outfit', serif;
    font-size: 1rem;
    font-weight: 300;
@@ -79,10 +79,20 @@ button {
    min-width: 18ch;
 }
 
+.nav-btn {
+   transition:
+      background-color 0.2s ease-out,
+      transform 0.2s ease-out;
+}
+
+.nav-btn:hover {
+   transform: skewX(-5deg) rotateY(25deg);
+}
+
 .dialog {
    background: none;
    color: white;
-   position: absolute;
+   position: fixed;
    z-index: 1000;
    top: 50%;
    left: 50%;

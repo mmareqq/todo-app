@@ -2,13 +2,10 @@ import { EditIcon } from '@assets/Icons';
 import Button from '@ui/Button';
 import useDialogContext from '@hooks/useDialogContext';
 
-import type { Children } from '@frontend/data/types';
-
-const EditTaskButton = ({ children }: Children) => {
+const EditTaskButton = ({ label }: { label: string }) => {
    const { openDialog } = useDialogContext();
    return (
-      <Button variant="icon" onClick={openDialog}>
-         <span className="sr-only">edit: {children}</span>
+      <Button variant="icon" onClick={openDialog} aria-label={`edit ${label}`}>
          <EditIcon />
       </Button>
    );

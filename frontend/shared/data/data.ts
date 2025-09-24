@@ -23,20 +23,6 @@ const taskModel: TaskPayload = {
 
 const projectModel: ProjectPayload = { name: '' };
 
-const appProjects: Project[] = [
-   { id: 'today', name: 'Today', type: 'preset' },
-   {
-      id: 'upcoming',
-      name: 'Upcoming',
-      type: 'preset',
-   },
-   {
-      id: 'sticky-board',
-      name: 'Sticky Board',
-      type: 'preset',
-   },
-];
-
 const priorityColors = {
    none: 'text-priority-0',
    low: 'text-priority-1',
@@ -46,7 +32,7 @@ const priorityColors = {
 
 const durationValues = [0, 5, 10, 15, 30, 45, 60, 90];
 
-const defaultProjectId = 'today';
+const defaultProjectId = 1; // today project
 
 const noteColors: Record<NoteColor, string> = {
    red: '#C61B1B',
@@ -66,7 +52,6 @@ const noteSizes: Record<NoteSize, { w: number; h: number }> = {
 
 export {
    initialSettings,
-   appProjects,
    taskModel,
    projectModel,
    priorityColors,

@@ -4,11 +4,13 @@ import type { Project } from '@frontend/data/types';
 import { defaultProjectId } from '@frontend/data/data';
 
 const getActiveId = () => {
-   return localStorage.getItem('activeProjectId') || defaultProjectId;
+   const id = localStorage.getItem('activeProjectId');
+   return id ? parseInt(id) : defaultProjectId;
 };
 
 const useActiveProject = (projects: Project[]) => {
    const [activeProjectId, setActiveProjectId] = useState(getActiveId);
+
    const defaultProject = useMemo(() => {
       const p = projects.find(p => p.id === defaultProjectId);
       if (p) return p;
@@ -20,7 +22,7 @@ const useActiveProject = (projects: Project[]) => {
    }, [projects, activeProjectId, defaultProject]);
 
    useEffect(() => {
-      localStorage.setItem('activeProjectId', activeProjectId);
+      localStorage.setItem('activeProjectId', String(activeProjectId));
    }, [activeProjectId]);
 
    return { activeProject, setActiveProjectId };

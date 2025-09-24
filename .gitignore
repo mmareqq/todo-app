@@ -24,6 +24,7 @@ dist-ssr
 *.sw?
 .env
 
+Sandbox.tsx
 sandbox.js
 sandbox.ts
 todo.md

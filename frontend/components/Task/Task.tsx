@@ -2,6 +2,7 @@ import AnimateSlideIn from '@ui/AnimateSlideIn';
 
 import { formatDate, formatDuration } from '@frontend/utils/time';
 
+import Button from '@ui/Button';
 import DeleteButton from '@ui/DeleteButton';
 import EditTaskButton from './EditTaskButton';
 
@@ -26,8 +27,7 @@ const Task = ({ task, editTask, removeTask, animationDelay }: Props) => {
             data-type="task"
             className="task bg-primary-800 border-primary-600 flex items-center gap-2 border px-4 py-2"
          >
-            <button
-               type="button"
+            <Button
                className={`h-5 w-5 border-2 bg-current/10 ${priorityColors[task.priority]}`}
                onClick={e => {
                   e.currentTarget
@@ -35,9 +35,8 @@ const Task = ({ task, editTask, removeTask, animationDelay }: Props) => {
                      ?.classList.add('exit-animation');
                   setTimeout(() => removeTask(task.id), 800);
                }}
-            >
-               <span className="sr-only">complete task</span>
-            </button>
+               aria-label={`complete ${task.name} task`}
+            />
 
             <div>{task.name}</div>
 
@@ -54,13 +53,15 @@ const Task = ({ task, editTask, removeTask, animationDelay }: Props) => {
                </div>
 
                <DialogProvider>
-                  <EditTaskButton />
+                  <EditTaskButton label={task.name} />
                   <EditTaskDialog editTask={editTask} task={task} />
                </DialogProvider>
 
-               <DeleteButton iconSize={20} onRemove={() => removeTask(task.id)}>
-                  {task.name || task.id}
-               </DeleteButton>
+               <DeleteButton
+                  label={task.name}
+                  onRemove={() => removeTask(task.id)}
+                  iconSize={20}
+               />
             </div>
          </div>
       </AnimateSlideIn>

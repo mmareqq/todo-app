@@ -9,6 +9,7 @@
    --color-primary-500: oklch(47% 0 0);
    --color-primary-600: oklch(34% 0 0);
    --color-primary-700: oklch(27% 0 0);
+   --color-primary-750: oklch(24% 0 0);
    --color-primary-800: oklch(17% 0 0);
    --color-primary-900: oklch(10% 0 0);
    --color-primary-950: oklch(0% 0 0);
@@ -33,13 +34,4 @@
    --color-warning-100: var(--color-yellow-100);
    --color-warning-400: var(--color-yellow-600);
    --color-warning-700: var(--color-yellow-900);
-}
-
-@layer utilities {
-   .center-abs {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      translate: -50% -50%;
-   }
 }

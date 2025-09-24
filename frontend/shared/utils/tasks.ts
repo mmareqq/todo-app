@@ -4,7 +4,7 @@ import { compareStrings } from './stringUtils';
 import { getDatesMap } from './time';
 import { convertMapToArray } from './convert';
 
-import type { Task, SortMethod } from '@frontend/data/types';
+import type { Task, SortMethod, Id } from '@frontend/data/types';
 
 export const sortTasks = (tasks: Task[], sortMethod: SortMethod) => {
    switch (sortMethod) {
@@ -62,7 +62,7 @@ export function groupTasksByDate(tasks: Task[]) {
    return convertMapToArray(dates);
 }
 
-export const getTasksTemplate = (projectId: string): Task[] => {
+export const getTasksTemplate = (projectId: Id): Task[] => {
    return [
       {
          id: generateId(),

@@ -84,9 +84,11 @@ const EditingNoteBody = ({
                isBtnActive={(size: NoteSize) => note.size === size}
             />
             <div className="flex">
-               <DeleteButton iconSize={20} onRemove={() => removeNote(note.id)}>
-                  {note.title} note
-               </DeleteButton>
+               <DeleteButton
+                  iconSize={20}
+                  onRemove={() => removeNote(note.id)}
+                  label={note.title}
+               />
                <Button
                   variant="icon"
                   onClick={() => {

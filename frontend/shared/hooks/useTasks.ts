@@ -1,5 +1,5 @@
 import { useEffect, useState, useMemo } from 'react';
-import type { Task } from '@frontend/data/types';
+import type { Task, Id } from '@frontend/data/types';
 
 import { compareDates, getToday } from '@frontend/utils/time';
 
@@ -39,7 +39,7 @@ const useTasks = (projectId: string) => {
       setAllTasks(prevTasks => [...prevTasks, newTask]);
    };
 
-   const removeTask = (id: string) => {
+   const removeTask = (id: Id) => {
       setAllTasks(prevTasks => prevTasks.filter(task => task.id != id));
    };
 
