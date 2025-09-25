@@ -1,7 +1,7 @@
 import './styles/main.css';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import useProjectsQuery from '../components/useProjectsQuery';
+import useProjectsQuery from '../components/projectsQuery';
 
 import GrainEffect from '@ui/GrainEffect.js';
 import Project from '@components/Project';
