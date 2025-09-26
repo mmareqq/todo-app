@@ -13,14 +13,7 @@ const z_Task = z.object({
    dueDate: z.union([z.string(), z.null()]),
 });
 
-const z_TaskCreate = z.object({
-   name: z.string(),
-   projectId: z_Id,
-   completed: z.boolean(),
-   priority: z_TaskPriority,
-   duration: z.number(),
-   dueDate: z.union([z.string(), z.null()]),
-});
+const z_TaskCreate = z_Task.omit({ id: true });
 
 const z_TaskUpdate = z_TaskCreate.partial();
 

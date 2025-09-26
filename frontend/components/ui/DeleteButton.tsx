@@ -7,11 +7,11 @@ import Button from '@ui/Button';
 
 type Props = {
    onRemove: () => void;
-   iconSize?: number;
    label: string;
+   iconSize?: number;
 };
 
-const DeleteButton = ({ onRemove, iconSize = 24, label }: Props) => {
+const DeleteButton = ({ onRemove, label, iconSize = 24 }: Props) => {
    return (
       <DialogProvider>
          <DeleteButtonContent

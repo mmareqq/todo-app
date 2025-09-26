@@ -85,9 +85,9 @@ const EditingNoteBody = ({
             />
             <div className="flex">
                <DeleteButton
-                  iconSize={20}
                   onRemove={() => removeNote(note.id)}
                   label={note.title}
+                  iconSize={20}
                />
                <Button
                   variant="icon"

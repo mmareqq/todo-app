@@ -7,7 +7,7 @@ const z_Project = z.object({
    type: z.literal(['custom', 'preset']).readonly(),
 });
 
-const z_ProjectCreate = z_Project.pick({ name: true });
+const z_ProjectCreate = z_Project.omit({ id: true, type: true });
 
 const z_ProjectUpdate = z_ProjectCreate.partial();
 

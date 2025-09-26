@@ -3,6 +3,7 @@ import { priorityColors } from '@frontend/data/data';
 
 import type { UpdateValue } from '@frontend/data/helperTypes';
 import type { TaskPayload, TaskPriority } from '@frontend/data/types';
+import { twMerge } from 'tailwind-merge';
 
 type Props = {
    priority: TaskPriority;
@@ -20,7 +21,11 @@ const PriorityInput = ({ priority, updateValue }: Props) => {
                return (
                   <label
                      key={inputPriority}
-                     className={`priority-input transition-color cursor-pointer border-1 p-4 duration-250 hover:ring ${priorityColors[inputPriority]} ${isActive && 'bg-current/10'}`}
+                     className={twMerge(
+                        'priority-input transition-color cursor-pointer border-1 p-4 duration-250 hover:ring',
+                        priorityColors[inputPriority],
+                        isActive && 'bg-current/10',
+                     )}
                   >
                      <input
                         type="radio"

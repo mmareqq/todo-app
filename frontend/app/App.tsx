@@ -1,17 +1,13 @@
 import './styles/main.css';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import useProjectsQuery from '../components/projectsQuery';
 
 import GrainEffect from '@ui/GrainEffect.js';
 import Project from '@components/Project';
-import Navbar from '@components/Navbar.jsx';
+import Navbar from '@components/Navbar/Navbar.js';
 
 import SettingsProvider from '@contexts/SettingsProvider';
 
-import useProjects from './useProjects';
-import useActiveProject from './useActiveProject';
-import Sandbox from './Sandbox';
 import { useState } from 'react';
 import { defaultProjectId } from '@frontend/data/data';
 
@@ -61,7 +57,7 @@ const App = () => {
                   <GrainEffect opacity={0.03} noiseValue={10} />
                   <GrainEffect opacity={0.018} color="#E0AC69" noiseValue={1} />
 
-                  {/* <Project project={activeProject} editProject={editProject} /> */}
+                  {/* <Project /> */}
                </main>
             </div>
          </SettingsProvider>

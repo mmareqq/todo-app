@@ -22,24 +22,15 @@ const z_Note = z.object({
    size: z_NoteSize,
 });
 
-const z_NoteCreate = z.object({
-   title: z.string(),
-   description: z.string(),
-   color: z_NoteColor,
-   x: z.number(),
-   y: z.number(),
-   size: z_NoteSize,
-});
-
+const z_NoteCreate = z_Note.omit({ id: true });
 const z_NoteUpdate = z_NoteCreate.partial();
 
+type Note = z.infer<typeof z_Note>;
 type NoteCreate = z.infer<typeof z_NoteCreate>;
 type NoteUpdate = Partial<NoteCreate>;
 
 type NoteColor = z.infer<typeof z_NoteColor>;
 type NoteSize = z.infer<typeof z_NoteSize>;
-
-type Note = z.infer<typeof z_Note>;
 
 export {
    z_Note,

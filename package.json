@@ -36,6 +36,7 @@
       "@typescript-eslint/eslint-plugin": "^8.39.1",
       "@typescript-eslint/parser": "^8.39.1",
       "@vitejs/plugin-react-swc": "^3.5.0",
+      "babel-plugin-react-compiler": "^19.1.0-rc.3",
       "dotenv": "^17.2.2",
       "eslint": "^9.17.0",
       "eslint-plugin-react": "^7.37.2",

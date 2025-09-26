@@ -7,9 +7,9 @@ import type { ProjectActions } from '@frontend/data/types';
 type Props = Pick<ProjectActions, 'project' | 'editProject'>;
 
 const Project = ({ project, editProject }: Props) => {
-   if (project.id === 'upcoming') return <UpcomingProject project={project} />;
+   if (project.id === 2) return <UpcomingProject project={project} />;
 
-   if (project.id === 'sticky-board') {
+   if (project.id === 3) {
       return <StickyBoard />;
    }
    return <UserProject project={project} editProject={editProject} />;
