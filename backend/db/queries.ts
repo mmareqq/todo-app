@@ -77,9 +77,18 @@ export const QUERIES = {
          'SELECT * FROM tasks WHERE project_id=? ORDER BY `created_at` ASC',
          [id],
       ),
+   getTasksWithDate: () =>
+      pool.query(
+         'SELECT * FROM tasks WHERE due_date IS NOT NULL ORDER BY `created_at` ASC',
+      ),
+   getTasksFromDate: (date: string) =>
+      pool.query(
+         'SELECT * FROM tasks WHERE due_date = ? ORDER BY `created_at` ASC',
+         [date],
+      ),
    getNotes: () => pool.query('SELECT * FROM notes ORDER BY `created_at` ASC'),
    getProject: (id: Id) =>
-      pool.query('SELECT * FROM projects where id=?', [id]),
+      pool.query('SELECT * FROM projects WHERE id=?', [id]),
 };
 // Update all fields at once
 //

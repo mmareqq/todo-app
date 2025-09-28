@@ -2,6 +2,7 @@ import express from 'express';
 import { MUTATIONS, QUERIES } from './db/queries';
 import { safeParseId } from './utils/safeParse';
 import z from 'zod';
+import { formatDate } from '@shared/data/utils/formatDate';
 
 import cleanUndefined from './utils/cleanUndefined';
 import env from './utils/envSchema';
@@ -26,10 +27,24 @@ app.get('/api/projects', async (req, res) => {
       const projects = z
          .array(t.z_Project.omit({ type: true }))
          .parse(rows)
-         .map(proj => ({ ...proj, type: 'custom' }));
+         .map(p => ({ ...p, type: 'custom' }));
+      res.status(200).json(projects);
+   } catch (err) {
+      console.log(err);
+      res.send('something went wrong.');
+   }
+});
 
-      console.log(projects);
-      res.status(200).json(JSON.stringify(projects));
+app.get('/api/projects/:projectId', async (req, res) => {
+   try {
+      const projectId = safeParseId(req.params.projectId);
+      const [rows] = await QUERIES.getProject(projectId);
+      console.log('project', rows);
+      const [project] = z
+         .array(t.z_Project.omit({ type: true }))
+         .parse(rows)
+         .map(p => ({ ...p, type: 'custom' }));
+      res.status(200).json({ ...project });
    } catch (err) {
       console.log(err);
       res.send('something went wrong.');
@@ -72,11 +87,33 @@ app.delete('/api/projects/:projectId', async (req, res) => {
 });
 
 // TASKS
+app.get('/api/tasks', async (req, res) => {
+   try {
+      const [rows] = await QUERIES.getTasksWithDate();
+      const tasks = z.array(t.z_Task).parse(rows);
+      res.status(200).json(tasks);
+   } catch (err) {
+      console.log(err);
+      res.send('something went wrong.');
+   }
+});
+
 app.get('/api/projects/:projectId/tasks', async (req, res) => {
    try {
-      console.log(req.params.projectId);
       const projectId = safeParseId(req.params.projectId);
       const [rows] = await QUERIES.getTasksByProjectId(projectId);
+      const tasks = z.array(t.z_Task).parse(rows);
+      res.status(200).json(tasks);
+   } catch (err) {
+      console.log(err);
+      res.send('something went wrong.');
+   }
+});
+
+app.get('/api/tasks/today', async (req, res) => {
+   try {
+      const today = formatDate(new Date());
+      const [rows] = await QUERIES.getTasksFromDate(today);
       const tasks = z.array(t.z_Task).parse(rows);
       res.status(200).json(tasks);
    } catch (err) {

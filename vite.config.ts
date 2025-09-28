@@ -16,7 +16,6 @@ export default defineConfig({
          '@shared': path.resolve(__dirname, 'shared'),
          '@frontend/data': path.resolve(__dirname, 'frontend/shared/data'),
          '@frontend/utils': path.resolve(__dirname, 'frontend/shared/utils'),
-         '@frontend/shared': path.resolve(__dirname, 'frontend/shared'),
          '@components': path.resolve(__dirname, 'frontend/components'),
          '@assets': path.resolve(__dirname, 'frontend/assets'),
          '@ui': path.resolve(__dirname, 'frontend/components/ui'),

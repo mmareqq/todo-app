@@ -1,32 +1,18 @@
-import DialogProvider from '@contexts/DialogProvider';
-import useTasks from '@hooks/useTasks';
-
 import Title from './components/Title';
 import UpcomingBody from './components/UpcomingBody';
-import Menu from './components/Menu';
-import AddTaskDialog from './components/AddTaskDialog';
+import AddTask from './components/AddTask';
+import { appProjects } from '@frontend/data/data';
 
-import type { Project } from '@frontend/data/types';
-
-type Props = {
-   project: Project;
-};
-
-const UpcomingProject = ({ project }: Props) => {
-   const { tasks, addTask, removeTask, editTask } = useTasks(project.id);
+const UpcomingProject = () => {
+   const project = appProjects[1];
 
    return (
-      <div className="oveflow-y-hidden wrapper grid h-svh content-start items-start">
+      <div className="wrapper grid h-svh content-start items-start overflow-y-hidden">
          <Title title={project.name} isEditable={false} />
-         <UpcomingBody
-            tasks={tasks}
-            editTask={editTask}
-            removeTask={removeTask}
-         />
-         <DialogProvider>
-            <Menu addTask={addTask} projectId={project.id} />
-            <AddTaskDialog addTask={addTask} projectId={project.id} />
-         </DialogProvider>
+         <UpcomingBody />
+         <div className="mt-4 flex justify-end">
+            <AddTask projectId={project.id} />
+         </div>
       </div>
    );
 };

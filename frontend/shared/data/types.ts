@@ -48,6 +48,10 @@ type SettingsContext = {
    updateSetting: UpdateValue<Settings>;
 };
 
+type ProjectIdProp = {
+   projectId: Project['id'];
+};
+
 export {
    Children,
    ProjectPayload,

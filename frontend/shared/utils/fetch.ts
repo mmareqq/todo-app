@@ -22,3 +22,15 @@ export const getFetchRequest = (
    });
    return request;
 };
+
+export const fetchJSON = async (req: Request) => {
+   try {
+      const json = await fetch(req).then(res => {
+         if (!res.ok) throw new Error(`HTTP ${res.status}`);
+         return res.json();
+      });
+      return json;
+   } catch (err) {
+      console.error(err);
+   }
+};

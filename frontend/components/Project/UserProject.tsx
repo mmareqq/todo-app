@@ -1,47 +1,62 @@
-import { useMemo } from 'react';
-
 import DialogProvider from '@contexts/DialogProvider';
-import useTasks from '@hooks/useTasks';
-
 import Title from './components/Title';
 import InfoPanel from './components/InfoPanel';
 import Body from './components/Body';
-import Menu from './components/Menu';
-
+import AddTask from './components/AddTask';
 import EditProjectDialog from './components/EditProjectDialog';
-import AddTaskDialog from './components/AddTaskDialog';
 
-import type { ProjectActions } from '@frontend/data/types';
+import type { Id } from '@frontend/data/types';
+import { useProjectQuery, useTasksQuery } from './queries';
 
-type Props = Pick<ProjectActions, 'project' | 'editProject'>;
+function UserProject({ projectId }: { projectId: Id }) {
+   const projectQuery = useProjectQuery(projectId);
+   const tasksQuery = useTasksQuery(projectId);
 
-function UserProject({ project, editProject }: Props) {
-   const { tasks, addTask, removeTask, editTask } = useTasks(project.id);
+   if (projectQuery.isFetching || tasksQuery.isFetching) {
+      return <Template projectId={projectId} />;
+   }
+   if (!projectQuery.isSuccess || !tasksQuery.isSuccess) {
+      return <div>Error fetching project data</div>;
+   }
 
-   const totalDuration = useMemo(
-      () => tasks.reduce((acc, task) => task.duration + acc, 0),
-      [tasks],
-   );
+   const project = projectQuery.data;
+   const tasks = tasksQuery.data;
+
+   const totalDuration = tasks.reduce((acc, task) => task.duration + acc, 0);
 
    return (
-      <div className="oveflow-y-hidden wrapper grid h-svh content-start items-start">
+      <div className="wrapper grid h-svh content-start items-start overflow-y-hidden">
          <DialogProvider>
             <Title
                title={project.name}
                isEditable={project.type === 'custom'}
             />
-            <EditProjectDialog project={project} editProject={editProject} />
+            <EditProjectDialog project={project} />
          </DialogProvider>
 
          <InfoPanel totalDuration={totalDuration} />
-         <Body tasks={tasks} editTask={editTask} removeTask={removeTask} />
+         <Body tasks={tasks} />
 
-         <DialogProvider>
-            <Menu addTask={addTask} projectId={project.id} />
-            <AddTaskDialog addTask={addTask} projectId={project.id} />
-         </DialogProvider>
+         <div className="mt-4 flex justify-end">
+            <AddTask projectId={project.id} />
+         </div>
       </div>
    );
 }
+
+const Template = ({ projectId }: { projectId: Id }) => {
+   return (
+      <div className="wrapper grid h-svh content-start items-start overflow-y-hidden">
+         <Title title="Fetching..." isEditable={false} />
+
+         <InfoPanel totalDuration={0} />
+         <Body tasks={[]} />
+
+         <div className="mt-4 flex justify-end">
+            <AddTask projectId={projectId} />
+         </div>
+      </div>
+   );
+};
 
 export default UserProject;

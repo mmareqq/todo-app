@@ -152,7 +152,7 @@ export function ChevronIcon({ size = 20, ...props }: Props) {
             <animate
                fill="freeze"
                attributeName="stroke-dashoffset"
-               dur="0.3s"
+               dur="0.0001s"
                values="12;0"
             ></animate>
          </path>

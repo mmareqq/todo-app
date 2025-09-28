@@ -1,15 +1,15 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import type { Project, ProjectCreate } from '@frontend/data/types';
 
-import { getFetchRequest } from '@frontend/data/fetch';
+import { fetchJSON, getFetchRequest } from '@frontend/utils/fetch';
 
 export const useProjectsQuery = () => {
    return useQuery<Project[]>({
       queryKey: ['projects'],
       queryFn: async () => {
          const req = getFetchRequest('/api/projects', 'GET');
-         const json = await fetch(req).then(res => res.json());
-         return JSON.parse(json);
+         const json = await fetchJSON(req);
+         return json;
       },
    });
 };
@@ -20,7 +20,6 @@ export const useProjectAddMutation = () => {
    return useMutation({
       mutationKey: ['addProject'],
       mutationFn: async (project: ProjectCreate) => {
-         console.log('creating post request');
          const req = getFetchRequest('/api/projects', 'POST', {
             name: project.name,
          });

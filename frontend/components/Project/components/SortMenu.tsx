@@ -5,7 +5,7 @@ import AnimateExit from '@ui/AnimateExit';
 import DropdownItem from '@ui/DropdownItem';
 import Button from '@ui/Button';
 import type { SortMethod } from '@frontend/data/types';
-
+import { twMerge } from 'tailwind-merge';
 const SortMenu = () => {
    const [isOpen, setIsOpen] = useState(false);
    const sortOptions: SortMethod[] = ['priority', 'duration', 'name'];
@@ -21,7 +21,10 @@ const SortMenu = () => {
          >
             <span>Sort By</span>
             <ChevronIcon
-               className={`transition-transform duration-250 ${isOpen ? '' : 'rotate-180'}`}
+               className={twMerge(
+                  'transition-rotate duration-250',
+                  !isOpen && 'rotate-180',
+               )}
             />
          </Button>
 

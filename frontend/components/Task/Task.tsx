@@ -1,26 +1,20 @@
 import AnimateSlideIn from '@ui/AnimateSlideIn';
-
-import { formatDate, formatDuration } from '@frontend/utils/time';
-
+import { formatDisplayDate, formatDuration } from '@frontend/utils/time';
 import Button from '@ui/Button';
 import DeleteButton from '@ui/DeleteButton';
-import EditTaskButton from './EditTaskButton';
-
-import DialogProvider from '@contexts/DialogProvider';
-import EditTaskDialog from './EditTaskDialog';
-
+import EditTask from './EditTask';
 import { priorityColors } from '@frontend/data/data';
 
-import type { Task as TaskType, TaskActions } from '@frontend/data/types';
+import type { Task as TaskType } from '@frontend/data/types';
+import { useRemoveTaskMutation } from '@components/Project/queries';
 
 type Props = {
    task: TaskType;
-   editTask: TaskActions['editTask'];
-   removeTask: TaskActions['removeTask'];
    animationDelay: number;
 };
 
-const Task = ({ task, editTask, removeTask, animationDelay }: Props) => {
+const Task = ({ task, animationDelay }: Props) => {
+   const { mutate: removeTask } = useRemoveTaskMutation(task.id);
    return (
       <AnimateSlideIn delayMS={animationDelay}>
          <div
@@ -33,7 +27,7 @@ const Task = ({ task, editTask, removeTask, animationDelay }: Props) => {
                   e.currentTarget
                      .closest('[data-type="task"]')
                      ?.classList.add('exit-animation');
-                  setTimeout(() => removeTask(task.id), 800);
+                  setTimeout(removeTask, 800);
                }}
                aria-label={`complete ${task.name} task`}
             />
@@ -41,7 +35,9 @@ const Task = ({ task, editTask, removeTask, animationDelay }: Props) => {
             <div>{task.name}</div>
 
             {task.dueDate && (
-               <div className="text-current/70">{formatDate(task.dueDate)}</div>
+               <div className="text-current/70">
+                  {formatDisplayDate(task.dueDate)}
+               </div>
             )}
 
             <div className="ml-auto flex items-center gap-1">
@@ -52,14 +48,11 @@ const Task = ({ task, editTask, removeTask, animationDelay }: Props) => {
                   {formatDuration(task.duration)}
                </div>
 
-               <DialogProvider>
-                  <EditTaskButton label={task.name} />
-                  <EditTaskDialog editTask={editTask} task={task} />
-               </DialogProvider>
+               <EditTask task={task} />
 
                <DeleteButton
                   label={task.name}
-                  onRemove={() => removeTask(task.id)}
+                  onRemove={removeTask}
                   iconSize={20}
                />
             </div>

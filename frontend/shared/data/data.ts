@@ -12,8 +12,6 @@ const initialSettings: Settings = {
    theme: 'dark',
 };
 
-// Only for dev, to be deleted
-
 const taskModel: TaskPayload = {
    name: '',
    priority: 'none',
@@ -50,6 +48,12 @@ const noteSizes: Record<NoteSize, { w: number; h: number }> = {
    xl: { w: 300, h: 300 },
 };
 
+const appProjects: Project[] = [
+   { id: 1, name: 'Today', type: 'preset' },
+   { id: 2, name: 'Upcoming', type: 'preset' },
+   { id: 3, name: 'StickyBoard', type: 'preset' },
+];
+
 export {
    initialSettings,
    taskModel,
@@ -59,4 +63,5 @@ export {
    defaultProjectId,
    noteSizes,
    noteColors,
+   appProjects,
 };

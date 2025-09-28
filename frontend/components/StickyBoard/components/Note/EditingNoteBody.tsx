@@ -75,7 +75,6 @@ const EditingNoteBody = ({
          <div className="flex items-center justify-between p-1">
             <SizeMenu
                editNoteSize={(size: NoteSize) => {
-                  console.log('chagning note size ', size);
                   editNote({
                      ...note,
                      size: size,

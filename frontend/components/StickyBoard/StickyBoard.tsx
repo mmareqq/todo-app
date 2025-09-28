@@ -14,16 +14,16 @@ const StickyBoard = () => {
    const boardRef = useRef<HTMLDivElement | null>(null);
 
    const addNewNote = (x: number, y: number) => {
-      const newNote: NoteType = {
-         id: generateId(),
-         title: '',
-         description: '',
-         color: 'blue',
-         x: boardRef.current!.scrollLeft + x,
-         y: boardRef.current!.scrollTop + y,
-         size: 'md',
-      };
-      addNote(newNote);
+      // const newNote: NoteType = {
+      //    id: generateId(),
+      //    title: '',
+      //    description: '',
+      //    color: 'blue',
+      //    x: boardRef.current!.scrollLeft + x,
+      //    y: boardRef.current!.scrollTop + y,
+      //    size: 'md',
+      // };
+      // addNote(newNote);
    };
 
    const resetNotes = () => setNotes([]);

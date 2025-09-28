@@ -1,39 +1,23 @@
-import { useMemo } from 'react';
-
-import Button from '@ui/Button';
 import Task from '@components/Task';
 
 import { groupTasksByDate } from '@frontend/utils/tasks';
-import { formatDate, getDayOfWeek } from '@frontend/utils/time';
+import { formatDisplayDate, getDayOfWeek } from '@frontend/utils/time';
+import { useTasksWithDateQuery } from '../queries';
 
-import type { Task as TaskType, TaskActions } from '@frontend/data/types';
+const UpcomingBody = () => {
+   const { data: tasks, isFetching, isSuccess } = useTasksWithDateQuery();
+   if (isFetching) return <div>Fetching...</div>;
+   if (!isSuccess) return <div>Error fetching</div>;
 
-type Props = {
-   tasks: TaskType[];
-   editTask: TaskActions['editTask'];
-   removeTask: TaskActions['removeTask'];
-};
+   const dates = groupTasksByDate(tasks); // FIXME: very slow, calculating every rerender
 
-const UpcomingBody = ({ tasks, editTask, removeTask }: Props) => {
-   const dates = useMemo(() => groupTasksByDate(tasks), [tasks]);
    return (
       <div className="max-h-full overflow-y-auto">
          <div className="grid gap-4 overflow-x-hidden pr-1">
-            <Button
-               variant="dropdown"
-               onClick={() => {
-                  tasks.forEach(({ id }) => removeTask(id));
-                  // to be deleted
-                  const btn = document.querySelector('#btn-tasks-debug');
-                  btn?.classList.remove('hidden');
-               }}
-            >
-               Remove all
-            </Button>
             {dates.map(([date, tasks]) => (
                <div key={date}>
                   <h3 className="opacity-50">
-                     {formatDate(date)} {getDayOfWeek(date)}
+                     {formatDisplayDate(date)} {getDayOfWeek(date)}
                   </h3>
                   <ul>
                      {tasks.map((task, i) => {
@@ -41,8 +25,6 @@ const UpcomingBody = ({ tasks, editTask, removeTask }: Props) => {
                            <Task
                               key={task.id}
                               task={task}
-                              editTask={editTask}
-                              removeTask={removeTask}
                               animationDelay={i * 0.05}
                            />
                         );

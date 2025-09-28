@@ -5,7 +5,7 @@ const z_TaskPriority = z.literal(['none', 'low', 'medium', 'high']);
 
 const z_Task = z.object({
    id: z_Id.readonly(),
-   projectId: z.string(),
+   projectId: z_Id.readonly(),
    completed: z.boolean(),
    name: z.string(),
    priority: z_TaskPriority,

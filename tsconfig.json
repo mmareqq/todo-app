@@ -22,9 +22,6 @@
          "@assets/*": [
             "frontend/assets/*"
          ],
-         "@frontend/shared/*": [
-            "frontend/shared/data/*"
-         ],
          "@contexts/*": [
             "frontend/shared/contexts/*"
          ],
