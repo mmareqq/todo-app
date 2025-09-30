@@ -16,7 +16,7 @@ const DropdownItem = ({ value, close }: Props) => {
       <div>
          <Button
             variant="none"
-            className="hover:bg-primary-600 bg-primary-800 border-primary-400 outline-primary-600 flex w-full items-center gap-1 py-1.5 outline-1 transition-colors"
+            className="hover:bg-primary-600 bg-primary-800 border-primary-400 outline-primary-600 flex w-full items-center gap-0.5 px-0.5 py-1.5 outline-1 transition-colors"
             onClick={() => {
                close();
                updateSetting('sortMethod', value);
@@ -24,8 +24,7 @@ const DropdownItem = ({ value, close }: Props) => {
          >
             <div>
                <Dot
-                  width="20"
-                  height="20"
+                  size={16}
                   className={settings.sortMethod === value ? '' : 'invisible'}
                />
             </div>

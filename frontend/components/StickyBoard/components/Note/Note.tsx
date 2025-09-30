@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { twMerge } from 'tailwind-merge';
 import useNoteDrag from './useNoteDrag';
 import type { Note, NoteActions } from '@frontend/data/types';
 

@@ -1,3 +1,4 @@
+import pool from './connection';
 import type {
    ProjectCreate,
    TaskCreate,
@@ -7,7 +8,8 @@ import type {
    NoteUpdate,
    Id,
 } from '@types';
-import pool from './connection';
+
+import { transformToDB } from 'backend/utils/transformDB';
 
 export const MUTATIONS = {
    addProject: (project: ProjectCreate) => {
@@ -42,31 +44,21 @@ export const MUTATIONS = {
    updateNote: (id: Id, note: NoteUpdate) => updateElement(id, note, 'notes'),
 };
 
-const toSnakeCase = (s: string) =>
-   s
-      .replace(/([A-Z])/g, '_$1')
-      .replace(/[^a-z0-9_]/gi, '_')
-      .toLowerCase();
-
-const updateElement = <T extends Record<string, T[keyof T]>>(
+const updateElement = <T extends object>(
    id: Id,
    updates: T,
    tableName: 'projects' | 'tasks' | 'notes',
 ) => {
-   type Value = T[keyof T];
-   const entries = Object.entries(updates).filter(([, v]) => v !== undefined);
-   if (!entries.length) {
-      console.warn('no values provided to update task');
-      return Promise.resolve([]);
-   }
-   const setClause = entries
-      .map(([key]) => `\`${toSnakeCase(key)}\` = ?`)
-      .join(', ');
+   const dbUpdates = transformToDB(updates);
+   const keys = Object.keys(dbUpdates);
+   const values: T[keyof T][] = Object.values(dbUpdates);
 
-   const values: (Value | Id)[] = entries.map(([, v]) => v);
-   values.push(id);
+   const SETClause = keys.map(key => `${key} = ?`).join(', ');
 
-   return pool.query(`UPDATE ${tableName} SET ${setClause} WHERE id=?`, values);
+   return pool.query(`UPDATE ${tableName} SET ${SETClause} WHERE id=?`, [
+      ...values,
+      id,
+   ]);
 };
 
 export const QUERIES = {

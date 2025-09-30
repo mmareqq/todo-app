@@ -60,6 +60,7 @@ export const useTodayTasksQuery = () => {
       queryFn: async () => {
          const req = getFetchRequest(`/api/tasks/today`, 'GET');
          const json = await fetchJSON(req);
+         console.log('today tasks json', json);
          return json;
       },
    });
@@ -69,7 +70,6 @@ export const useEditProjectMutation = (projectId: Id) => {
    const client = useQueryClient();
 
    return useMutation({
-      mutationKey: ['editProject', projectId],
       mutationFn: async (project: ProjectUpdate) => {
          const req = getFetchRequest(
             `/api/projects/${projectId}`,
@@ -80,6 +80,7 @@ export const useEditProjectMutation = (projectId: Id) => {
       },
 
       onSuccess: () => {
+         client.invalidateQueries({ queryKey: ['project'] });
          client.invalidateQueries({ queryKey: ['projects'] });
       },
    });
@@ -91,7 +92,10 @@ export const useAddTaskMutation = () => {
    return useMutation({
       mutationKey: ['addTask'],
       mutationFn: async (task: TaskCreate) => {
-         const req = getFetchRequest('/api/tasks', 'POST', task);
+         const req = getFetchRequest('/api/tasks', 'POST', {
+            ...task,
+            dueDate: task.dueDate?.toISOString() || null,
+         });
          await fetch(req);
       },
 
@@ -117,17 +121,34 @@ export const useRemoveTaskMutation = (taskId: Id) => {
    });
 };
 
+export const useRemoveProjectMutation = (projectId: Id) => {
+   const client = useQueryClient();
+
+   return useMutation({
+      mutationKey: ['removeTask', projectId],
+      mutationFn: async () => {
+         const req = getFetchRequest(`/api/projects/${projectId}`, 'DELETE');
+         await fetch(req);
+      },
+
+      onSuccess: () => {
+         client.invalidateQueries({ queryKey: ['projects'] });
+      },
+   });
+};
+
 export const useEditTaskMutation = (taskId: Id) => {
    const client = useQueryClient();
 
    return useMutation({
       mutationKey: ['editTask', taskId],
       mutationFn: async (editedTask: TaskUpdate) => {
-         const req = getFetchRequest(
-            `/api/tasks/${taskId}`,
-            'PATCH',
-            editedTask,
-         );
+         const req = getFetchRequest(`/api/tasks/${taskId}`, 'PATCH', {
+            ...editedTask,
+            dueDate: editedTask.dueDate
+               ? editedTask.dueDate.toISOString()
+               : null,
+         });
          await fetch(req);
       },
 

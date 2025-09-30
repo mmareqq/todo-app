@@ -6,7 +6,7 @@ import { useTasksWithDateQuery } from '../queries';
 
 const UpcomingBody = () => {
    const { data: tasks, isFetching, isSuccess } = useTasksWithDateQuery();
-   if (isFetching) return <div>Fetching...</div>;
+   if (isFetching) return <Template />;
    if (!isSuccess) return <div>Error fetching</div>;
 
    const dates = groupTasksByDate(tasks); // FIXME: very slow, calculating every rerender
@@ -33,6 +33,14 @@ const UpcomingBody = () => {
                </div>
             ))}
          </div>
+      </div>
+   );
+};
+
+const Template = () => {
+   return (
+      <div className="max-h-full overflow-y-auto">
+         <div className="grid gap-4 overflow-x-hidden pr-1"></div>
       </div>
    );
 };

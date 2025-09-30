@@ -57,7 +57,10 @@ const App = () => {
                   <GrainEffect opacity={0.03} noiseValue={10} />
                   <GrainEffect opacity={0.018} color="#E0AC69" noiseValue={1} />
 
-                  <Project projectId={activeProjectId} />
+                  <Project
+                     projectId={activeProjectId}
+                     setActiveId={setActiveProjectId}
+                  />
                </main>
             </div>
          </SettingsProvider>

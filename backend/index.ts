@@ -9,6 +9,7 @@ import env from './utils/envSchema';
 import cors from 'cors';
 
 import * as t from '@types';
+import { transformFromDB } from './utils/transformDB';
 
 const port = env.PORT || 3000;
 const app = express();
@@ -90,7 +91,10 @@ app.delete('/api/projects/:projectId', async (req, res) => {
 app.get('/api/tasks', async (req, res) => {
    try {
       const [rows] = await QUERIES.getTasksWithDate();
-      const tasks = z.array(t.z_Task).parse(rows);
+      const tasks = z
+         .array(t.z_TaskDB)
+         .parse(rows)
+         .map(task => transformFromDB(task));
       res.status(200).json(tasks);
    } catch (err) {
       console.log(err);
@@ -102,7 +106,10 @@ app.get('/api/projects/:projectId/tasks', async (req, res) => {
    try {
       const projectId = safeParseId(req.params.projectId);
       const [rows] = await QUERIES.getTasksByProjectId(projectId);
-      const tasks = z.array(t.z_Task).parse(rows);
+      const tasks = z
+         .array(t.z_TaskDB)
+         .parse(rows)
+         .map(task => transformFromDB(task));
       res.status(200).json(tasks);
    } catch (err) {
       console.log(err);
@@ -114,7 +121,10 @@ app.get('/api/tasks/today', async (req, res) => {
    try {
       const today = formatDate(new Date());
       const [rows] = await QUERIES.getTasksFromDate(today);
-      const tasks = z.array(t.z_Task).parse(rows);
+      const tasks = z
+         .array(t.z_TaskDB)
+         .parse(rows)
+         .map(task => transformFromDB(task));
       res.status(200).json(tasks);
    } catch (err) {
       console.log(err);

@@ -12,7 +12,12 @@ type Props = {
 };
 
 const Navbar = ({ activeProjectId, setActiveProjectId }: Props) => {
-   const { data: projects, isSuccess, isFetching } = useProjectsQuery();
+   const {
+      data: projects,
+      isSuccess,
+      isFetching,
+      isRefetching,
+   } = useProjectsQuery();
 
    return (
       <nav className="py-4">
@@ -35,7 +40,7 @@ const Navbar = ({ activeProjectId, setActiveProjectId }: Props) => {
          </div>
 
          <ul className="flex flex-col gap-0">
-            {isFetching && <div>Fetching...</div>}
+            {isFetching && !isRefetching && <div>Fetching...</div>}
             {isSuccess &&
                projects.map(p => (
                   <NavButton

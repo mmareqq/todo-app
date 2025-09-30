@@ -25,7 +25,7 @@ const styles = {
    ),
 
    dropdown: twMerge(
-      'shadow-primary-600/10 focus-within:bg-primary-600 hover:bg-primary-600 border-primary-600 transiton-colors rounded-sm border-1 px-2 py-1 duration-300 hover:shadow-lg focus:outline-none',
+      'shadow-primary-600/10 hover:bg-primary-600 border-primary-600 transiton-colors focus:bg-primary-600/50 rounded-sm border-1 px-2 py-1 duration-300 hover:shadow-lg',
    ),
    glass: twMerge(
       'hover:bg-primary-700/50 border-primary-700 rounded-sm border px-2 py-0.5',

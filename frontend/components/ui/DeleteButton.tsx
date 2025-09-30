@@ -11,7 +11,7 @@ type Props = {
    iconSize?: number;
 };
 
-const DeleteButton = ({ onRemove, label, iconSize = 24 }: Props) => {
+const DeleteButton = ({ onRemove, label, iconSize = 20 }: Props) => {
    return (
       <DialogProvider>
          <DeleteButtonContent

@@ -1,18 +1,31 @@
-import DialogProvider from '@contexts/DialogProvider';
 import Title from './components/Title';
 import InfoPanel from './components/InfoPanel';
 import Body from './components/Body';
 import AddTask from './components/AddTask';
-import EditProjectDialog from './components/EditProjectDialog';
-
+import EditProject from './components/EditProject';
+import DeleteButton from '@ui/DeleteButton';
 import type { Id } from '@frontend/data/types';
-import { useProjectQuery, useTasksQuery } from './queries';
+import { StateSetter } from '@frontend/data/helperTypes';
+import { defaultProjectId } from '@frontend/data/data';
+import {
+   useProjectQuery,
+   useTasksQuery,
+   useRemoveProjectMutation,
+} from './queries';
 
-function UserProject({ projectId }: { projectId: Id }) {
+type Props = {
+   projectId: Id;
+   setActiveId: StateSetter<Id>;
+};
+
+function UserProject({ projectId, setActiveId }: Props) {
    const projectQuery = useProjectQuery(projectId);
    const tasksQuery = useTasksQuery(projectId);
-
-   if (projectQuery.isFetching || tasksQuery.isFetching) {
+   const { mutate: removeProject } = useRemoveProjectMutation(projectId);
+   if (
+      (projectQuery.isFetching || tasksQuery.isFetching) &&
+      !projectQuery.isRefetching
+   ) {
       return <Template projectId={projectId} />;
    }
    if (!projectQuery.isSuccess || !tasksQuery.isSuccess) {
@@ -23,16 +36,20 @@ function UserProject({ projectId }: { projectId: Id }) {
    const tasks = tasksQuery.data;
 
    const totalDuration = tasks.reduce((acc, task) => task.duration + acc, 0);
-
    return (
       <div className="wrapper grid h-svh content-start items-start overflow-y-hidden">
-         <DialogProvider>
-            <Title
-               title={project.name}
-               isEditable={project.type === 'custom'}
-            />
-            <EditProjectDialog project={project} />
-         </DialogProvider>
+         <Title title={project.name}>
+            <div className="flex items-center gap-1">
+               <EditProject project={project} />
+               <DeleteButton
+                  onRemove={() => {
+                     removeProject();
+                     setActiveId(defaultProjectId);
+                  }}
+                  label={project.name}
+               />
+            </div>
+         </Title>
 
          <InfoPanel totalDuration={totalDuration} />
          <Body tasks={tasks} />
@@ -47,7 +64,7 @@ function UserProject({ projectId }: { projectId: Id }) {
 const Template = ({ projectId }: { projectId: Id }) => {
    return (
       <div className="wrapper grid h-svh content-start items-start overflow-y-hidden">
-         <Title title="Fetching..." isEditable={false} />
+         <Title title="..."></Title>
 
          <InfoPanel totalDuration={0} />
          <Body tasks={[]} />

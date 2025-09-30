@@ -8,7 +8,7 @@ const UpcomingProject = () => {
 
    return (
       <div className="wrapper grid h-svh content-start items-start overflow-y-hidden">
-         <Title title={project.name} isEditable={false} />
+         <Title title={project.name} />
          <UpcomingBody />
          <div className="mt-4 flex justify-end">
             <AddTask projectId={project.id} />

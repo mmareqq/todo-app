@@ -6,6 +6,7 @@ type Props = {
    label: string;
    iconSize?: number;
 };
+
 const EditButton = ({ label, iconSize = 20 }: Props) => {
    const { openDialog } = useDialogContext();
 
