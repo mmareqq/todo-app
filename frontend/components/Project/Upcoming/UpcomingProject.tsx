@@ -1,6 +1,6 @@
-import Title from './components/Title';
-import UpcomingBody from './components/UpcomingBody';
-import AddTask from './components/AddTask';
+import Title from '../common/Title';
+import AddTask from '../common/AddTask';
+import UpcomingBody from './UpcomingBody';
 import { appProjects } from '@frontend/data/data';
 
 const UpcomingProject = () => {

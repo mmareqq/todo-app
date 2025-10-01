@@ -1,13 +1,13 @@
 import DialogProvider from '@contexts/DialogProvider';
-import type { Id } from '@types';
-
-import useForm from '@hooks/useForm';
-import TaskForm from '@components/TaskForm';
-import Dialog from '@ui/Dialog';
-import { taskModel } from '@frontend/data/data';
-import Button from '@ui/Button';
-import { useAddTaskMutation } from '../queries';
 import useDialogContext from '@hooks/useDialogContext';
+import Dialog from '@ui/Dialog';
+
+import TaskForm from '@components/TaskForm';
+import useForm from '@hooks/useForm';
+import Button from '@ui/Button';
+import { useAddTaskMutation } from './useAddTaskMutation';
+import { taskModel } from '@frontend/data/data';
+import type { Id } from '@types';
 
 const AddTask = ({ projectId }: { projectId: Id }) => {
    const [taskPayload, updateValue, resetForm] = useForm(taskModel);

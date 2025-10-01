@@ -3,10 +3,10 @@ import Dialog from '@ui/Dialog';
 
 import useForm from '@hooks/useForm';
 
-import ProjectForm from '@components/Project/components/ProjectForm';
+import ProjectForm from '@components/Navbar/ProjectForm';
 import EditButton from '@ui/EditButton';
 
-import { useEditProjectMutation } from '../queries';
+import useEditProjectMutation from './queries/useEditProjectMutation';
 
 import type { Project } from '@frontend/data/types';
 

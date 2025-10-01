@@ -1,9 +1,9 @@
 import DialogProvider from '@contexts/DialogProvider';
 import { projectModel } from '@frontend/data/data';
 import useForm from '@hooks/useForm';
-import { useProjectAddMutation } from './projectsQuery';
+import useProjectAddMutation from './useProjectAddMutation';
 
-import ProjectForm from '@components/Project/components/ProjectForm';
+import ProjectForm from '@components/Navbar/ProjectForm';
 import useDialogContext from '@hooks/useDialogContext';
 import Dialog from '@ui/Dialog';
 import Button from '@ui/Button';

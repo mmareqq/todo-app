@@ -1,7 +1,7 @@
 import AddProject from './AddProject';
 import NavButton from './NavButton';
 import { appProjects } from '@frontend/data/data';
-import { useProjectsQuery } from './projectsQuery';
+import useProjectsQuery from './useProjectsQuery';
 
 import type { Id } from '@frontend/data/types';
 import type { StateSetter } from '@frontend/data/helperTypes';

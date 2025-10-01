@@ -1,30 +1,22 @@
-import Body from './components/Body';
-import AddTask from './components/AddTask';
-import Title from './components/Title';
+import Body from '../common/Body';
+import AddTask from '../common/AddTask';
+import Title from '../common/Title';
 import { appProjects } from '@frontend/data/data';
-import InfoPanel from './components/InfoPanel';
+import InfoPanel from '../common/InfoPanel';
 
-import { useTodayTasksQuery } from './queries';
+import { useTodayTasksQuery } from './useTodayTasksQuery';
 import { Project } from '@types';
 
 const TodayProject = () => {
    const project = appProjects[0];
-   const {
-      data: tasks,
-      isFetching,
-      isRefetching,
-      isSuccess,
-      error,
-   } = useTodayTasksQuery();
+   const { data: tasks, isFetching, isSuccess, error } = useTodayTasksQuery();
    if (isFetching) return <Template project={project} />;
    if (!isSuccess) return <div>Error fetching {JSON.stringify(error)}</div>;
-
-   const totalDuration = tasks.reduce((acc, task) => task.duration + acc, 0);
 
    return (
       <div className="wrapper grid h-svh content-start items-start overflow-y-hidden">
          <Title title={project.name} />
-         <InfoPanel totalDuration={totalDuration} />
+         <InfoPanel />
          <Body tasks={tasks} />
 
          <div className="mt-4 flex justify-end">
@@ -38,7 +30,7 @@ const Template = ({ project }: { project: Project }) => {
    return (
       <div className="wrapper grid h-svh content-start items-start overflow-y-hidden">
          <Title title={project.name} />
-         <InfoPanel totalDuration={0} />
+         <InfoPanel />
          <Body tasks={[]} />
 
          <div className="mt-4 flex justify-end">

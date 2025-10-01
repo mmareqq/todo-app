@@ -6,7 +6,7 @@ import EditTask from './EditTask';
 import { priorityColors } from '@frontend/data/data';
 
 import type { Task as TaskType } from '@frontend/data/types';
-import { useRemoveTaskMutation } from '@components/Project/queries';
+import useRemoveTaskMutation from './useRemoveTaskMutation';
 
 type Props = {
    task: TaskType;
@@ -36,7 +36,7 @@ const Task = ({ task, animationDelay }: Props) => {
 
             {task.dueDate && (
                <div className="text-current/70">
-                  {formatDisplayDate(task.dueDate)}
+                  {formatDisplayDate(task.dueDate.toISOString())}
                </div>
             )}
 

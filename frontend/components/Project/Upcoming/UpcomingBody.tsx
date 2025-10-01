@@ -2,7 +2,7 @@ import Task from '@components/Task';
 
 import { groupTasksByDate } from '@frontend/utils/tasks';
 import { formatDisplayDate, getDayOfWeek } from '@frontend/utils/time';
-import { useTasksWithDateQuery } from '../queries';
+import useTasksWithDateQuery from './useTasksWithDateQuery';
 
 const UpcomingBody = () => {
    const { data: tasks, isFetching, isSuccess } = useTasksWithDateQuery();

@@ -1,7 +1,8 @@
 import UserProject from './UserProject';
-import UpcomingProject from './UpcomingProject';
-import TodayProject from './TodayProject';
+import UpcomingProject from './Upcoming';
+import TodayProject from './Today';
 import StickyBoard from '@components/StickyBoard';
+
 import type { Id } from '@types';
 import { StateSetter } from '@frontend/data/helperTypes';
 
