@@ -11,6 +11,7 @@ html {
 }
 
 :root {
+   --full-w-breakpoint: 1200px;
    --clr-success: oklch(52.7% 0.154 150.069);
    --clr-error: oklch(44.794% 0.17702 28.413 / 0.616);
 
@@ -63,7 +64,9 @@ button {
 
 .wrapper {
    width: 100%;
-   padding-inline: 10%;
+   margin-inline: auto;
+   max-width: var(--full-w-breakpoint);
+   padding-inline: 5%;
 }
 
 *:has(> .grain-texture) {

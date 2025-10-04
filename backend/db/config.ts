@@ -11,7 +11,6 @@ const config = {
    waitForConnections: true,
    connectionLimit: 10,
    queueLimit: 0,
-   dateStrings: true,
    typeCast: (field: any, next: any) => {
       if (field.type === 'TINY' && field.length === 1) {
          return field.string() === '1';

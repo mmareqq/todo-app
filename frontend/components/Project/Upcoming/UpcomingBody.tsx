@@ -12,20 +12,23 @@ const UpcomingBody = () => {
    const dates = groupTasksByDate(tasks); // FIXME: very slow, calculating every rerender
 
    return (
-      <div className="max-h-full overflow-y-auto">
-         <div className="grid gap-4 overflow-x-hidden pr-1">
+      <div className="overflow-y-auto">
+         <div className="gap-4 overflow-x-hidden pt-6 pr-1">
             {dates.map(([date, tasks]) => (
                <div key={date}>
-                  <h3 className="opacity-50">
-                     {formatDisplayDate(date)} {getDayOfWeek(date)}
-                  </h3>
-                  <ul>
+                  {tasks.length !== 0 && (
+                     <h3 className="my-1 opacity-80">
+                        {formatDisplayDate(date)} {getDayOfWeek(date)}
+                     </h3>
+                  )}
+                  <ul className="border-primary-400/50 ml-2 overflow-hidden border-l-1 px-8">
                      {tasks.map((task, i) => {
+                        const delay = i * 0.05;
                         return (
                            <Task
                               key={task.id}
                               task={task}
-                              animationDelay={i * 0.05}
+                              animationDelay={delay}
                            />
                         );
                      })}

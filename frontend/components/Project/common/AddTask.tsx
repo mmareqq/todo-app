@@ -3,14 +3,16 @@ import useDialogContext from '@hooks/useDialogContext';
 import Dialog from '@ui/Dialog';
 
 import TaskForm from '@components/TaskForm';
-import useForm from '@hooks/useForm';
 import Button from '@ui/Button';
-import { useAddTaskMutation } from './useAddTaskMutation';
+import useForm from '@hooks/useForm';
 import { taskModel } from '@frontend/data/data';
+import { useAddTaskMutation } from './useAddTaskMutation';
+import { getToday } from '@frontend/utils/time';
+import { TaskPayload } from '@frontend/data/types';
 import type { Id } from '@types';
-
 const AddTask = ({ projectId }: { projectId: Id }) => {
-   const [taskPayload, updateValue, resetForm] = useForm(taskModel);
+   const initialTask: TaskPayload = { ...taskModel, dueDate: getToday() };
+   const [taskPayload, updateValue, resetForm] = useForm(initialTask);
    const { mutate: addTask } = useAddTaskMutation();
 
    return (
@@ -33,7 +35,7 @@ const AddTask = ({ projectId }: { projectId: Id }) => {
 const AddButton = () => {
    const { openDialog } = useDialogContext();
    return (
-      <Button className="px-8" onClick={openDialog}>
+      <Button className="my-4 px-8" onClick={openDialog}>
          Add Task
       </Button>
    );

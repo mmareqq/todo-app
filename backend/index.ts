@@ -91,7 +91,7 @@ app.delete('/api/projects/:projectId', async (req, res) => {
 app.get('/api/tasks', async (req, res) => {
    try {
       const [rows] = await QUERIES.getTasksWithDate();
-      const tasks = z
+      const tasks: t.Task[] = z
          .array(t.z_TaskDB)
          .parse(rows)
          .map(task => transformFromDB(task));
