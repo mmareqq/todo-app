@@ -22,7 +22,7 @@ const Navbar = ({ activeProjectId, setActiveProjectId }: Props) => {
    return (
       <nav className="py-4">
          <ul className="mt-12 flex flex-col gap-0">
-            {appProjects.map(p => (
+            {Object.values(appProjects).map(p => (
                <NavButton
                   key={p.id}
                   isActive={p.id === activeProjectId}

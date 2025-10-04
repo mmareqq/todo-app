@@ -18,6 +18,7 @@ const AddTask = ({ projectId }: { projectId: Id }) => {
          <AddButton />
          <Dialog
             onSuccess={() => {
+               console.log('adding task with projectId ', projectId);
                addTask({ projectId, completed: false, ...taskPayload });
                resetForm();
             }}

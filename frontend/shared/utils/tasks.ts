@@ -1,10 +1,8 @@
-import generateId from './generateId';
-
 import { compareStrings } from './stringUtils';
 import { getDatesMap } from './time';
 import { convertMapToArray } from './convert';
 
-import type { Task, SortMethod, Id } from '@frontend/data/types';
+import type { Task, SortMethod } from '@frontend/data/types';
 
 export const sortTasks = (tasks: Task[], sortMethod: SortMethod) => {
    switch (sortMethod) {
@@ -61,58 +59,3 @@ export function groupTasksByDate(tasks: Task[]) {
 
    return convertMapToArray(dates);
 }
-
-export const getTasksTemplate = (projectId: Id): Task[] => {
-   return [
-      {
-         id: generateId(),
-         projectId: projectId,
-         completed: false,
-         name: 'Task 1',
-         priority: 'high',
-         duration: 15,
-         dueDate: '2025-07-30',
-         createdAt: new Date().toISOString(),
-      },
-      {
-         id: generateId(),
-         projectId: projectId,
-         completed: false,
-         name: 'Task 2',
-         priority: 'medium',
-         duration: 90,
-         dueDate: '2025-08-01',
-         createdAt: new Date().toISOString(),
-      },
-      {
-         id: generateId(),
-         projectId: projectId,
-         completed: false,
-         name: 'Task 3',
-         priority: 'low',
-         duration: 45,
-         dueDate: '2025-07-25',
-         createdAt: new Date().toISOString(),
-      },
-      {
-         id: generateId(),
-         projectId: projectId,
-         completed: false,
-         name: 'Task 4',
-         priority: 'high',
-         duration: 15,
-         dueDate: '2025-08-10',
-         createdAt: new Date().toISOString(),
-      },
-      {
-         id: generateId(),
-         projectId: projectId,
-         completed: false,
-         name: 'Task 5',
-         priority: 'none',
-         duration: 5,
-         dueDate: '2025-08-12',
-         createdAt: new Date().toISOString(),
-      },
-   ];
-};

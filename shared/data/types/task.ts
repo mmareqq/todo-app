@@ -11,7 +11,7 @@ const z_Task = z.object({
    name: z.string(),
    priority: z_TaskPriority,
    duration: z.number(),
-   dueDate: z.union([z.coerce.date(), z.null()]),
+   dueDate: z.string().nullable(),
 });
 
 const z_TaskDB = z.object({
@@ -21,7 +21,7 @@ const z_TaskDB = z.object({
    name: z.string(),
    priority: z_TaskPriority,
    duration: z.number(),
-   due_date: z.union([z.coerce.date(), z.null()]),
+   due_date: z.date().nullable(),
 });
 
 const z_TaskCreate = z_Task.omit({ id: true });

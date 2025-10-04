@@ -2,11 +2,11 @@ import type { UpdateValue } from '@frontend/data/helperTypes';
 import type { TaskPayload } from '@frontend/data/types';
 
 type Props = {
-   date: string | null;
+   dueDate: TaskPayload['dueDate'];
    updateValue: UpdateValue<TaskPayload>;
 };
 
-const DateInput = ({ date, updateValue }: Props) => {
+const DateInput = ({ dueDate, updateValue }: Props) => {
    return (
       <div className="flex gap-5">
          <span>Date:</span>
@@ -14,7 +14,7 @@ const DateInput = ({ date, updateValue }: Props) => {
             type="date"
             id="task-dueDate"
             name="task-dueDate"
-            value={date ?? ''}
+            value={dueDate === null ? '' : dueDate}
             onChange={e => updateValue('dueDate', e.target.value)}
          />
       </div>

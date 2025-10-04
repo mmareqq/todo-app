@@ -7,6 +7,7 @@ import type {
    TaskUpdate,
    NoteUpdate,
    Id,
+   TaskDB,
 } from '@types';
 
 import { transformToDB } from 'backend/utils/transformDB';
@@ -17,17 +18,25 @@ export const MUTATIONS = {
       return pool.query('INSERT INTO `projects` (`name`) VALUES (?)', [name]);
    },
    addTask: (task: TaskCreate) => {
-      const { projectId, name, completed, priority, duration, dueDate } = task;
+      const taskDB: TaskDB = transformToDB(task);
+      const keys = Object.keys(taskDB);
+      const values = Object.values(task);
+      const keysClause = keys.map(k => `\`${k}\``).join(', ');
+      const valuesClause = new Array(keys.length).fill('?').join(', ');
+
       return pool.query(
-         'INSERT INTO `tasks` (`project_id`, `name`, `completed`, `priority`, `duration`, `due_date`) VALUES (?, ?, ?, ?, ?, ?)',
-         [projectId, name, completed, priority, duration, dueDate],
+         `INSERT INTO tasks (${keysClause}) VALUES (${valuesClause})`,
+         [...values],
       );
    },
    addNote: (note: NoteCreate) => {
-      const { title, description, color, x, y, size } = note;
+      const keys = Object.keys(note);
+      const values = Object.values(note);
+      const keysClause = keys.map(k => `\`${k}\``).join(', ');
+      const valuesClause = new Array(keys.length).fill('?').join(', ');
       return pool.query(
-         'INSERT INTO `notes` (`title`, `description`, `color`, `x`, `y`, `size`) VALUES (?, ?, ?, ?, ?, ?)',
-         [title, description, color, x, y, size],
+         `INSERT INTO notes (${keysClause}) VALUES (${valuesClause})`,
+         [...values],
       );
    },
 
@@ -44,7 +53,7 @@ export const MUTATIONS = {
    updateNote: (id: Id, note: NoteUpdate) => updateElement(id, note, 'notes'),
 };
 
-const updateElement = <T extends object>(
+const updateElement = <T extends Record<string, T[keyof T]>>(
    id: Id,
    updates: T,
    tableName: 'projects' | 'tasks' | 'notes',

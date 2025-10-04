@@ -95,6 +95,7 @@ app.get('/api/tasks', async (req, res) => {
          .array(t.z_TaskDB)
          .parse(rows)
          .map(task => transformFromDB(task));
+
       res.status(200).json(tasks);
    } catch (err) {
       console.log(err);

@@ -16,10 +16,6 @@ const config = {
       if (field.type === 'TINY' && field.length === 1) {
          return field.string() === '1';
       }
-      if (field.type === 'DATETIME' || field.type === 'TIMESTAMP') {
-         const value = field.string();
-         return value ? new Date(value) : null;
-      }
       return next();
    },
 };

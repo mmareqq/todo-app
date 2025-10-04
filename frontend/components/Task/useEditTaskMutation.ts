@@ -8,12 +8,11 @@ export const useEditTaskMutation = (taskId: Id) => {
    return useMutation({
       mutationKey: ['editTask'],
       mutationFn: async (editedTask: TaskUpdate) => {
-         const req = getFetchRequest(`/api/tasks/${taskId}`, 'PATCH', {
-            ...editedTask,
-            dueDate: editedTask.dueDate
-               ? editedTask.dueDate.toISOString()
-               : null,
-         });
+         const req = getFetchRequest(
+            `/api/tasks/${taskId}`,
+            'PATCH',
+            editedTask,
+         );
          await fetch(req);
       },
 

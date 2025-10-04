@@ -1,7 +1,6 @@
 import type {
    Settings,
    TaskPayload,
-   Project,
    ProjectPayload,
    NoteColor,
    NoteSize,
@@ -16,7 +15,7 @@ const taskModel: TaskPayload = {
    name: '',
    priority: 'none',
    duration: 0,
-   dueDate: '',
+   dueDate: null,
 };
 
 const projectModel: ProjectPayload = { name: '' };
@@ -26,11 +25,9 @@ const priorityColors = {
    low: 'text-priority-1',
    medium: 'text-priority-2',
    high: 'text-priority-3',
-};
+} as const;
 
 const durationValues = [0, 5, 10, 15, 30, 45, 60, 90];
-
-const defaultProjectId = 1; // today project
 
 const noteColors: Record<NoteColor, string> = {
    red: '#C61B1B',
@@ -39,20 +36,23 @@ const noteColors: Record<NoteColor, string> = {
    green: '#2A9A35',
    blue: '#0978F6',
    purple: '#921EFF',
-};
+} as const;
 
 const noteSizes: Record<NoteSize, { w: number; h: number }> = {
    sm: { w: 150, h: 150 },
    md: { w: 200, h: 200 },
    lg: { w: 250, h: 250 },
    xl: { w: 300, h: 300 },
-};
+} as const;
 
-const appProjects: Project[] = [
-   { id: 1, name: 'Today', type: 'preset' },
-   { id: 2, name: 'Upcoming', type: 'preset' },
-   { id: 3, name: 'StickyBoard', type: 'preset' },
-];
+const appProjects = {
+   today: { id: -2, name: 'Today', type: 'preset' },
+   upcoming: { id: -3, name: 'Upcoming', type: 'preset' },
+   stickyBoard: { id: -4, name: 'StickyBoard', type: 'preset' },
+   inbox: { id: -1, name: 'Inbox', type: 'preset' },
+} as const;
+
+const defaultProjectId = appProjects.today.id; // today project
 
 export {
    initialSettings,

@@ -8,10 +8,7 @@ export const useAddTaskMutation = () => {
    return useMutation({
       mutationKey: ['addTask'],
       mutationFn: async (task: TaskCreate) => {
-         const req = getFetchRequest('/api/tasks', 'POST', {
-            ...task,
-            dueDate: task.dueDate?.toISOString() || null,
-         });
+         const req = getFetchRequest('/api/tasks', 'POST', task);
          await fetch(req);
       },
 

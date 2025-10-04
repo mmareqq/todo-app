@@ -1,11 +1,12 @@
 import Task from '@components/Task';
 
-import { useTodayTasksQuery } from './useTodayTasksQuery';
+import useTasksQuery from '../UserProject/queries/useTasksQuery';
+import { appProjects } from '@frontend/data/data';
 
-const TodayBody = () => {
-   const { data: tasks, isPending } = useTodayTasksQuery();
+const InboxBody = () => {
+   const { data: tasks, isPending } = useTasksQuery(appProjects.inbox.id);
    if (isPending) return 'Fetching...';
-   if (!tasks) return 'Error fethcing tasks in TodayBody';
+   if (!tasks) return 'Error fethcing tasks in InboxBody';
    const sortedTasks = []; // FIXME: sort tasks in query
    return (
       <div className="max-h-full overflow-y-auto">
@@ -20,4 +21,4 @@ const TodayBody = () => {
    );
 };
 
-export default TodayBody;
+export default InboxBody;

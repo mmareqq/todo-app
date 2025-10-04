@@ -8,8 +8,7 @@ import Navbar from '@components/Navbar/Navbar.js';
 
 import SettingsProvider from '@contexts/SettingsProvider';
 
-import { useState } from 'react';
-import { defaultProjectId } from '@frontend/data/data';
+import useActiveProjectId from './useActiveProjectId';
 
 // active project is not stored
 // options:
@@ -36,9 +35,7 @@ const client = new QueryClient({
 window.__TANSTACK_QUERY_CLIENT__ = client;
 
 const App = () => {
-   // const { projects, addProject, editProject, removeProject } = useProjects();
-   // const { activeProject, setActiveProjectId } = useActiveProject(projects);
-   const [activeProjectId, setActiveProjectId] = useState(defaultProjectId);
+   const { activeProjectId, setActiveProjectId } = useActiveProjectId();
    return (
       <QueryClientProvider client={client}>
          <SettingsProvider>

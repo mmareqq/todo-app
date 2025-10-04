@@ -22,6 +22,7 @@ const Task = ({ task, animationDelay }: Props) => {
             className="task bg-primary-800 border-primary-600 flex items-center gap-2 border px-4 py-2"
          >
             <Button
+               variant="none"
                className={`h-5 w-5 border-2 bg-current/10 ${priorityColors[task.priority]}`}
                onClick={e => {
                   e.currentTarget
@@ -33,10 +34,9 @@ const Task = ({ task, animationDelay }: Props) => {
             />
 
             <div>{task.name}</div>
-
             {task.dueDate && (
                <div className="text-current/70">
-                  {formatDisplayDate(task.dueDate.toISOString())}
+                  {formatDisplayDate(task.dueDate)}
                </div>
             )}
 

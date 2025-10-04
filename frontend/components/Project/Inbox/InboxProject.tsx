@@ -1,15 +1,19 @@
+import InboxBody from './InboxBody';
 import Title from '../common/Title';
+import InfoPanel from '../common/InfoPanel';
 import AddTask from '../common/AddTask';
-import UpcomingBody from './UpcomingBody';
+
 import { appProjects } from '@frontend/data/data';
 
-const UpcomingProject = () => {
-   const project = appProjects.upcoming;
+const InboxProject = () => {
+   const project = appProjects.inbox;
 
    return (
       <div className="wrapper grid h-svh content-start items-start overflow-y-hidden">
          <Title title={project.name} />
-         <UpcomingBody />
+         <InfoPanel />
+         <InboxBody />
+
          <div className="mt-4 flex justify-end">
             <AddTask projectId={project.id} />
          </div>
@@ -17,4 +21,4 @@ const UpcomingProject = () => {
    );
 };
 
-export default UpcomingProject;
+export default InboxProject;
