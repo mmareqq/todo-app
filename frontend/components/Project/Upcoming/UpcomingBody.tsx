@@ -5,8 +5,8 @@ import { formatDisplayDate, getDayOfWeek } from '@frontend/utils/time';
 import useTasksWithDateQuery from './useTasksWithDateQuery';
 
 const UpcomingBody = () => {
-   const { data: tasks, isFetching, isSuccess } = useTasksWithDateQuery();
-   if (isFetching) return <Template />;
+   const { data: tasks = [], isSuccess } = useTasksWithDateQuery();
+
    if (!isSuccess) return <div>Error fetching</div>;
 
    const dates = groupTasksByDate(tasks); // FIXME: very slow, calculating every rerender
@@ -18,17 +18,16 @@ const UpcomingBody = () => {
                <div key={date}>
                   {tasks.length !== 0 && (
                      <h3 className="my-1 opacity-80">
-                        {formatDisplayDate(date)} {getDayOfWeek(date)}
+                        {formatDisplayDate(date, 'short')} {getDayOfWeek(date)}
                      </h3>
                   )}
                   <ul className="border-primary-400/50 ml-2 overflow-hidden border-l-1 px-8">
                      {tasks.map((task, i) => {
-                        const delay = i * 0.05;
                         return (
                            <Task
                               key={task.id}
                               task={task}
-                              animationDelay={delay}
+                              animationDelay={i * 0.05}
                            />
                         );
                      })}
@@ -36,14 +35,6 @@ const UpcomingBody = () => {
                </div>
             ))}
          </div>
-      </div>
-   );
-};
-
-const Template = () => {
-   return (
-      <div className="max-h-full overflow-y-auto">
-         <div className="grid gap-4 overflow-x-hidden pr-1"></div>
       </div>
    );
 };

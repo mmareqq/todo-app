@@ -1,10 +1,18 @@
 import type { Children } from '@frontend/data/types';
-type Props = { title: string } & Children;
-
-const Title = ({ title, children }: Props) => {
+import { twMerge } from 'tailwind-merge';
+type Props = {
+   title: string;
+   className?: string;
+} & Children;
+const Title = ({ title, className = '', children }: Props) => {
    return (
-      <div className="border-primary-500 flex items-end justify-between border-b-1 py-2">
-         <h2 className="pt-4 text-2xl">{title}</h2>
+      <div
+         className={twMerge(
+            'border-primary-500 align-center flex items-end justify-between border-b-1 pt-6 pb-1',
+            className,
+         )}
+      >
+         <h2 className="text-2xl">{title}</h2>
          {children}
       </div>
    );

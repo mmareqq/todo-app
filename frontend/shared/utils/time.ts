@@ -52,7 +52,8 @@ export const formatDuration = (totalMinutes: number): string => {
    // 3h 45min
 };
 
-export const formatDisplayDate = (date: string) => {
+export const formatDisplayDate = (date: string, type: 'full' | 'short') => {
    const [year, month, day] = date.split('-');
+   if (type === 'short') return `${day}/${month}`;
    return `${day}.${month}.${year}`; // 15.05.2025
 };

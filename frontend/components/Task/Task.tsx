@@ -11,9 +11,10 @@ import useRemoveTaskMutation from './useRemoveTaskMutation';
 type Props = {
    task: TaskType;
    animationDelay: number;
+   includeDate?: boolean;
 };
 
-const Task = ({ task, animationDelay }: Props) => {
+const Task = ({ task, animationDelay, includeDate = false }: Props) => {
    const { mutate: removeTask } = useRemoveTaskMutation(task.id);
    return (
       <AnimateSlideIn delayMS={animationDelay}>
@@ -34,9 +35,9 @@ const Task = ({ task, animationDelay }: Props) => {
             />
 
             <div>{task.name}</div>
-            {task.dueDate && (
+            {includeDate && task.dueDate && (
                <div className="text-current/70">
-                  {formatDisplayDate(task.dueDate)}
+                  {formatDisplayDate(task.dueDate, 'short')}
                </div>
             )}
 

@@ -4,12 +4,10 @@ import { ChevronIcon } from '@assets/Icons';
 import AnimateExit from '@ui/AnimateExit';
 import DropdownItem from '@ui/DropdownItem';
 import Button from '@ui/Button';
-import type { SortMethod } from '@frontend/data/types';
 import { twMerge } from 'tailwind-merge';
+
 const SortMenu = () => {
    const [isOpen, setIsOpen] = useState(false);
-   const sortOptions: SortMethod[] = ['priority', 'duration', 'name'];
-
    const toggleOpen = () => setIsOpen(p => !p);
 
    return (
@@ -23,7 +21,7 @@ const SortMenu = () => {
             <ChevronIcon
                className={twMerge(
                   'transition-rotate duration-250',
-                  !isOpen && 'rotate-180',
+                  !isOpen && '-rotate-180',
                )}
             />
          </Button>
@@ -32,9 +30,9 @@ const SortMenu = () => {
             hidden={isOpen}
             className="bg-primary-800 border-primary-600 outline-primary-600 absolute inset-x-0 origin-top overflow-hidden rounded-sm outline-1"
          >
-            {sortOptions.map(option => (
-               <DropdownItem key={option} value={option} close={toggleOpen} />
-            ))}
+            <DropdownItem value={'priority'} close={toggleOpen} />
+            <DropdownItem value={'duration'} close={toggleOpen} />
+            <DropdownItem value={'name'} close={toggleOpen} />
          </AnimateExit>
       </div>
    );

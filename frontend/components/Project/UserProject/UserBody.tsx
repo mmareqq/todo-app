@@ -1,4 +1,4 @@
-import useTasksQuery from './queries/useTasksQuery';
+import { useTasksQuery } from './queries/useTasksQuery';
 import type { Id } from '@frontend/data/types';
 import TaskList from '../common/TaskList';
 
