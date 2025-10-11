@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import type { Note, NoteCreate, NoteUpdate, Id } from '@types';
 import { getFetchRequest, fetchJSON } from '@frontend/utils/fetch';
+import generateId from '@frontend/utils/generateId';
 
 export const useNotesQuery = () => {
    return useQuery<Note[]>({
@@ -40,73 +41,90 @@ export const useAddNoteMutation = () => {
 
    return useMutation({
       mutationFn: async (note: NoteCreate) => {
-         try {
-            const req = getFetchRequest('/api/notes', 'POST', note);
-            await fetchJSON(req);
-         } catch (err) {
-            console.log('err deleting all notes', err);
-         }
+         const req = getFetchRequest('/api/notes', 'POST', note);
+         await fetchJSON(req);
       },
+
       onSuccess: () => {
          client.invalidateQueries({ queryKey: ['notes'] });
       },
-      onMutate: async (newNote, context) => {
-         await context.client.cancelQueries({ queryKey: ['notes'] });
+      onMutate: async newNote => {
+         await client.cancelQueries({ queryKey: ['notes'] });
 
-         const prevNotes = context.client.getQueryData(['todos']);
+         const prevData = client.getQueryData(['notes']);
 
-         context.client.setQueryData(['notes'], (old: Note[]) => [
+         client.setQueryData<Note[]>(['notes'], (old = []) => [
             ...old,
-            newNote,
+            { ...newNote, id: generateId() },
          ]);
 
-         return { prevNotes };
+         return { prevData };
+      },
+      onError: (err, newItem, onMutateResult) => {
+         client.setQueryData(['notes'], onMutateResult!.prevData);
       },
 
-      onError: (err, newTodo, onMutateResult, context) => {
-         context.client.setQueryData(['todos'], onMutateResult!.prevNotes);
-      },
-
-      onSettled: (data, error, variables, onMutateResult, context) =>
-         context.client.invalidateQueries({ queryKey: ['todos'] }),
+      onSettled: () => client.invalidateQueries({ queryKey: ['notes'] }),
    });
 };
 
-export const useEditNoteMutation = (noteId: Id) => {
+export const useEditNoteMutation = (editedId: Id) => {
    const client = useQueryClient();
    return useMutation({
       mutationFn: async (noteUpdates: NoteUpdate) => {
-         try {
-            console.log('noteUpdates', noteUpdates);
-            const req = getFetchRequest(
-               `/api/notes/${noteId}`,
-               'PATCH',
-               noteUpdates,
-            );
-            await fetchJSON(req);
-         } catch (err) {
-            console.log(`err editing ${noteId} note`, err);
-         }
+         const req = getFetchRequest(
+            `/api/notes/${editedId}`,
+            'PATCH',
+            noteUpdates,
+         );
+         await fetchJSON(req);
       },
-      onSuccess: () => {
+
+      onMutate: async noteUpdates => {
+         await client.cancelQueries({ queryKey: ['notes'] });
+
+         const prevData = client.getQueryData(['notes']);
+
+         client.setQueryData<Note[]>(['notes'], (old = []) =>
+            old.map(note =>
+               note.id === editedId ? { ...note, ...noteUpdates } : note,
+            ),
+         );
+
+         return { prevData };
+      },
+      onError: (err, newItem, onMutateResult) => {
+         client.setQueryData(['notes'], onMutateResult!.prevData);
+      },
+      onSettled: () => {
          client.invalidateQueries({ queryKey: ['notes'] });
       },
    });
 };
 
-export const useNoteDeleteMutation = (noteId: Id) => {
+export const useNoteDeleteMutation = (editedId: Id) => {
    const client = useQueryClient();
 
    return useMutation({
       mutationFn: async () => {
-         try {
-            const req = getFetchRequest(`/api/notes/${noteId}`, 'DELETE');
-            await fetchJSON(req);
-         } catch (err) {
-            console.log(`err deleting ${noteId} note`, err);
-         }
+         const req = getFetchRequest(`/api/notes/${editedId}`, 'DELETE');
+         await fetchJSON(req);
       },
-      onSuccess: () => {
+      onMutate: async () => {
+         await client.cancelQueries({ queryKey: ['notes'] });
+
+         const prevData = client.getQueryData(['notes']);
+
+         client.setQueryData<Note[]>(['notes'], (old = []) =>
+            old.filter(note => note.id !== editedId),
+         );
+
+         return { prevData };
+      },
+      onError: (err, newItem, onMutateResult) => {
+         client.setQueryData(['notes'], onMutateResult!.prevData);
+      },
+      onSettled: () => {
          client.invalidateQueries({ queryKey: ['notes'] });
       },
    });

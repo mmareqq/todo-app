@@ -13,7 +13,6 @@ import DeleteButton from '@ui/DeleteButton';
 import SizeMenu from './SizeMenu';
 import ColorPicker from './ColorPicker';
 import { useEditNoteMutation, useNoteDeleteMutation } from '../useNotesQuery';
-import { debounce } from '@shared/data/utils/debounce';
 
 type EditingProps = {
    note: Note;
@@ -40,7 +39,7 @@ const useEditingNote = (note: NotePayload) => {
 
 const EditingNoteBody = ({ note, disableEditing }: EditingProps) => {
    const [editedNote, editProperty] = useEditingNote(note);
-   const { mutate: editNote } = useEditNoteMutation(note.id); // TODO: debounce updates
+   const { mutate: editNote } = useEditNoteMutation(note.id);
    const { mutate: deleteNote } = useNoteDeleteMutation(note.id);
 
    return (
