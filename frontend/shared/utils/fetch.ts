@@ -10,8 +10,8 @@ export const getFetchRequest = (
    if (method === 'GET' && body) {
       throw new Error('HTTP GET cannot have body');
    }
-   if (method !== 'GET' && !body) {
-      console.warn('no body specified and method is not GET');
+   if ((method === 'POST' || method === 'PATCH') && !body) {
+      console.warn(`no body specified for HTTP ${method}`);
    }
 
    const headers = new Headers([['Content-Type', 'application/json']]);

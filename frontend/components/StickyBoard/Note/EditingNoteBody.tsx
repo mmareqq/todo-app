@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import type {
    NotePayload,
-   NoteActions,
+   Note,
    NoteColor,
    NoteSize,
 } from '@frontend/data/types';
@@ -12,8 +12,11 @@ import DeleteButton from '@ui/DeleteButton';
 
 import SizeMenu from './SizeMenu';
 import ColorPicker from './ColorPicker';
+import { useEditNoteMutation, useNoteDeleteMutation } from '../useNotesQuery';
+import { debounce } from '@shared/data/utils/debounce';
 
-type EditingProps = Pick<NoteActions, 'note' | 'editNote' | 'removeNote'> & {
+type EditingProps = {
+   note: Note;
    disableEditing: () => void;
 };
 
@@ -23,7 +26,10 @@ const useEditingNote = (note: NotePayload) => {
       description: note.description,
    });
 
-   const editProperty = (property: keyof NotePayload, value: string) => {
+   const editProperty = (
+      property: keyof NotePayload,
+      value: NotePayload[keyof NotePayload],
+   ) => {
       setEditedNote(n => ({
          ...n,
          [property]: value,
@@ -32,13 +38,10 @@ const useEditingNote = (note: NotePayload) => {
    return [editedNote, editProperty] as const;
 };
 
-const EditingNoteBody = ({
-   note,
-   editNote,
-   removeNote,
-   disableEditing,
-}: EditingProps) => {
+const EditingNoteBody = ({ note, disableEditing }: EditingProps) => {
    const [editedNote, editProperty] = useEditingNote(note);
+   const { mutate: editNote } = useEditNoteMutation(note.id); // TODO: debounce updates
+   const { mutate: deleteNote } = useNoteDeleteMutation(note.id);
 
    return (
       <>
@@ -67,31 +70,24 @@ const EditingNoteBody = ({
          </div>
          <ColorPicker
             selectedColor={note.color}
-            editNoteColor={(color: NoteColor) => {
-               editNote({ ...note, color: color });
-            }}
+            editNoteColor={(color: NoteColor) => editNote({ color })}
          />
 
          <div className="flex items-center justify-between p-1">
             <SizeMenu
-               editNoteSize={(size: NoteSize) => {
-                  editNote({
-                     ...note,
-                     size: size,
-                  });
-               }}
+               editNoteSize={(size: NoteSize) => editNote({ size })}
                isBtnActive={(size: NoteSize) => note.size === size}
             />
             <div className="flex">
                <DeleteButton
-                  onRemove={() => removeNote(note.id)}
+                  onRemove={deleteNote}
                   label={note.title}
                   iconSize={20}
                />
                <Button
                   variant="icon"
                   onClick={() => {
-                     editNote({ ...note, ...editedNote });
+                     editNote({ ...editedNote });
                      disableEditing();
                   }}
                >

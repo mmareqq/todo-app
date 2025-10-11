@@ -203,6 +203,16 @@ app.patch('/api/notes/:noteId', async (req, res) => {
    }
 });
 
+app.delete('/api/notes', async (req, res) => {
+   try {
+      const [result] = await MUTATIONS.deleteAllNotes();
+      res.status(200).json(result);
+   } catch (err) {
+      console.log(err);
+      res.send('something went wrong.');
+   }
+});
+
 app.delete('/api/notes/:noteId', async (req, res) => {
    try {
       const noteId = safeParseId(req.params.noteId);

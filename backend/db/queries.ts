@@ -46,6 +46,7 @@ export const MUTATIONS = {
       pool.query('DELETE FROM `tasks` WHERE `id`=?', [taskId]),
    deleteNote: (noteId: Id) =>
       pool.query('DELETE FROM `notes` WHERE `id`=?', [noteId]),
+   deleteAllNotes: () => pool.query('DELETE FROM `notes`'),
 
    updateProject: (id: Id, proj: ProjectUpdate) =>
       updateElement(id, proj, 'projects'),

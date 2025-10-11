@@ -2,7 +2,7 @@ import { useEffect, useRef, useCallback } from 'react';
 import useDragState from './useDragState';
 
 import { animateEl, transitionEl } from '@frontend/utils/animate';
-import type { NoteActions, Note } from '@frontend/data/types';
+import type { Note, NoteActions } from '@frontend/data/types';
 
 const BORDER_WIDTH = 7; // space from the edge of the board
 const BOARD_WIDTH = 1800;
@@ -82,8 +82,8 @@ const useNoteDrag = (note: Note, editNote: NoteActions['editNote']) => {
       }
 
       noteEl.scrollIntoView({ behavior: 'smooth' });
-      editNote({ ...note, x: left, y: top });
-   }, [stopDrag, getNoteEl, getBoardEl, editNote, note, placeNote]);
+      editNote({ x: left, y: top });
+   }, [stopDrag, getNoteEl, getBoardEl, editNote, placeNote]);
 
    // event listeners
    useEffect(() => {

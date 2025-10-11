@@ -41,7 +41,7 @@ const App = () => {
          <SettingsProvider>
             <div className="body bg-primary-900 text-primary-50 h-screen">
                <div className="custom-scrollbar h-screen overflow-y-auto py-4">
-                  <h1 className="border-primary-500 mr-4 ml-auto w-min border-r border-b p-2 font-mono text-3xl leading-none font-bold select-none">
+                  <h1 className="border-primary-500 mr-4 ml-auto w-min border-r border-b p-2 font-mono text-3xl leading-none font-bold">
                      To <br /> Do
                   </h1>
 

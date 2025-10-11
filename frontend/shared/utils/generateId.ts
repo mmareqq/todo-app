@@ -1,3 +1,3 @@
-export default function generateId(length = 12) {
-   return crypto.randomUUID().slice(24, 24 + length);
+export default function generateId() {
+   return Math.floor(Math.random() * Math.pow(10, 10));
 }

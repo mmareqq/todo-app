@@ -1,6 +1,16 @@
 import type { ReactNode } from 'react';
 import type { UpdateValue } from './helperTypes.ts';
-import { Project, Task, Note } from '@types';
+import {
+   Project,
+   ProjectCreate,
+   ProjectUpdate,
+   Task,
+   TaskCreate,
+   TaskUpdate,
+   Note,
+   NoteUpdate,
+   NoteCreate,
+} from '@types';
 
 type Children = { children?: ReactNode };
 
@@ -10,16 +20,16 @@ type ProjectPayload = Pick<Project, 'name'>;
 
 type ProjectActions = {
    project: Project;
-   addProject: (newProject: Project) => void;
-   editProject: (newProject: Project) => void;
+   addProject: (newProject: ProjectCreate) => void;
+   editProject: (newProject: ProjectUpdate) => void;
    removeProject: (id: Project['id']) => void;
 };
 
 type TaskPayload = Pick<Task, 'name' | 'priority' | 'duration' | 'dueDate'>;
 
 type TaskActions = {
-   addTask: (newTask: Task) => void;
-   editTask: (newTask: Task) => void;
+   addTask: (newTask: TaskCreate) => void;
+   editTask: (newTask: TaskUpdate) => void;
    removeTask: (id: Task['id']) => void;
 };
 
@@ -27,8 +37,8 @@ type NotePayload = Pick<Note, 'title' | 'description'>;
 
 type NoteActions = {
    note: Note;
-   addNote: (newNote: Note) => void;
-   editNote: (newNote: Note) => void;
+   addNote: (newNote: NoteCreate) => void;
+   editNote: (newNote: NoteUpdate) => void;
    removeNote: (noteId: Note['id']) => void;
 };
 

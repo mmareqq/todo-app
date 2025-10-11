@@ -1,51 +1,47 @@
 import { useRef, useState } from 'react';
-import type { Note as NoteType } from '@frontend/data/types';
 import AnimateExit from '@ui/AnimateExit';
-
-import useNotes from './useNotes';
-import Note from './components/Note/Note';
-import generateId from '@frontend/utils/generateId';
 import Button from '@ui/Button';
-
+import Note from './Note/Note';
 import { MenuIcon } from '@assets/Icons';
+import {
+   useNotesQuery,
+   useDeleteAllNotesMutation,
+   useAddNoteMutation,
+} from './useNotesQuery';
+import { noteAddOffset } from '@frontend/data/data';
+import type { NoteCreate } from '@types';
 
 const StickyBoard = () => {
-   const { notes, addNote, editNote, removeNote, setNotes } = useNotes();
+   const { data: notes = [] } = useNotesQuery();
+   const { mutate: addNote } = useAddNoteMutation();
    const boardRef = useRef<HTMLDivElement | null>(null);
 
-   const addNewNote = (x: number, y: number) => {
-      // const newNote: NoteType = {
-      //    id: generateId(),
-      //    title: '',
-      //    description: '',
-      //    color: 'blue',
-      //    x: boardRef.current!.scrollLeft + x,
-      //    y: boardRef.current!.scrollTop + y,
-      //    size: 'md',
-      // };
-      // addNote(newNote);
+   const onAddNote = () => {
+      if (!boardRef.current) return;
+      const note: NoteCreate = {
+         title: '',
+         description: '',
+         color: 'blue',
+         x: boardRef.current.scrollLeft + noteAddOffset.x,
+         y: boardRef.current.scrollTop + noteAddOffset.y,
+         size: 'md',
+      };
+      addNote(note);
    };
 
-   const resetNotes = () => setNotes([]);
-
    const toggleGrid = () => {
-      boardRef.current!.classList.toggle('sticky-board--grid');
+      boardRef.current?.classList.toggle('sticky-board--grid');
    };
 
    return (
       <div ref={boardRef} data-type="sticky-board" className="sticky-board">
          {notes.map(note => (
-            <Note
-               key={note.id}
-               note={note}
-               editNote={editNote}
-               removeNote={removeNote}
-            />
+            <Note key={note.id} note={note} />
          ))}
 
          <div className="m-2 flex gap-2">
-            <Menu toggleGrid={toggleGrid} resetNotes={resetNotes} />
-            <Button variant="secondary" onClick={() => addNewNote(150, 50)}>
+            <Menu toggleGrid={toggleGrid} />
+            <Button variant="secondary" onClick={onAddNote}>
                Add note
             </Button>
          </div>
@@ -53,15 +49,10 @@ const StickyBoard = () => {
    );
 };
 
-const Menu = ({
-   toggleGrid,
-   resetNotes,
-}: {
-   toggleGrid: () => void;
-   resetNotes: () => void;
-}) => {
+const Menu = ({ toggleGrid }: { toggleGrid: () => void }) => {
    const [menuOpen, setMenuOpen] = useState(false);
    const toggleMenu = () => setMenuOpen(p => !p);
+   const { mutate: resetNotes } = useDeleteAllNotesMutation();
 
    return (
       <div>

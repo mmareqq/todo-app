@@ -1,10 +1,4 @@
-import type {
-   Settings,
-   TaskPayload,
-   ProjectPayload,
-   NoteColor,
-   NoteSize,
-} from './types';
+import type { Settings, TaskPayload, ProjectPayload } from './types';
 
 const initialSettings: Settings = {
    sortMethod: 'priority',
@@ -29,7 +23,7 @@ const priorityColors = {
 
 const durationValues = [0, 5, 10, 15, 30, 45, 60, 90];
 
-const noteColors: Record<NoteColor, string> = {
+const noteColors = {
    red: '#C61B1B',
    orange: '#F76300',
    yellow: '#FFDB26',
@@ -38,7 +32,7 @@ const noteColors: Record<NoteColor, string> = {
    purple: '#921EFF',
 } as const;
 
-const noteSizes: Record<NoteSize, { w: number; h: number }> = {
+const noteSizes = {
    sm: { w: 150, h: 150 },
    md: { w: 200, h: 200 },
    lg: { w: 250, h: 250 },
@@ -52,7 +46,9 @@ const appProjects = {
    inbox: { id: -1, name: 'Inbox', type: 'preset' },
 } as const;
 
-const defaultProjectId = appProjects.today.id; // today project
+const defaultProjectId = appProjects.today.id;
+
+const noteAddOffset = { x: 150, y: 50 } as const;
 
 export {
    initialSettings,
@@ -64,4 +60,5 @@ export {
    noteSizes,
    noteColors,
    appProjects,
+   noteAddOffset,
 };

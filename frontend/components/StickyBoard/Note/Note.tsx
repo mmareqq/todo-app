@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import useNoteDrag from './useNoteDrag';
-import type { Note, NoteActions } from '@frontend/data/types';
+import type { Note } from '@frontend/data/types';
 
 import { noteColors, noteSizes } from '@frontend/data/data';
 
 import NoteBody from './NoteBody';
 import EditingNoteBody from './EditingNoteBody';
+import { useEditNoteMutation } from '../useNotesQuery';
+import { debounce } from '@shared/data/utils/debounce';
 
 const useEditingState = () => {
    const [editing, setEditing] = useState(false);
@@ -15,12 +17,9 @@ const useEditingState = () => {
    return [editing, enableEditing, disableEditing] as const;
 };
 
-type Props = Pick<NoteActions, 'note' | 'editNote' | 'removeNote'> & {
-   initEditing?: boolean;
-};
-
-const Note = ({ note, editNote, removeNote }: Props) => {
-   const { noteRef, dragging } = useNoteDrag(note, editNote);
+const Note = ({ note }: { note: Note }) => {
+   const { mutate: editNote } = useEditNoteMutation(note.id);
+   const { noteRef, dragging } = useNoteDrag(note, debounce(editNote, 1000));
    const [editing, enableEditing, disableEditing] = useEditingState();
 
    const styles = {
@@ -42,7 +41,7 @@ const Note = ({ note, editNote, removeNote }: Props) => {
       <div
          ref={noteRef}
          data-type="note"
-         className="bg-primary-800 absolute rounded-t-lg border select-none"
+         className="bg-primary-800 absolute rounded-t-lg border"
          style={dragging ? draggingStyles : styles}
       >
          <div
@@ -52,12 +51,7 @@ const Note = ({ note, editNote, removeNote }: Props) => {
          />
          <div className="flex h-full flex-col justify-between pb-3">
             {editing ? (
-               <EditingNoteBody
-                  note={note}
-                  editNote={editNote}
-                  removeNote={removeNote}
-                  disableEditing={disableEditing}
-               />
+               <EditingNoteBody note={note} disableEditing={disableEditing} />
             ) : (
                <NoteBody note={note} enableEditing={enableEditing} />
             )}
