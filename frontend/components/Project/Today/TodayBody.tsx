@@ -1,4 +1,4 @@
-import { useTodayTasksQuery } from './useTodayTasksQuery';
+import { useTodayTasksQuery } from './todayTasksQuery';
 import TaskList from '../common/TaskList';
 const TodayBody = () => {
    const { data: tasks, isPending } = useTodayTasksQuery();

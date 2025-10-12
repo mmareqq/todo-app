@@ -7,7 +7,7 @@ import useForm from '@hooks/useForm';
 
 import TaskForm from '@components/TaskForm';
 import type { Task } from '@frontend/data/types';
-import { useEditTaskMutation } from './useEditTaskMutation';
+import { useEditTaskMutation } from './api/useEditTaskMutation';
 
 const EditTask = ({ task }: { task: Task }) => {
    const [formTask, updateValue, resetForm] = useForm({
@@ -17,7 +17,7 @@ const EditTask = ({ task }: { task: Task }) => {
       dueDate: task.dueDate,
    });
 
-   const { mutate: editTask } = useEditTaskMutation(task.id);
+   const { mutate: editTask } = useEditTaskMutation(task);
 
    return (
       <DialogProvider>

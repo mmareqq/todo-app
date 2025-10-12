@@ -3,11 +3,12 @@ import AnimateExit from '@ui/AnimateExit';
 import Button from '@ui/Button';
 import Note from './Note/Note';
 import { MenuIcon } from '@assets/Icons';
+
+import { useNotesQuery } from './api/useNotesQuery';
 import {
-   useNotesQuery,
    useDeleteAllNotesMutation,
    useAddNoteMutation,
-} from './useNotesQuery';
+} from './api/noteMutations';
 import { noteAddOffset } from '@frontend/data/data';
 import type { NoteCreate } from '@types';
 

@@ -168,6 +168,17 @@ app.delete('/api/tasks/:taskId', async (req, res) => {
    }
 });
 
+app.delete('/api/:projectId/tasks', async (req, res) => {
+   try {
+      const projectId = t.z_Id.parse(req.params.projectId);
+      const [result] = await MUTATIONS.deleteTasksFromProject(projectId);
+      res.status(200).json(result);
+   } catch (err) {
+      console.log(err);
+      res.send('something went wrong.');
+   }
+});
+
 // NOTES
 app.get('/api/notes', async (req, res) => {
    try {

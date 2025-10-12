@@ -6,7 +6,7 @@ import { noteColors, noteSizes } from '@frontend/data/data';
 
 import NoteBody from './NoteBody';
 import EditingNoteBody from './EditingNoteBody';
-import { useEditNoteMutation } from '../useNotesQuery';
+import { useEditNoteMutation } from '../api/noteMutations';
 import { debounce } from '@shared/data/utils/debounce';
 
 const useEditingState = () => {

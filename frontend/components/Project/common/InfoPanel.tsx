@@ -2,7 +2,10 @@ import { HourGlassIcon } from '@assets/Icons';
 import { formatDuration } from '@frontend/utils/time';
 import SortMenu from './SortMenu';
 
-const InfoPanel = ({ totalDuration }: { totalDuration: number }) => {
+type Props = {
+   totalDuration: number;
+};
+const InfoPanel = ({ totalDuration }: Props) => {
    return (
       <div className="flex items-center justify-between">
          <div className="my-6 flex items-center gap-1 text-sm">

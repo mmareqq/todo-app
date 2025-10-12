@@ -5,7 +5,7 @@ import { appProjects } from '@frontend/data/data';
 import InfoPanel from '../common/InfoPanel';
 import { getToday } from '@frontend/utils/time';
 import { formatDisplayDate } from '@frontend/utils/time';
-import { useTodayTasksDuration } from './useTodayTasksQuery';
+import { useTodayTasksDuration } from './todayTasksQuery';
 const TodayProject = () => {
    const project = appProjects.today;
    const { data: totalDuration = 0 } = useTodayTasksDuration();

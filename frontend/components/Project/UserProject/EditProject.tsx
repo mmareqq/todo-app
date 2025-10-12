@@ -6,7 +6,7 @@ import useForm from '@hooks/useForm';
 import ProjectForm from '@components/Navbar/ProjectForm';
 import EditButton from '@ui/EditButton';
 
-import useEditProjectMutation from './queries/useEditProjectMutation';
+import useEditProjectMutation from './api/useEditProjectMutation';
 
 import type { Project } from '@frontend/data/types';
 
@@ -15,7 +15,7 @@ const EditProject = ({ project }: { project: Project }) => {
       name: project.name,
    });
 
-   const { mutate: editProject } = useEditProjectMutation(project.id);
+   const { mutate: editProject } = useEditProjectMutation(project);
    return (
       <DialogProvider>
          <EditButton label={project.name} />

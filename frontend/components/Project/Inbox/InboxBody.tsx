@@ -1,4 +1,4 @@
-import { useTasksQuery } from '../UserProject/queries/useTasksQuery';
+import { useTasksQuery } from '../UserProject/api/useTasksQuery';
 import { appProjects } from '@frontend/data/data';
 import TaskList from '../common/TaskList';
 

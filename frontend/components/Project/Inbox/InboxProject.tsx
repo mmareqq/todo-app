@@ -2,7 +2,7 @@ import InboxBody from './InboxBody';
 import Title from '../common/Title';
 import InfoPanel from '../common/InfoPanel';
 import AddTask from '../common/AddTask';
-import { useTasksDurationQuery } from '../UserProject/queries/useTasksQuery';
+import { useTasksDurationQuery } from '../UserProject/api/useTasksQuery';
 import { appProjects } from '@frontend/data/data';
 
 const InboxProject = () => {

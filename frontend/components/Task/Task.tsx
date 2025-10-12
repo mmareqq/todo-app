@@ -6,7 +6,7 @@ import EditTask from './EditTask';
 import { priorityColors } from '@frontend/data/data';
 
 import type { Task as TaskType } from '@frontend/data/types';
-import useRemoveTaskMutation from './useRemoveTaskMutation';
+import useRemoveTaskMutation from './api/useRemoveTaskMutation';
 
 type Props = {
    task: TaskType;
@@ -15,7 +15,7 @@ type Props = {
 };
 
 const Task = ({ task, animationDelay, includeDate = false }: Props) => {
-   const { mutate: removeTask } = useRemoveTaskMutation(task.id);
+   const { mutate: removeTask } = useRemoveTaskMutation(task);
    return (
       <AnimateSlideIn delayMS={animationDelay}>
          <div

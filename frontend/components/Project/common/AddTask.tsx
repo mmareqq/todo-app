@@ -6,7 +6,7 @@ import TaskForm from '@components/TaskForm';
 import Button from '@ui/Button';
 import useForm from '@hooks/useForm';
 import { taskModel } from '@frontend/data/data';
-import { useAddTaskMutation } from './useAddTaskMutation';
+import { useAddTaskMutation } from '../api/useAddTaskMutation';
 import { getToday } from '@frontend/utils/time';
 import { TaskPayload } from '@frontend/data/types';
 import type { Id } from '@types';

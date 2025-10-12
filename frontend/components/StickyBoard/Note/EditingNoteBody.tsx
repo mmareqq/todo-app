@@ -12,7 +12,10 @@ import DeleteButton from '@ui/DeleteButton';
 
 import SizeMenu from './SizeMenu';
 import ColorPicker from './ColorPicker';
-import { useEditNoteMutation, useNoteDeleteMutation } from '../useNotesQuery';
+import {
+   useEditNoteMutation,
+   useNoteDeleteMutation,
+} from '../api/noteMutations';
 
 type EditingProps = {
    note: Note;
