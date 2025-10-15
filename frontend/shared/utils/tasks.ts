@@ -5,19 +5,12 @@ import { convertMapToArray } from './convert';
 import type { Task, SortMethod } from '@frontend/data/types';
 
 export const sortTasks = (tasks: Task[], sortMethod: SortMethod) => {
-   switch (sortMethod) {
-      case 'priority':
-         return sortTasksByPriority(tasks);
-      case 'name':
-         return sortTasksByName(tasks);
-      case 'duration':
-         return sortTasksByDuration(tasks);
-      case 'dueDate':
-         return sortTasksByDueDate(tasks);
-
-      default:
-         throw new Error('Wrong method for sorting tasks');
-   }
+   if (sortMethod === 'priority') return sortTasksByPriority(tasks);
+   if (sortMethod === 'name') return sortTasksByName(tasks);
+   if (sortMethod === 'duration') return sortTasksByDuration(tasks);
+   if (sortMethod === 'dueDate') return sortTasksByDueDate(tasks);
+   console.warn('sortTasks does not sort anything');
+   return tasks;
 };
 
 function sortTasksByPriority(tasks: Task[]) {
@@ -48,13 +41,15 @@ function sortTasksByDueDate(tasks: Task[]) {
    );
 }
 
-export function groupTasksByDate(tasks: Task[]) {
-   const dates = getDatesMap<Task>();
+export function groupTasksByDate(tasks: Task[], includeEmptyDates = false) {
+   const dates = includeEmptyDates
+      ? getDatesMap<Task>()
+      : new Map<string, Task[]>();
 
    tasks.forEach(task => {
       if (!task.dueDate) return;
-      const dateTasks = dates.get(task.dueDate);
-      if (dateTasks) dateTasks.push(task);
+      if (!dates.has(task.dueDate)) dates.set(task.dueDate, []);
+      dates.get(task.dueDate)!.push(task);
    });
 
    return convertMapToArray(dates);

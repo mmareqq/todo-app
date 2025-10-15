@@ -1,22 +1,23 @@
 import { useQuery } from '@tanstack/react-query';
-import type { Task, Id } from '@types';
+import type { Task, Id } from '@frontend/data/types';
 import { getFetchRequest, fetchJSON } from '@frontend/utils/fetch';
+import useSettingsContext from '@hooks/useSettingsContext';
+import { sortTasks } from '@frontend/utils/tasks';
 
 export const useTasksQuery = (projectId: Id) => {
-   return useQuery<Task[]>({
+   const { settings } = useSettingsContext();
+   const select = (tasks: Task[]) => sortTasks(tasks, settings.sortMethod);
+   return useQuery({
       queryKey: ['tasks', projectId],
-      queryFn: async () => {
-         try {
-            const req = getFetchRequest(
-               `/api/projects/${projectId}/tasks`,
-               'GET',
-            );
-            const json = await fetchJSON(req);
-            return json;
-         } catch (err) {
-            console.error(err);
-         }
+      queryFn: async (): Promise<Task[]> => {
+         const req = getFetchRequest(
+            `/api/projects/${encodeURIComponent(projectId)}/tasks`,
+            'GET',
+         );
+         const json = await fetchJSON(req);
+         return json;
       },
+      select,
    });
 };
 
@@ -27,10 +28,10 @@ export const useTasksDurationQuery = (projectId: Id) => {
 
    return useQuery({
       queryKey: ['tasks', projectId],
-      queryFn: async () => {
+      queryFn: async (): Promise<Task[]> => {
          const req = getFetchRequest(`/api/projects/${projectId}/tasks`, 'GET');
          const json = await fetchJSON(req);
-         return json as Task[];
+         return json;
       },
       select,
    });

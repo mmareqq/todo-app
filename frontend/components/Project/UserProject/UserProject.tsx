@@ -7,7 +7,6 @@ import UserBody from './UserBody';
 import useProjectQuery from './api/useProjectQuery';
 
 import { defaultProjectId } from '@frontend/data/data';
-import type { StateSetter } from '@frontend/data/helperTypes';
 import type { Id } from '@frontend/data/types';
 
 import { useRemoveProjectMutation } from './api/useRemoveProjectMutation';
@@ -15,10 +14,10 @@ import { useTasksDurationQuery } from './api/useTasksQuery';
 
 type Props = {
    projectId: Id;
-   setActiveId: StateSetter<Id>;
+   updateActiveId: (id: Id) => void;
 };
 
-function UserProject({ projectId, setActiveId }: Props) {
+function UserProject({ projectId, updateActiveId }: Props) {
    const projTemplate = {
       id: projectId,
       name: '...',
@@ -40,7 +39,7 @@ function UserProject({ projectId, setActiveId }: Props) {
                <DeleteButton
                   onRemove={() => {
                      removeProject();
-                     setActiveId(defaultProjectId);
+                     updateActiveId(defaultProjectId);
                   }}
                   label={project.name}
                />

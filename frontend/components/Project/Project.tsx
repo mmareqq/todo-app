@@ -4,20 +4,22 @@ import TodayProject from './Today';
 import InboxProject from './Inbox';
 import StickyBoard from '@components/StickyBoard';
 import { appProjects } from '@frontend/data/data';
+import useSettingsContext from '@hooks/useSettingsContext';
 import type { Id } from '@types';
-import { StateSetter } from '@frontend/data/helperTypes';
 
-type Props = {
-   projectId: Id;
-   setActiveId: StateSetter<Id>;
-};
-
-const Project = ({ projectId, setActiveId }: Props) => {
-   if (projectId === appProjects.inbox.id) return <InboxProject />;
-   if (projectId === appProjects.today.id) return <TodayProject />;
-   if (projectId === appProjects.upcoming.id) return <UpcomingProject />;
-   if (projectId === appProjects.stickyBoard.id) return <StickyBoard />;
-   return <UserProject projectId={projectId} setActiveId={setActiveId} />;
+const Project = () => {
+   const { settings, updateSetting } = useSettingsContext();
+   const id = settings.activeProjectId;
+   if (id === appProjects.inbox.id) return <InboxProject />;
+   if (id === appProjects.today.id) return <TodayProject />;
+   if (id === appProjects.upcoming.id) return <UpcomingProject />;
+   if (id === appProjects.stickyBoard.id) return <StickyBoard />;
+   return (
+      <UserProject
+         projectId={id}
+         updateActiveId={id => updateSetting('activeProjectId', id)}
+      />
+   );
 };
 
 export default Project;

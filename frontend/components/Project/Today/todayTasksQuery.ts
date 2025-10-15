@@ -1,14 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
 import type { Task } from '@types';
 import { getFetchRequest, fetchJSON } from '@frontend/utils/fetch';
+import { appProjects } from '@frontend/data/data';
 
 export const useTodayTasksQuery = () => {
    return useQuery({
-      queryKey: ['tasks', 'tasks-today'],
-      queryFn: async () => {
+      queryKey: ['tasks', appProjects.today.id],
+      queryFn: async (): Promise<Task[]> => {
          const req = getFetchRequest(`/api/tasks/today`, 'GET');
          const json = await fetchJSON(req);
-         return json as Task[];
+         return json;
       },
    });
 };
@@ -19,8 +20,8 @@ export const useTodayTasksDuration = () => {
    };
 
    return useQuery({
-      queryKey: ['tasks', 'tasks-today'],
-      queryFn: async () => {
+      queryKey: ['tasks', appProjects.today.id],
+      queryFn: async (): Promise<Task[]> => {
          const req = getFetchRequest(`/api/tasks/today`, 'GET');
          const json = await fetchJSON(req);
          return json as Task[];

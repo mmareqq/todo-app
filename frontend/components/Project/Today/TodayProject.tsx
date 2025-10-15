@@ -19,11 +19,7 @@ const TodayProject = () => {
          <InfoPanel totalDuration={totalDuration} />
          <TodayBody />
          <div className="mt-4 flex justify-end">
-            <AddTask
-               projectId={
-                  appProjects.inbox.id /* tasks made in Today stored in inbox */
-               }
-            />
+            <AddTask projectId={project.id} />
          </div>
       </div>
    );

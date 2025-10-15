@@ -1,10 +1,10 @@
 import { useTodayTasksQuery } from './todayTasksQuery';
 import TaskList from '../common/TaskList';
+import { appProjects } from '@frontend/data/data';
+
 const TodayBody = () => {
-   const { data: tasks, isPending } = useTodayTasksQuery();
-   if (isPending) return 'Fetching...';
-   if (!tasks) return 'Error fethcing tasks in TodayBody';
-   const sortedTasks = []; // FIXME: sort tasks in query
+   const { data: tasks = [], isError } = useTodayTasksQuery();
+   if (isError) return 'Error fetching today tasks';
 
    return <TaskList tasks={tasks} />;
 };

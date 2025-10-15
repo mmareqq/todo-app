@@ -3,16 +3,12 @@ import type { Project, Id } from '@types';
 import { getFetchRequest, fetchJSON } from '@frontend/utils/fetch';
 
 const useProjectQuery = (projectId: Id) => {
-   return useQuery<Project>({
+   return useQuery({
       queryKey: ['project', projectId],
-      queryFn: async () => {
-         try {
-            const req = getFetchRequest(`/api/projects/${projectId}`, 'GET');
-            const json = await fetchJSON(req);
-            return json;
-         } catch (err) {
-            console.error(err);
-         }
+      queryFn: async (): Promise<Project> => {
+         const req = getFetchRequest(`/api/projects/${projectId}`, 'GET');
+         const json = await fetchJSON(req);
+         return json;
       },
    });
 };

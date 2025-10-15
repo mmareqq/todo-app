@@ -10,9 +10,16 @@ import { useAddTaskMutation } from '../api/useAddTaskMutation';
 import { getToday } from '@frontend/utils/time';
 import { TaskPayload } from '@frontend/data/types';
 import type { Id } from '@types';
+import { appProjects } from '@frontend/data/data';
+
 const AddTask = ({ projectId }: { projectId: Id }) => {
-   const initialTask: TaskPayload = { ...taskModel, dueDate: getToday() };
+   const initialDate = projectId < 0 && projectId !== appProjects.inbox.id;
+   const initialTask: TaskPayload = {
+      ...taskModel,
+      dueDate: initialDate ? getToday() : null,
+   };
    const [taskPayload, updateValue, resetForm] = useForm(initialTask);
+
    const { mutate: addTask } = useAddTaskMutation();
 
    return (
@@ -20,7 +27,6 @@ const AddTask = ({ projectId }: { projectId: Id }) => {
          <AddButton />
          <Dialog
             onSuccess={() => {
-               console.log('adding task with projectId ', projectId);
                addTask({ projectId, completed: false, ...taskPayload });
                resetForm();
             }}

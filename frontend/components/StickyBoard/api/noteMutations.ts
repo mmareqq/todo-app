@@ -36,6 +36,7 @@ export const useAddNoteMutation = () => {
 
 export const useEditNoteMutation = (editedId: Id) => {
    const client = useQueryClient();
+
    return useMutation({
       mutationFn: async (noteUpdates: NoteUpdate) => {
          const req = getFetchRequest(

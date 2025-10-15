@@ -1,10 +1,12 @@
 import { useQueryClient, useMutation } from '@tanstack/react-query';
-import type { TaskUpdate, Task } from '@types';
+import type { TaskUpdate, Task } from '@frontend/data/types';
 import { getFetchRequest } from '@frontend/utils/fetch';
+import useSettingsContext from '@hooks/useSettingsContext';
 
 export const useEditTaskMutation = (task: Task) => {
    const client = useQueryClient();
-   const key = ['tasks', task.projectId];
+   const { settings } = useSettingsContext();
+   const key = ['tasks', settings.activeProjectId];
    return useMutation({
       mutationFn: async (editedTask: TaskUpdate) => {
          const req = getFetchRequest(

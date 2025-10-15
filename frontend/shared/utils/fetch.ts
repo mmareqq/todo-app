@@ -26,7 +26,7 @@ export const getFetchRequest = (
 export const fetchJSON = async (req: Request) => {
    try {
       const json = await fetch(req).then(res => {
-         if (!res.ok) throw new Error(`HTTP ${res.status}`);
+         if (!res.ok) throw new Error(`HTTP not ok: ${res.status}`);
          return res.json();
       });
       return json;

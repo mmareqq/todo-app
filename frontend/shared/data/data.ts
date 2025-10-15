@@ -1,10 +1,5 @@
 import type { Settings, TaskPayload, ProjectPayload } from './types';
 
-const initialSettings: Settings = {
-   sortMethod: 'priority',
-   theme: 'dark',
-};
-
 const taskModel: TaskPayload = {
    name: '',
    priority: 'none',
@@ -40,15 +35,21 @@ const noteSizes = {
 } as const;
 
 const appProjects = {
+   inbox: { id: -1, name: 'Inbox', type: 'preset' },
    today: { id: -2, name: 'Today', type: 'preset' },
    upcoming: { id: -3, name: 'Upcoming', type: 'preset' },
    stickyBoard: { id: -4, name: 'StickyBoard', type: 'preset' },
-   inbox: { id: -1, name: 'Inbox', type: 'preset' },
 } as const;
 
 const defaultProjectId = appProjects.today.id;
 
 const noteAddOffset = { x: 150, y: 50 } as const;
+
+const initialSettings: Settings = {
+   activeProjectId: appProjects.today.id,
+   sortMethod: 'priority',
+   theme: 'dark',
+};
 
 export {
    initialSettings,

@@ -10,7 +10,10 @@ import {
    Note,
    NoteUpdate,
    NoteCreate,
+   Id,
 } from '@types';
+
+type ProjectType = 'custom' | 'upcoming' | 'today' | 'inbox';
 
 type Children = { children?: ReactNode };
 
@@ -49,6 +52,7 @@ type Dialog = {
 };
 
 type Settings = {
+   activeProjectId: Id;
    sortMethod: SortMethod;
    theme: 'light' | 'dark';
 };
@@ -70,6 +74,7 @@ export {
    SettingsContext,
    NoteActions,
    NotePayload,
+   ProjectType,
 };
 
 export * from '@types';

@@ -4,14 +4,12 @@ import UpcomingBody from './UpcomingBody';
 import { appProjects } from '@frontend/data/data';
 
 const UpcomingProject = () => {
-   const project = appProjects.upcoming;
-
    return (
       <div className="wrapper grid h-svh content-start items-start overflow-y-hidden">
-         <Title title={project.name} />
+         <Title title={appProjects.upcoming.name} />
          <UpcomingBody />
          <div className="mt-4 flex justify-end">
-            <AddTask projectId={project.id} />
+            <AddTask projectId={appProjects.upcoming.id} />
          </div>
       </div>
    );

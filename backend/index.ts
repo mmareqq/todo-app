@@ -1,9 +1,8 @@
 import express from 'express';
 import { MUTATIONS, QUERIES } from './db/queries';
-import { safeParseId } from './utils/safeParse';
 import z from 'zod';
 import { formatDate } from '@shared/data/utils/formatDate';
-
+import { parseId } from './utils/parse';
 import cleanUndefined from './utils/cleanUndefined';
 import env from './utils/envSchema';
 import cors from 'cors';
@@ -24,11 +23,11 @@ app.use(
 app.get('/api/projects', async (req, res) => {
    try {
       const [rows] = await QUERIES.getAllProjects();
-
       const projects = z
          .array(t.z_Project.omit({ type: true }))
          .parse(rows)
          .map(p => ({ ...p, type: 'custom' }));
+
       res.status(200).json(projects);
    } catch (err) {
       console.log(err);
@@ -38,13 +37,13 @@ app.get('/api/projects', async (req, res) => {
 
 app.get('/api/projects/:projectId', async (req, res) => {
    try {
-      const projectId = safeParseId(req.params.projectId);
+      const projectId = parseId(req.params.projectId);
       const [rows] = await QUERIES.getProject(projectId);
-      console.log('project', rows);
       const [project] = z
          .array(t.z_Project.omit({ type: true }))
          .parse(rows)
          .map(p => ({ ...p, type: 'custom' }));
+
       res.status(200).json({ ...project });
    } catch (err) {
       console.log(err);
@@ -66,7 +65,7 @@ app.post('/api/projects', async (req, res) => {
 
 app.patch('/api/projects/:projectId', async (req, res) => {
    try {
-      const projectId = safeParseId(req.params.projectId);
+      const projectId = parseId(req.params.projectId);
       const projectUpdates = cleanUndefined(t.z_ProjectUpdate.parse(req.body));
       const [result] = await MUTATIONS.updateProject(projectId, projectUpdates);
       res.status(200).json(result);
@@ -78,7 +77,7 @@ app.patch('/api/projects/:projectId', async (req, res) => {
 
 app.delete('/api/projects/:projectId', async (req, res) => {
    try {
-      const projectId = safeParseId(req.params.projectId);
+      const projectId = parseId(req.params.projectId);
       const [result] = await MUTATIONS.deleteProject(projectId);
       res.status(200).json(result);
    } catch (err) {
@@ -105,7 +104,7 @@ app.get('/api/tasks', async (req, res) => {
 
 app.get('/api/projects/:projectId/tasks', async (req, res) => {
    try {
-      const projectId = safeParseId(req.params.projectId);
+      const projectId = parseId(req.params.projectId);
       const [rows] = await QUERIES.getTasksByProjectId(projectId);
       const tasks = z
          .array(t.z_TaskDB)
@@ -146,7 +145,7 @@ app.post('/api/tasks', async (req, res) => {
 
 app.patch('/api/tasks/:taskId', async (req, res) => {
    try {
-      const taskId = safeParseId(req.params.taskId);
+      const taskId = parseId(req.params.taskId);
       const taskUpdates = cleanUndefined(t.z_TaskUpdate.parse(req.body));
 
       const [result] = await MUTATIONS.updateTask(taskId, taskUpdates);
@@ -159,7 +158,7 @@ app.patch('/api/tasks/:taskId', async (req, res) => {
 
 app.delete('/api/tasks/:taskId', async (req, res) => {
    try {
-      const taskId = safeParseId(req.params.taskId);
+      const taskId = parseId(req.params.taskId);
       const [result] = await MUTATIONS.deleteTask(taskId);
       res.status(200).json(result);
    } catch (err) {
@@ -170,7 +169,7 @@ app.delete('/api/tasks/:taskId', async (req, res) => {
 
 app.delete('/api/:projectId/tasks', async (req, res) => {
    try {
-      const projectId = t.z_Id.parse(req.params.projectId);
+      const projectId = parseId(req.params.projectId);
       const [result] = await MUTATIONS.deleteTasksFromProject(projectId);
       res.status(200).json(result);
    } catch (err) {
@@ -204,7 +203,7 @@ app.post('/api/notes', async (req, res) => {
 
 app.patch('/api/notes/:noteId', async (req, res) => {
    try {
-      const noteId = safeParseId(req.params.noteId);
+      const noteId = parseId(req.params.noteId);
       const noteUpdates = cleanUndefined(t.z_NoteUpdate.parse(req.body));
       const [result] = await MUTATIONS.updateNote(noteId, noteUpdates);
       res.status(200).json(result);
@@ -226,7 +225,7 @@ app.delete('/api/notes', async (req, res) => {
 
 app.delete('/api/notes/:noteId', async (req, res) => {
    try {
-      const noteId = safeParseId(req.params.noteId);
+      const noteId = parseId(req.params.noteId);
       const [result] = await MUTATIONS.deleteNote(noteId);
       res.status(200).json(result);
    } catch (err) {

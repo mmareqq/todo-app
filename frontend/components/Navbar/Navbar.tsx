@@ -3,30 +3,22 @@ import NavButton from './NavButton';
 import { appProjects } from '@frontend/data/data';
 import useProjectsQuery from './api/projectsQuery';
 
-import type { Id } from '@frontend/data/types';
-import type { StateSetter } from '@frontend/data/helperTypes';
+import type { Id } from '@types';
+import useSettingsContext from '@hooks/useSettingsContext';
 
-type Props = {
-   activeProjectId: Id;
-   setActiveProjectId: StateSetter<Id>;
-};
+const Navbar = () => {
+   const { data: projects = [], isError } = useProjectsQuery();
 
-const Navbar = ({ activeProjectId, setActiveProjectId }: Props) => {
-   const {
-      data: projects,
-      isSuccess,
-      isFetching,
-      isRefetching,
-   } = useProjectsQuery();
-
+   const { settings, updateSetting } = useSettingsContext();
+   if (isError) return <div>Error fetching projects</div>;
    return (
       <nav className="py-4">
          <ul className="mt-12 flex flex-col gap-0">
             {Object.values(appProjects).map(p => (
                <NavButton
                   key={p.id}
-                  isActive={p.id === activeProjectId}
-                  setId={setActiveProjectId}
+                  isActive={p.id === settings.activeProjectId}
+                  updateActiveId={id => updateSetting('activeProjectId', id)}
                   project={p}
                />
             ))}
@@ -40,16 +32,14 @@ const Navbar = ({ activeProjectId, setActiveProjectId }: Props) => {
          </div>
 
          <ul className="flex flex-col gap-0">
-            {isFetching && !isRefetching && <div>Fetching...</div>}
-            {isSuccess &&
-               projects.map(p => (
-                  <NavButton
-                     key={p.id}
-                     isActive={p.id === activeProjectId}
-                     setId={setActiveProjectId}
-                     project={p}
-                  />
-               ))}
+            {projects.map(p => (
+               <NavButton
+                  key={p.id}
+                  isActive={p.id === settings.activeProjectId}
+                  updateActiveId={id => updateSetting('activeProjectId', id)}
+                  project={p}
+               />
+            ))}
          </ul>
       </nav>
    );

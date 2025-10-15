@@ -35,7 +35,6 @@ const client = new QueryClient({
 window.__TANSTACK_QUERY_CLIENT__ = client;
 
 const App = () => {
-   const { activeProjectId, setActiveProjectId } = useActiveProjectId();
    return (
       <QueryClientProvider client={client}>
          <SettingsProvider>
@@ -45,19 +44,13 @@ const App = () => {
                      To <br /> Do
                   </h1>
 
-                  <Navbar
-                     activeProjectId={activeProjectId}
-                     setActiveProjectId={setActiveProjectId}
-                  />
+                  <Navbar />
                </div>
                <main className="h-svh w-full">
                   <GrainEffect opacity={0.03} noiseValue={10} />
                   <GrainEffect opacity={0.018} color="#E0AC69" noiseValue={1} />
 
-                  <Project
-                     projectId={activeProjectId}
-                     setActiveId={setActiveProjectId}
-                  />
+                  <Project />
                </main>
             </div>
          </SettingsProvider>
