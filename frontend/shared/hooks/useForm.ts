@@ -4,12 +4,14 @@ import type { UpdateValue } from '@frontend/data/helperTypes';
 const useForm = <T extends object>(template: T) => {
    const [data, setData] = useState(template);
 
-   const resetForm = useCallback(() => setData({ ...template }), [template]);
-
+   const resetForm = useCallback(
+      (newData?: T) => setData(newData ? { ...newData } : { ...template }),
+      [template],
+   );
    const updateValue: UpdateValue<T> = useCallback((key, value) => {
       setData(prevData => ({ ...prevData, [key]: value }));
    }, []);
-   return [data, updateValue, resetForm] as const;
+   return { data, updateValue, resetForm };
 };
 
 export default useForm;

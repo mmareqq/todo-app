@@ -41,10 +41,8 @@ function sortTasksByDueDate(tasks: Task[]) {
    );
 }
 
-export function groupTasksByDate(tasks: Task[], includeEmptyDates = false) {
-   const dates = includeEmptyDates
-      ? getDatesMap<Task>()
-      : new Map<string, Task[]>();
+export function groupTasksByDate(tasks: Task[]) {
+   const dates = new Map<string, Task[]>();
 
    tasks.forEach(task => {
       if (!task.dueDate) return;

@@ -3,13 +3,13 @@ import NavButton from './NavButton';
 import { appProjects } from '@frontend/data/data';
 import useProjectsQuery from './api/projectsQuery';
 
-import type { Id } from '@types';
 import useSettingsContext from '@hooks/useSettingsContext';
 
 const Navbar = () => {
    const { data: projects = [], isError } = useProjectsQuery();
 
    const { settings, updateSetting } = useSettingsContext();
+   console.log('active project', settings.activeProjectId);
    if (isError) return <div>Error fetching projects</div>;
    return (
       <nav className="py-4">

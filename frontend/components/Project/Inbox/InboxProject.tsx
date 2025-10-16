@@ -15,7 +15,7 @@ const InboxProject = () => {
          <InboxBody />
 
          <div className="mt-4 flex justify-end">
-            <AddTask projectId={project.id} />
+            <AddTask projectId={project.id} initialDate={false} />
          </div>
       </div>
    );

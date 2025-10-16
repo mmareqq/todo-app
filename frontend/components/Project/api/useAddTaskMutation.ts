@@ -3,11 +3,12 @@ import type { Task, TaskCreate } from '@frontend/data/types';
 import { getFetchRequest } from '@frontend/utils/fetch';
 import generateId from '@frontend/utils/generateId';
 import useSettingsContext from '@hooks/useSettingsContext';
+import { getTasksQueryKey } from '@frontend/utils/getTasksQueryKey';
 
 export const useAddTaskMutation = () => {
    const { settings } = useSettingsContext();
    const client = useQueryClient();
-   const queryKey = ['tasks', settings.activeProjectId];
+   const queryKey = getTasksQueryKey(settings.activeProjectId);
 
    return useMutation({
       mutationFn: async (task: TaskCreate) => {
@@ -36,6 +37,7 @@ export const useAddTaskMutation = () => {
       onSettled: () => {
          console.log('invalidating:', queryKey);
          client.invalidateQueries({ queryKey });
+         client.invalidateQueries({ queryKey: ['tasks', 'preset'] });
       },
    });
 };

@@ -6,6 +6,7 @@ import InfoPanel from '../common/InfoPanel';
 import { getToday } from '@frontend/utils/time';
 import { formatDisplayDate } from '@frontend/utils/time';
 import { useTodayTasksDuration } from './todayTasksQuery';
+
 const TodayProject = () => {
    const project = appProjects.today;
    const { data: totalDuration = 0 } = useTodayTasksDuration();
@@ -19,7 +20,7 @@ const TodayProject = () => {
          <InfoPanel totalDuration={totalDuration} />
          <TodayBody />
          <div className="mt-4 flex justify-end">
-            <AddTask projectId={project.id} />
+            <AddTask projectId={project.id} initialDate={true} />
          </div>
       </div>
    );

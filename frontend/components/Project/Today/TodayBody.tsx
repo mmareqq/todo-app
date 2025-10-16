@@ -1,6 +1,5 @@
 import { useTodayTasksQuery } from './todayTasksQuery';
 import TaskList from '../common/TaskList';
-import { appProjects } from '@frontend/data/data';
 
 const TodayBody = () => {
    const { data: tasks = [], isError } = useTodayTasksQuery();

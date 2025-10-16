@@ -9,7 +9,7 @@ const UpcomingProject = () => {
          <Title title={appProjects.upcoming.name} />
          <UpcomingBody />
          <div className="mt-4 flex justify-end">
-            <AddTask projectId={appProjects.upcoming.id} />
+            <AddTask projectId={appProjects.upcoming.id} initialDate={true} />
          </div>
       </div>
    );

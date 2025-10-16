@@ -3,12 +3,13 @@ import type { Task, Id } from '@frontend/data/types';
 import { getFetchRequest, fetchJSON } from '@frontend/utils/fetch';
 import useSettingsContext from '@hooks/useSettingsContext';
 import { sortTasks } from '@frontend/utils/tasks';
+import { getTasksQueryKey } from '@frontend/utils/getTasksQueryKey';
 
 export const useTasksQuery = (projectId: Id) => {
    const { settings } = useSettingsContext();
    const select = (tasks: Task[]) => sortTasks(tasks, settings.sortMethod);
    return useQuery({
-      queryKey: ['tasks', projectId],
+      queryKey: getTasksQueryKey(projectId),
       queryFn: async (): Promise<Task[]> => {
          const req = getFetchRequest(
             `/api/projects/${encodeURIComponent(projectId)}/tasks`,
@@ -27,7 +28,7 @@ export const useTasksDurationQuery = (projectId: Id) => {
    };
 
    return useQuery({
-      queryKey: ['tasks', projectId],
+      queryKey: getTasksQueryKey(projectId),
       queryFn: async (): Promise<Task[]> => {
          const req = getFetchRequest(`/api/projects/${projectId}/tasks`, 'GET');
          const json = await fetchJSON(req);

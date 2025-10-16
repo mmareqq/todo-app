@@ -21,7 +21,6 @@ export const transformToDB = <T extends Record<string, T[keyof T]>>(
       const newKey = toSnakeCase(key);
 
       if (key === 'dueDate' && value !== null) {
-         console.log('dueDate value', value, typeof value);
          assertValue(value, 'date');
          return [newKey, new Date(value)];
       }

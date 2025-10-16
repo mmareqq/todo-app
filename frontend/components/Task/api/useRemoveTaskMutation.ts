@@ -2,11 +2,11 @@ import { useQueryClient, useMutation } from '@tanstack/react-query';
 import type { Id, Task } from '@frontend/data/types';
 import { getFetchRequest } from '@frontend/utils/fetch';
 import useSettingsContext from '@hooks/useSettingsContext';
-
+import { getTasksQueryKey } from '@frontend/utils/getTasksQueryKey';
 const useRemoveTaskMutation = () => {
    const client = useQueryClient();
    const { settings } = useSettingsContext();
-   const queryKey = ['tasks', settings.activeProjectId];
+   const queryKey = getTasksQueryKey(settings.activeProjectId);
 
    return useMutation({
       mutationFn: async (taskId: Id) => {
@@ -33,6 +33,7 @@ const useRemoveTaskMutation = () => {
 
       onSettled: () => {
          client.invalidateQueries({ queryKey });
+         client.invalidateQueries({ queryKey: ['tasks', 'preset'] });
       },
    });
 };

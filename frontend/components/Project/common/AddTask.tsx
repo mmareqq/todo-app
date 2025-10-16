@@ -8,17 +8,20 @@ import useForm from '@hooks/useForm';
 import { taskModel } from '@frontend/data/data';
 import { useAddTaskMutation } from '../api/useAddTaskMutation';
 import { getToday } from '@frontend/utils/time';
-import { TaskPayload } from '@frontend/data/types';
 import type { Id } from '@types';
-import { appProjects } from '@frontend/data/data';
 
-const AddTask = ({ projectId }: { projectId: Id }) => {
-   const initialDate = projectId < 0 && projectId !== appProjects.inbox.id;
-   const initialTask: TaskPayload = {
+const AddTask = ({
+   projectId,
+   initialDate,
+}: {
+   projectId: Id;
+   initialDate: boolean;
+}) => {
+   const initialTask = {
       ...taskModel,
       dueDate: initialDate ? getToday() : null,
    };
-   const [taskPayload, updateValue, resetForm] = useForm(initialTask);
+   const { data: taskPayload, updateValue, resetForm } = useForm(initialTask);
 
    const { mutate: addTask } = useAddTaskMutation();
 

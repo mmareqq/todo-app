@@ -6,16 +6,17 @@ import Button from '@ui/Button';
 import useForm from '@hooks/useForm';
 
 import TaskForm from '@components/TaskForm';
-import type { Task } from '@frontend/data/types';
+import type { Task, TaskPayload } from '@frontend/data/types';
 import { useEditTaskMutation } from './api/useEditTaskMutation';
 
 const EditTask = ({ task }: { task: Task }) => {
-   const [formTask, updateValue, resetForm] = useForm({
+   const taskPayload: TaskPayload = {
       name: task.name,
       priority: task.priority,
       duration: task.duration,
       dueDate: task.dueDate,
-   });
+   };
+   const { data: formTask, updateValue, resetForm } = useForm(taskPayload);
 
    const { mutate: editTask } = useEditTaskMutation(task);
 

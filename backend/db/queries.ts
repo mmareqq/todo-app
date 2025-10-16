@@ -87,7 +87,7 @@ export const QUERIES = {
       ),
    getTasksFromDate: (date: string) =>
       pool.query(
-         'SELECT * FROM tasks WHERE due_date = ? ORDER BY `created_at` ASC',
+         'SELECT * FROM tasks WHERE DATE(due_date) = ? ORDER BY `due_date` ASC, `created_at` ASC',
          [date],
       ),
    getNotes: () => pool.query('SELECT * FROM notes ORDER BY `created_at` ASC'),

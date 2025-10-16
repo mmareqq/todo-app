@@ -5,24 +5,25 @@ import EditProject from './EditProject';
 import DeleteButton from '@ui/DeleteButton';
 import UserBody from './UserBody';
 import useProjectQuery from './api/useProjectQuery';
+import generateId from '@frontend/utils/generateId';
 
 import { defaultProjectId } from '@frontend/data/data';
-import type { Id } from '@frontend/data/types';
 
 import { useRemoveProjectMutation } from './api/useRemoveProjectMutation';
 import { useTasksDurationQuery } from './api/useTasksQuery';
+import useSettingsContext from '@hooks/useSettingsContext';
 
-type Props = {
-   projectId: Id;
-   updateActiveId: (id: Id) => void;
-};
+import type { Project } from '@types';
 
-function UserProject({ projectId, updateActiveId }: Props) {
-   const projTemplate = {
-      id: projectId,
+const UserProject = () => {
+   const { settings, updateSetting } = useSettingsContext();
+   const projectId = settings.activeProjectId;
+
+   const projTemplate: Project = {
+      id: generateId(),
       name: '...',
       type: 'custom',
-   } as const;
+   };
 
    const { data: project = projTemplate, isError } = useProjectQuery(projectId);
    const { mutate: removeProject } = useRemoveProjectMutation(projectId);
@@ -35,11 +36,11 @@ function UserProject({ projectId, updateActiveId }: Props) {
       <div className="wrapper grid h-svh content-start items-start overflow-y-hidden">
          <Title title={project.name}>
             <div className="flex items-center gap-1">
-               <EditProject project={project} />
+               {project !== projTemplate && <EditProject project={project} />}
                <DeleteButton
                   onRemove={() => {
                      removeProject();
-                     updateActiveId(defaultProjectId);
+                     updateSetting('activeProjectId', defaultProjectId);
                   }}
                   label={project.name}
                />
@@ -50,10 +51,10 @@ function UserProject({ projectId, updateActiveId }: Props) {
          <UserBody projectId={projectId} />
 
          <div className="mt-4 flex justify-end">
-            <AddTask projectId={project.id} />
+            <AddTask projectId={project.id} initialDate={false} />
          </div>
       </div>
    );
-}
+};
 
 export default UserProject;

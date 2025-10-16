@@ -11,7 +11,7 @@ import Button from '@ui/Button';
 import { PlusIcon } from '@assets/Icons';
 
 const AddProject = () => {
-   const [projectData, updateValue, resetForm] = useForm(projectModel);
+   const { data: projectData, updateValue, resetForm } = useForm(projectModel);
    const { mutate: addProject } = useProjectAddMutation();
 
    return (

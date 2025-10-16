@@ -11,7 +11,11 @@ import useEditProjectMutation from './api/useEditProjectMutation';
 import type { Project } from '@frontend/data/types';
 
 const EditProject = ({ project }: { project: Project }) => {
-   const [projectPayload, updateValue, resetForm] = useForm({
+   const {
+      data: projectPayload,
+      updateValue,
+      resetForm,
+   } = useForm({
       name: project.name,
    });
 
@@ -21,7 +25,10 @@ const EditProject = ({ project }: { project: Project }) => {
          <EditButton label={project.name} />
          <Dialog
             onCancel={resetForm}
-            onSuccess={() => editProject({ ...projectPayload })}
+            onSuccess={() => {
+               editProject({ ...projectPayload });
+               resetForm({ name: projectPayload.name });
+            }}
          >
             <ProjectForm project={projectPayload} updateValue={updateValue} />
          </Dialog>
