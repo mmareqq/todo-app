@@ -8,14 +8,9 @@ export const useTodayTasksQuery = () => {
    return useQuery({
       queryKey: getTasksQueryKey(appProjects.today.id),
       queryFn: async (): Promise<Task[]> => {
-         try {
-            const req = getFetchRequest(`/api/tasks/today`, 'GET');
-            const json = await fetchJSON(req);
-            console.log('today tasks from db', json);
-            return json;
-         } catch (err) {
-            throw err;
-         }
+         const req = getFetchRequest(`/api/tasks/today`, 'GET');
+         const json = await fetchJSON(req);
+         return json;
       },
    });
 };

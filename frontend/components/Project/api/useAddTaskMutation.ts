@@ -35,7 +35,6 @@ export const useAddTaskMutation = () => {
          }
       },
       onSettled: () => {
-         console.log('invalidating:', queryKey);
          client.invalidateQueries({ queryKey });
          client.invalidateQueries({ queryKey: ['tasks', 'preset'] });
       },
