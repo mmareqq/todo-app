@@ -31,17 +31,26 @@ const client = new QueryClient({
    },
 });
 
+import logo from '../public/favicon.svg';
+
 // This code is for all users
 window.__TANSTACK_QUERY_CLIENT__ = client;
-
 const App = () => {
    return (
       <QueryClientProvider client={client}>
          <SettingsProvider>
             <div className="body bg-primary-900 text-primary-50 h-screen">
                <div className="custom-scrollbar h-screen overflow-y-auto py-4">
-                  <h1 className="border-primary-500 mr-4 ml-auto w-min border-r border-b p-2 font-mono text-3xl leading-none font-bold">
-                     To <br /> Do
+                  <h1 className="border-primary-500 flex justify-end gap-2 border-r pr-2 font-mono text-3xl leading-none font-bold select-none">
+                     <img
+                        className="pointer-events-none select-none"
+                        src={logo}
+                        width="32"
+                        height="32"
+                     />
+                     <span>
+                        To <br /> Do
+                     </span>
                   </h1>
 
                   <Navbar />
