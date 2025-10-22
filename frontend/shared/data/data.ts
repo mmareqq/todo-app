@@ -1,4 +1,5 @@
 import type { Settings, TaskPayload, ProjectPayload } from './types';
+import { appProjects } from '@shared/data/data';
 
 const taskModel: TaskPayload = {
    name: '',
@@ -34,13 +35,6 @@ const noteSizes = {
    xl: { w: 300, h: 300 },
 } as const;
 
-const appProjects = {
-   inbox: { id: -1, name: 'Inbox', type: 'preset' },
-   today: { id: -2, name: 'Today', type: 'preset' },
-   upcoming: { id: -3, name: 'Upcoming', type: 'preset' },
-   stickyBoard: { id: -4, name: 'StickyBoard', type: 'preset' },
-} as const;
-
 const defaultProjectId = appProjects.today.id;
 
 const noteAddOffset = { x: 150, y: 50 } as const;
@@ -57,9 +51,9 @@ export {
    projectModel,
    priorityColors,
    durationValues,
+   appProjects,
    defaultProjectId,
    noteSizes,
    noteColors,
-   appProjects,
    noteAddOffset,
 };

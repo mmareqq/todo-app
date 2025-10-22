@@ -7,9 +7,14 @@ const useProjectsQuery = () => {
    return useQuery<Project[]>({
       queryKey: ['projects'],
       queryFn: async () => {
-         const req = getFetchRequest('/api/projects', 'GET');
-         const json = await fetchJSON(req);
-         return json;
+         try {
+            const req = getFetchRequest('/api/projects', 'GET');
+            const json = await fetchJSON(req);
+            return json;
+         } catch (err) {
+            console.log(err);
+            throw err;
+         }
       },
    });
 };

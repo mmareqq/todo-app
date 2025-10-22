@@ -5,11 +5,11 @@ import { appProjects } from '@frontend/data/data';
 import InfoPanel from '../common/InfoPanel';
 import { getToday } from '@frontend/utils/time';
 import { formatDisplayDate } from '@frontend/utils/time';
-import { useTodayTasksDuration } from './todayTasksQuery';
+import { useTasksDurationQuery } from '../api/useTasksQuery';
 
 const TodayProject = () => {
    const project = appProjects.today;
-   const { data: totalDuration = 0 } = useTodayTasksDuration();
+   const { data: totalDuration = 0 } = useTasksDurationQuery(project.id);
    return (
       <div className="wrapper grid h-svh content-start items-start overflow-y-hidden">
          <Title title={project.name} className="justify-start gap-2">

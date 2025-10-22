@@ -6,9 +6,14 @@ const useProjectQuery = (projectId: Id) => {
    return useQuery({
       queryKey: ['project', projectId],
       queryFn: async (): Promise<Project> => {
-         const req = getFetchRequest(`/api/projects/${projectId}`, 'GET');
-         const json = await fetchJSON(req);
-         return json;
+         try {
+            const req = getFetchRequest(`/api/projects/${projectId}`, 'GET');
+            const json = await fetchJSON(req);
+            return json;
+         } catch (err) {
+            console.log(err);
+            throw err;
+         }
       },
    });
 };

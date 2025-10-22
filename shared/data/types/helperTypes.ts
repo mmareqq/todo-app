@@ -8,7 +8,7 @@ export type strictOptional<T> = Prettify<{
 
 export type JSONValue = number | string | boolean | null;
 
-export type RecursiveJson =
+export type JSONObject =
    | JSONValue
-   | RecursiveJson[]
-   | { [key: string]: RecursiveJson };
+   | JSONObject[]
+   | { [key: string]: JSONObject };

@@ -23,6 +23,8 @@ dist-ssr
 *.sln
 *.sw?
 .env
+.env.production
+.env.development
 
 Sandbox.tsx
 sandbox.js
@@ -32,3 +34,6 @@ test.js
 test.ts
 CHECKLIST.md
 curlTesting.txt
+# Local Netlify folder
+.netlify
+api-endpoints.txt

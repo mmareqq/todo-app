@@ -10,7 +10,7 @@ import generateId from '@frontend/utils/generateId';
 import { defaultProjectId } from '@frontend/data/data';
 
 import { useRemoveProjectMutation } from './api/useRemoveProjectMutation';
-import { useTasksDurationQuery } from './api/useTasksQuery';
+import { useTasksDurationQuery } from '../api/useTasksQuery';
 import useSettingsContext from '@hooks/useSettingsContext';
 
 import type { Project } from '@types';

@@ -11,12 +11,17 @@ export const useTasksQuery = (projectId: Id) => {
    return useQuery({
       queryKey: getTasksQueryKey(projectId),
       queryFn: async (): Promise<Task[]> => {
-         const req = getFetchRequest(
-            `/api/projects/${encodeURIComponent(projectId)}/tasks`,
-            'GET',
-         );
-         const json = await fetchJSON(req);
-         return json;
+         try {
+            const req = getFetchRequest(
+               `/api/projects/${encodeURIComponent(projectId)}/tasks`,
+               'GET',
+            );
+            const json = await fetchJSON(req);
+            return json;
+         } catch (err) {
+            console.log(err);
+            throw err;
+         }
       },
       select,
    });

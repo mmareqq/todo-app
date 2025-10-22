@@ -1,11 +1,11 @@
 import getFullUrl from '@frontend/utils/getFullUrl';
-import type { RecursiveJson } from '@shared/data/types/helperTypes';
+import type { JSONObject } from '@shared/data/types/helperTypes';
 type Method = 'GET' | 'POST' | 'PATCH' | 'DELETE';
 
 export const getFetchRequest = (
    url: string,
    method: Method,
-   body?: RecursiveJson,
+   body?: JSONObject,
 ) => {
    if (method === 'GET' && body) {
       throw new Error('HTTP GET cannot have body');

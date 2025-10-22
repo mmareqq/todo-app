@@ -6,6 +6,7 @@
    "scripts": {
       "dev": "vite --host",
       "dev:backend": "npx nodemon --exec tsx backend/index.ts",
+      "netlify": "netlify dev --no-open",
       "build": "vite build",
       "lint": "eslint .",
       "preview": "vite preview",
@@ -13,6 +14,7 @@
       "typecheck": "tsc --noEmit"
    },
    "dependencies": {
+      "@netlify/functions": "^5.0.0",
       "@tailwindcss/vite": "^4.0.3",
       "@tanstack/react-query": "^5.89.0",
       "cors": "^2.8.5",

@@ -4,6 +4,7 @@ import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 
 export default [
+   { ignores: ['.netlify'] },
    {
       files: ['**/*.{ts,tsx}'],
       languageOptions: {

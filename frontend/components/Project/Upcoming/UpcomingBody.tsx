@@ -1,10 +1,9 @@
 import Task from '@components/Task';
-
 import { formatDisplayDate, getDayOfWeek } from '@frontend/utils/time';
-import useTasksWithDateQuery from './useTasksWithDateQuery';
+import useUpcomingTasks from './useUpcomingTasks';
 
 const UpcomingBody = () => {
-   const { data: groupedTasks = [], isError } = useTasksWithDateQuery();
+   const { data: groupedTasks = [], isError } = useUpcomingTasks();
    if (isError) return <div>Error fetching</div>;
 
    return (

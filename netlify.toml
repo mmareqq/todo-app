@@ -1,0 +1,64 @@
+[build]
+functions = "backend/functions"
+publish = "dist"
+
+[dev]
+functions = "backend/functions"
+publish = "dist"
+
+[[headers]]
+for = "/api/*"
+[headers.values]
+Access-Control-Allow-Origin = "*"
+Access-Control-Allow-Methods = "GET, POST, PATCH, DELETE, OPTIONS"
+Access-Control-Allow-Headers = "Content-Type, Authorization"
+
+[[redirects]]
+from = "/api/projects"
+to = "/.netlify/functions/projects"
+status = 200
+methods = ["GET", "POST"]
+# ✔ / ✔
+[[redirects]]
+from = "/api/projects/:projectId"
+to = "/.netlify/functions/project"
+status = 200
+methods = ["GET", "PATCH", "DELETE"]
+# ✔ / ✔
+
+[[redirects]]
+from = "/api/projects/:projectId/tasks"
+to = "/.netlify/functions/project-tasks"
+status = 200
+methods = ["GET"]
+# ✔ / ✔
+[[redirects]]
+from = "/api/tasks"
+to = "/.netlify/functions/tasks"
+status = 200
+methods = ["POST"]
+# ✖ / ✔
+[[redirects]]
+from = "/api/tasks/:taskId"
+to = "/.netlify/functions/task"
+status = 200
+methods = ["PATCH", "DELETE"]
+# ✔ / ✔
+[[redirects]]
+from = "/api/projects/:projectId/tasks"
+to = "/.netlify/functions/project-tasks-delete"
+status = 200
+methods = ["DELETE"]
+# ✔ / ✔
+[[redirects]]
+from = "/api/notes"
+to = "/.netlify/functions/notes"
+status = 200
+methods = ["GET", "POST", "DELETE"]
+# ✔ / ✔
+[[redirects]]
+from = "/api/notes/:noteId"
+to = "/.netlify/functions/note"
+status = 200
+methods = ["PATCH", "DELETE"]
+# ✖ / ✔
