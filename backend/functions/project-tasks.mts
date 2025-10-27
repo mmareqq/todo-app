@@ -16,7 +16,10 @@ export const handler: Handler = async (event: HandlerEvent) => {
       if (projectId === appProjects.today.id) tasks = await getTodayTasks();
       else if (projectId === appProjects.upcoming.id) {
          tasks = await getTasksWithDate();
-      } else tasks = await getProjectTasks(projectId);
+      } else {
+         tasks = await getProjectTasks(projectId);
+      }
+
       return {
          statusCode: 200,
          body: JSON.stringify(tasks),

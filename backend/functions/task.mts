@@ -10,21 +10,22 @@ export const handler: Handler = async (event: HandlerEvent) => {
    try {
       const taskId = getTaskParam(ENDPOINT_PATH, event.path);
       if (event.httpMethod === 'PATCH') {
-         const taskUpdates = cleanUndefined(z_TaskUpdate.parse(event.body));
+         if (!event.body) throw new Error('no body for PATCH');
+         const body = JSON.parse(event.body);
+         const taskUpdates = cleanUndefined(z_TaskUpdate.parse(body));
          await MUTATIONS.updateTask(taskId, taskUpdates);
-      } else if (event.httpMethod === 'DELETE') {
+         return { statusCode: 200 };
+      }
+      if (event.httpMethod === 'DELETE') {
          await MUTATIONS.deleteTask(taskId);
-      } else {
-         throw new Error(
-            `this endpoint accepts only PATCH or DELETE methods. url: ${event.rawUrl}`,
-         );
+         return { statusCode: 200 };
       }
 
-      return { statusCode: 200 };
+      throw new Error(
+         `this endpoint accepts only PATCH or DELETE methods. url: ${event.rawUrl}`,
+      );
    } catch (err) {
       console.log(err);
       throw err;
    }
 };
-
-const deleteTask = async () => {};

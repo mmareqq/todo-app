@@ -9,15 +9,20 @@ export const handler: Handler = async (event: HandlerEvent) => {
          const notes = array(z_Note).parse(rows);
          return { statusCode: 200, body: JSON.stringify(notes) };
       }
+
       if (event.httpMethod === 'POST') {
-         const note = z_NoteCreate.parse(event.body);
+         if (!event.body) throw new Error('no body for POST');
+         const body = JSON.parse(event.body);
+         const note = z_NoteCreate.parse(body);
          await MUTATIONS.addNote(note);
          return { statusCode: 200 };
       }
+
       if (event.httpMethod === 'DELETE') {
          await MUTATIONS.deleteAllNotes();
          return { statusCode: 200 };
       }
+
       throw new Error(
          `this url only accepts GET, POST or DELETE http methods. url: ${event.rawUrl}`,
       );

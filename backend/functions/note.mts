@@ -7,13 +7,20 @@ const ENDPOINT_PATH = '/api/notes/:noteId';
 export const handler: Handler = async (event: HandlerEvent) => {
    try {
       const noteId = getNoteParam(ENDPOINT_PATH, event.path);
+
       if (event.httpMethod === 'PATCH') {
-         const noteUpdates = cleanUndefined(z_NoteUpdate.parse(event.body));
+         if (!event.body) throw new Error('no body for PATCH');
+         const body = JSON.parse(event.body);
+         const noteUpdates = cleanUndefined(z_NoteUpdate.parse(body));
          await MUTATIONS.updateNote(noteId, noteUpdates);
+         return { statusCode: 200 };
       }
+
       if (event.httpMethod === 'DELETE') {
          await MUTATIONS.deleteNote(noteId);
+         return { statusCode: 200 };
       }
+
       throw new Error(
          `this url only accepts PATCH or DELETE http methods. url: ${event.rawUrl}`,
       );

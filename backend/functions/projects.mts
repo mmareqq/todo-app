@@ -10,7 +10,9 @@ export const handler: Handler = async (event: HandlerEvent) => {
          return res;
       }
       if (event.httpMethod === 'POST') {
-         const project = z_ProjectCreate.parse(event.body);
+         if (!event.body) throw new Error('no body for PATCH');
+         const body = JSON.parse(event.body);
+         const project = z_ProjectCreate.parse(body);
          const res = await addProject(project);
          return res;
       }

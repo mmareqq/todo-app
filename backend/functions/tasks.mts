@@ -4,8 +4,12 @@ import { z_TaskCreate } from '@types';
 
 export const handler: Handler = async (event: HandlerEvent) => {
    try {
-      const task = z_TaskCreate.parse(event.body);
+      if (!event.body) throw new Error('no body for PATCH');
+      const body = JSON.parse(event.body);
+      const task = z_TaskCreate.parse(body);
+      console.log('adding task', task);
       await MUTATIONS.addTask(task);
+
       return { statusCode: 200 };
    } catch (err) {
       console.log(err);
