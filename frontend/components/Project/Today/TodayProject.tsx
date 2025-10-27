@@ -11,7 +11,7 @@ const TodayProject = () => {
    const project = appProjects.today;
    const { data: totalDuration = 0 } = useTasksDurationQuery(project.id);
    return (
-      <div className="wrapper grid h-svh content-start items-start overflow-y-hidden">
+      <div className="project wrapper grid h-svh content-start items-start overflow-y-hidden">
          <Title title={project.name} className="justify-start gap-2">
             <span className="text-xl text-current/80">
                {formatDisplayDate(getToday(), 'short')}

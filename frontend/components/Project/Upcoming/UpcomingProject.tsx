@@ -5,7 +5,7 @@ import { appProjects } from '@frontend/data/data';
 
 const UpcomingProject = () => {
    return (
-      <div className="wrapper grid h-svh content-start items-start overflow-y-hidden">
+      <div className="project wrapper grid h-svh content-start items-start overflow-y-hidden">
          <Title title={appProjects.upcoming.name} />
          <UpcomingBody />
          <div className="mt-4 flex justify-end">

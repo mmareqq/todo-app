@@ -33,7 +33,10 @@ const UserProject = () => {
    if (isError) return <div>Error fetching user project</div>;
 
    return (
-      <div className="wrapper grid h-svh content-start items-start overflow-y-hidden">
+      <div
+         key={project.id}
+         className="project wrapper grid h-svh content-start items-start overflow-y-hidden"
+      >
          <Title title={project.name}>
             <div className="flex items-center gap-1">
                {project !== projTemplate && <EditProject project={project} />}

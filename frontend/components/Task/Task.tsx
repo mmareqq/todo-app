@@ -18,7 +18,7 @@ const Task = ({ task, includeDate = false }: Props) => {
    return (
       <div
          data-type="task"
-         className="task bg-primary-800 border-primary-600 flex items-center gap-2 border px-4 py-2"
+         className="task bg-primary-700/30 border-primary-600 flex items-center gap-2 border px-4 py-2 backdrop-blur-lg"
       >
          <Button
             variant="none"

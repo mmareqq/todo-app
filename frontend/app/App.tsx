@@ -39,7 +39,7 @@ const App = () => {
    return (
       <QueryClientProvider client={client}>
          <SettingsProvider>
-            <div className="body bg-primary-900 text-primary-50 h-screen">
+            <div className="body bg-primary-900 text-primary-100 h-screen">
                <div className="custom-scrollbar h-screen overflow-y-auto py-4">
                   <h1 className="border-primary-500 flex justify-end gap-2 border-r pr-2 font-mono text-3xl leading-none font-bold select-none">
                      <img

@@ -217,3 +217,18 @@ button {
       box-shadow: var(--box-shadow) transparent;
    }
 }
+
+.project {
+   animation: fadeIn forwards 0.2s ease-in;
+}
+
+@keyframes fadeIn {
+   0% {
+      scale: 0.99;
+      opacity: 0;
+   }
+   100% {
+      opacity: 1;
+      scale: 1;
+   }
+}

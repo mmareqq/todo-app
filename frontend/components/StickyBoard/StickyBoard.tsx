@@ -35,7 +35,11 @@ const StickyBoard = () => {
    };
 
    return (
-      <div ref={boardRef} data-type="sticky-board" className="sticky-board">
+      <div
+         ref={boardRef}
+         data-type="sticky-board"
+         className="project sticky-board"
+      >
          {notes.map(note => (
             <Note key={note.id} note={note} />
          ))}
