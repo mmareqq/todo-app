@@ -11,7 +11,6 @@ node_modules
 dist
 dist-ssr
 *.local
-
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
@@ -25,6 +24,8 @@ dist-ssr
 .env
 .env.production
 .env.development
+.env.*
+.env.local
 
 Sandbox.tsx
 sandbox.js
