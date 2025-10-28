@@ -1,4 +1,3 @@
-import getFullUrl from '@frontend/utils/getFullUrl';
 import type { JSONObject } from '@shared/data/types/helperTypes';
 type Method = 'GET' | 'POST' | 'PATCH' | 'DELETE';
 
@@ -15,7 +14,7 @@ export const getFetchRequest = (
    }
 
    const headers = new Headers([['Content-Type', 'application/json']]);
-   const request = new Request(getFullUrl(url), {
+   const request = new Request(url, {
       method: method,
       headers,
       body: JSON.stringify(body),

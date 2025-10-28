@@ -25,7 +25,7 @@ declare global {
 const client = new QueryClient({
    defaultOptions: {
       queries: {
-         staleTime: 0,
+         staleTime: Infinity,
          refetchOnWindowFocus: false,
       },
    },

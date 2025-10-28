@@ -34,7 +34,7 @@ const UserProject = () => {
 
    return (
       <div
-         key={project.id}
+         key={projectId}
          className="project wrapper grid h-svh content-start items-start overflow-y-hidden"
       >
          <Title title={project.name}>
