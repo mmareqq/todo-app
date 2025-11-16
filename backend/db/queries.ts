@@ -79,7 +79,7 @@ const updateElement = <T extends Record<string, T[keyof T]>>(
 export const QUERIES = {
    getProjectsFromUser: (userId: string) =>
       pool.query(
-         'SELECT * FROM projects WHERE user_id=? ORDER BY `created_at` ASC',
+         'SELECT `id`, `name`, `type` FROM projects WHERE user_id=? AND `type`="custom" ORDER BY `created_at` ASC',
          [userId],
       ),
    getTasksByProjectId: (id: Id) =>
@@ -98,9 +98,10 @@ export const QUERIES = {
       ),
    getNotes: () => pool.query('SELECT * FROM notes ORDER BY `created_at` ASC'),
    getUserInboxProject: (userId: string) =>
-      pool.query('SELECT * FROM projects WHERE user_id=? AND `type`="preset"', [
-         userId,
-      ]),
+      pool.query(
+         'SELECT `id`, `name`, `type` FROM projects WHERE user_id=? AND `type`="preset"',
+         [userId],
+      ),
    getProject: (id: Id) =>
       pool.query('SELECT * FROM projects WHERE id=?', [id]),
 };

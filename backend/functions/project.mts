@@ -35,10 +35,8 @@ export const handler: Handler = async (event: HandlerEvent) => {
 };
 
 const getProject = async (projectId: Id) => {
-   const [rows] = await QUERIES.getProject(projectId);
-   const [project] = array(z_Project.omit({ type: true }))
-      .parse(rows)
-      .map(p => ({ ...p, type: 'custom' }));
+   const [rows]: any[] = await QUERIES.getProject(projectId);
+   const project = z_Project.parse(rows[0]);
 
    return {
       statusCode: 200,

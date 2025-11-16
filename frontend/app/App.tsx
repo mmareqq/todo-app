@@ -1,5 +1,4 @@
 import './styles/main.css';
-import { useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import GrainEffect from '@ui/GrainEffect.js';
 import Project from '@components/Project';
@@ -12,9 +11,8 @@ import {
    SignedIn,
    SignInButton,
    UserButton,
-   useAuth,
 } from '@clerk/clerk-react';
-import { getFetchRequest } from '@frontend/utils/fetch';
+
 // This code is only for TS
 declare global {
    interface Window {
@@ -25,7 +23,7 @@ declare global {
 const client = new QueryClient({
    defaultOptions: {
       queries: {
-         staleTime: Infinity,
+         staleTime: 0,
          refetchOnWindowFocus: false,
       },
    },
@@ -34,24 +32,6 @@ const client = new QueryClient({
 window.__TANSTACK_QUERY_CLIENT__ = client;
 
 const App = () => {
-   const { userId, getToken } = useAuth();
-
-   useEffect(() => {
-      if (!userId) return;
-      console.log('user new');
-      const initializeUser = async () => {
-         try {
-            const token = await getToken();
-            if (!token) throw new Error('cannot generate token for request');
-            const req = getFetchRequest('/api/projects/inbox', 'POST', token);
-            await fetch(req);
-         } catch (err) {
-            console.log(err);
-            throw err;
-         }
-      };
-      initializeUser();
-   }, [userId, getToken]);
    return (
       <QueryClientProvider client={client}>
          <SettingsProvider>

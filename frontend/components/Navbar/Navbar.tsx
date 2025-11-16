@@ -1,18 +1,27 @@
 import AddProject from './AddProject';
 import NavButton from './NavButton';
 import { appProjects } from '@frontend/data/data';
-import useProjectsQuery from './api/projectsQuery';
+import { useProjectsQuery, useInboxProjectQuery } from './api/projectsQuery';
 
 import useSettingsContext from '@hooks/useSettingsContext';
+const inboxTemplate = { id: -10, name: 'Inbox temp', type: 'preset' } as const;
 
 const Navbar = () => {
+   const { settings, updateSetting } = useSettingsContext();
+
+   const { data: inboxProject = inboxTemplate, isError: isErrorInbox } =
+      useInboxProjectQuery();
    const { data: projects = [], isError } = useProjectsQuery();
 
-   const { settings, updateSetting } = useSettingsContext();
-   if (isError) return <div>Error fetching projects</div>;
+   if (isErrorInbox || isError) return <div>Error fetching projects</div>;
    return (
       <nav className="py-4">
          <ul className="mt-12 flex flex-col gap-0">
+            <NavButton
+               isActive={inboxProject.id === settings.activeProjectId}
+               updateActiveId={id => updateSetting('activeProjectId', id)}
+               project={inboxProject}
+            />
             {Object.values(appProjects).map(p => (
                <NavButton
                   key={p.id}

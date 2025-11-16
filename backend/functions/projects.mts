@@ -7,7 +7,6 @@ import getVerifiedUserId from 'backend/utils/getVerifiedUserId';
 export const handler: Handler = async (event: HandlerEvent) => {
    try {
       const userId = await getVerifiedUserId(event.headers.authorization);
-
       if (event.httpMethod === 'GET') {
          const res = await getProjects(userId);
          return res;
@@ -16,7 +15,7 @@ export const handler: Handler = async (event: HandlerEvent) => {
       if (event.httpMethod === 'POST') {
          if (!event.body) throw Error('no body for PATCH');
          const body = JSON.parse(event.body);
-         const project = z_ProjectCreate.parse(body);
+         const project = z_ProjectCreate.parse({ ...body, user_id: userId });
 
          await MUTATIONS.addProject(project);
          return { statusCode: 201 };
@@ -31,9 +30,8 @@ export const handler: Handler = async (event: HandlerEvent) => {
 
 const getProjects = async (userId: string) => {
    const [rows] = await QUERIES.getProjectsFromUser(userId);
-   const projects = array(z_Project.omit({ type: true }))
-      .parse(rows)
-      .map(p => ({ ...p, type: 'custom' }));
+   const projects = array(z_Project).parse(rows);
+
    return {
       statusCode: 200,
       body: JSON.stringify(projects),
