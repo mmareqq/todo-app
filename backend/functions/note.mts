@@ -9,7 +9,7 @@ export const handler: Handler = async (event: HandlerEvent) => {
       const noteId = getNoteParam(ENDPOINT_PATH, event.path);
 
       if (event.httpMethod === 'PATCH') {
-         if (!event.body) throw new Error('no body for PATCH');
+         if (!event.body) throw Error('no body for PATCH');
          const body = JSON.parse(event.body);
          const noteUpdates = cleanUndefined(z_NoteUpdate.parse(body));
          await MUTATIONS.updateNote(noteId, noteUpdates);
@@ -21,7 +21,7 @@ export const handler: Handler = async (event: HandlerEvent) => {
          return { statusCode: 200 };
       }
 
-      throw new Error(
+      throw Error(
          `this url only accepts PATCH or DELETE http methods. url: ${event.rawUrl}`,
       );
    } catch (err) {

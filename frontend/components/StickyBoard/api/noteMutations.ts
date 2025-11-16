@@ -2,13 +2,16 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import type { Note, NoteCreate, NoteUpdate, Id } from '@types';
 import { getFetchRequest, fetchJSON } from '@frontend/utils/fetch';
 import generateId from '@frontend/utils/generateId';
+import { useAuth } from '@clerk/clerk-react';
 
 export const useAddNoteMutation = () => {
    const client = useQueryClient();
-
+   const { getToken } = useAuth();
    return useMutation({
       mutationFn: async (note: NoteCreate) => {
-         const req = getFetchRequest('/api/notes', 'POST', note);
+         const token = await getToken();
+         if (!token) throw new Error('Cannot generate token. Probably no user');
+         const req = getFetchRequest('/api/notes', 'POST', token, note);
          await fetchJSON(req);
       },
 
@@ -36,12 +39,15 @@ export const useAddNoteMutation = () => {
 
 export const useEditNoteMutation = (editedId: Id) => {
    const client = useQueryClient();
-
+   const { getToken } = useAuth();
    return useMutation({
       mutationFn: async (noteUpdates: NoteUpdate) => {
+         const token = await getToken();
+         if (!token) throw new Error('Cannot generate token. Probably no user');
          const req = getFetchRequest(
             `/api/notes/${editedId}`,
             'PATCH',
+            token,
             noteUpdates,
          );
          await fetchJSON(req);
@@ -73,10 +79,12 @@ export const useEditNoteMutation = (editedId: Id) => {
 
 export const useNoteDeleteMutation = (editedId: Id) => {
    const client = useQueryClient();
-
+   const { getToken } = useAuth();
    return useMutation({
       mutationFn: async () => {
-         const req = getFetchRequest(`/api/notes/${editedId}`, 'DELETE');
+         const token = await getToken();
+         if (!token) throw new Error('Cannot generate token. Probably no user');
+         const req = getFetchRequest(`/api/notes/${editedId}`, 'DELETE', token);
          await fetchJSON(req);
       },
       onMutate: async () => {
@@ -103,10 +111,13 @@ export const useNoteDeleteMutation = (editedId: Id) => {
 
 export const useDeleteAllNotesMutation = () => {
    const client = useQueryClient();
+   const { getToken } = useAuth();
 
    return useMutation({
       mutationFn: async () => {
-         const req = getFetchRequest('/api/notes', 'DELETE');
+         const token = await getToken();
+         if (!token) throw new Error('Cannot generate token. Probably no user');
+         const req = getFetchRequest('/api/notes', 'DELETE', token);
          await fetchJSON(req);
       },
 

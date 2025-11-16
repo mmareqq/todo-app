@@ -1,12 +1,12 @@
 import { QUERIES, MUTATIONS } from '../db/queries';
-import { ProjectUpdate, z_Project, z_ProjectUpdate, Id } from '@types';
+import { z_Project, z_ProjectUpdate, Id } from '@types';
+import type { Handler, HandlerEvent } from '@netlify/functions';
 import { array } from 'zod';
-
 import cleanUndefined from 'backend/utils/cleanUndefined';
 import { getProjectParam } from '../utils/getParams';
+
 const ENDPOINT_PATH = '/api/projects/:projectId';
 
-import type { Handler, HandlerEvent } from '@netlify/functions';
 export const handler: Handler = async (event: HandlerEvent) => {
    try {
       const projectId = getProjectParam(ENDPOINT_PATH, event.path);
@@ -16,7 +16,7 @@ export const handler: Handler = async (event: HandlerEvent) => {
          return res;
       }
       if (event.httpMethod === 'PATCH') {
-         if (!event.body) throw new Error('no body for patch');
+         if (!event.body) throw Error('no body for patch');
          const body = JSON.parse(event.body);
          const updates = cleanUndefined(z_ProjectUpdate.parse(body));
          await MUTATIONS.updateProject(projectId, updates);

@@ -8,6 +8,7 @@ const envSchema = z.object({
    SINGLESTORE_USER: z.string(),
    SINGLESTORE_DB_NAME: z.string(),
    SINGLESTORE_PASSWORD: z.string(),
+   CLERK_SECRET_KEY: z.string(),
 });
 
 const envSchemaParsed = envSchema.safeParse(process.env);

@@ -3,17 +3,22 @@ import type { TaskUpdate, Task } from '@frontend/data/types';
 import { getFetchRequest } from '@frontend/utils/fetch';
 import useSettingsContext from '@hooks/useSettingsContext';
 import { getTasksQueryKey } from '@frontend/utils/getTasksQueryKey';
+import { useAuth } from '@clerk/clerk-react';
 
 export const useEditTaskMutation = (task: Task) => {
    const client = useQueryClient();
    const { settings } = useSettingsContext();
    const queryKey = getTasksQueryKey(settings.activeProjectId);
+   const { getToken } = useAuth();
 
    return useMutation({
       mutationFn: async (editedTask: TaskUpdate) => {
+         const token = await getToken();
+         if (!token) throw new Error('Cannot generate token. Probably no user');
          const req = getFetchRequest(
             `/api/tasks/${task.id}`,
             'PATCH',
+            token,
             editedTask,
          );
          await fetch(req);

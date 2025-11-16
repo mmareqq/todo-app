@@ -1,9 +1,9 @@
 import type { JSONObject } from '@shared/data/types/helperTypes';
 type Method = 'GET' | 'POST' | 'PATCH' | 'DELETE';
-
 export const getFetchRequest = (
    url: string,
    method: Method,
+   token: string,
    body?: JSONObject,
 ) => {
    if (method === 'GET' && body) {
@@ -12,8 +12,11 @@ export const getFetchRequest = (
    if ((method === 'POST' || method === 'PATCH') && !body) {
       console.warn(`no body specified for HTTP ${method}`);
    }
+   const headers = new Headers([
+      ['Content-Type', 'application/json'],
+      ['Authorization', `Bearer ${token}`],
+   ]);
 
-   const headers = new Headers([['Content-Type', 'application/json']]);
    const request = new Request(url, {
       method: method,
       headers,

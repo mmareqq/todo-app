@@ -11,7 +11,7 @@ export const handler: Handler = async (event: HandlerEvent) => {
       }
 
       if (event.httpMethod === 'POST') {
-         if (!event.body) throw new Error('no body for POST');
+         if (!event.body) throw Error('no body for POST');
          const body = JSON.parse(event.body);
          const note = z_NoteCreate.parse(body);
          await MUTATIONS.addNote(note);
@@ -23,7 +23,7 @@ export const handler: Handler = async (event: HandlerEvent) => {
          return { statusCode: 200 };
       }
 
-      throw new Error(
+      throw Error(
          `this url only accepts GET, POST or DELETE http methods. url: ${event.rawUrl}`,
       );
    } catch (err) {

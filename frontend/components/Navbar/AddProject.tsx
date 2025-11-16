@@ -9,8 +9,10 @@ import Dialog from '@ui/Dialog';
 import Button from '@ui/Button';
 
 import { PlusIcon } from '@assets/Icons';
+import { useUser } from '@clerk/clerk-react';
 
 const AddProject = () => {
+   const { user } = useUser();
    const { data: projectData, updateValue, resetForm } = useForm(projectModel);
    const { mutate: addProject } = useProjectAddMutation();
 
@@ -19,7 +21,14 @@ const AddProject = () => {
          <AddButton />
          <Dialog
             onSuccess={() => {
-               addProject({ name: projectData.name });
+               if (!user) {
+                  throw new Error('user not logged in. cannot create project');
+               }
+               addProject({
+                  name: projectData.name,
+                  type: 'custom',
+                  user_id: user.id,
+               });
                resetForm();
             }}
          >

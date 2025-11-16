@@ -3,14 +3,19 @@ import type { Id, Task } from '@frontend/data/types';
 import { getFetchRequest } from '@frontend/utils/fetch';
 import useSettingsContext from '@hooks/useSettingsContext';
 import { getTasksQueryKey } from '@frontend/utils/getTasksQueryKey';
+import { useAuth } from '@clerk/clerk-react';
+
 const useRemoveTaskMutation = () => {
    const client = useQueryClient();
    const { settings } = useSettingsContext();
    const queryKey = getTasksQueryKey(settings.activeProjectId);
+   const { getToken } = useAuth();
 
    return useMutation({
       mutationFn: async (taskId: Id) => {
-         const req = getFetchRequest(`/api/tasks/${taskId}`, 'DELETE');
+         const token = await getToken();
+         if (!token) throw new Error('Cannot generate token. Probably no user');
+         const req = getFetchRequest(`/api/tasks/${taskId}`, 'DELETE', token);
          await fetch(req);
       },
 

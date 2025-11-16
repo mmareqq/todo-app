@@ -10,7 +10,7 @@ export const toCamelCase = (s: string) => {
 
 function assertValue<T>(value: unknown, type: T): asserts value is T {
    if (typeof value === type) {
-      throw new Error(`assert value is not of type ${type}`);
+      throw Error(`assert value is not of type ${type}`);
    }
 }
 

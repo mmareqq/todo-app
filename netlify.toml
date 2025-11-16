@@ -18,6 +18,12 @@ from = "/api/projects"
 to = "/.netlify/functions/projects"
 status = 200
 methods = ["GET", "POST"]
+
+[[redirects]]
+from = "/api/projects/inbox"
+to = "/.netlify/functions/inbox"
+status = 200
+methods = ["POST"]
 # ✔ / ✔
 [[redirects]]
 from = "/api/projects/:projectId"

@@ -14,8 +14,11 @@ import { transformToDB } from 'backend/utils/transformDB';
 
 export const MUTATIONS = {
    addProject: (project: ProjectCreate) => {
-      const { name } = project;
-      return pool.query('INSERT INTO `projects` (`name`) VALUES (?)', [name]);
+      const { name, type, user_id } = project;
+      return pool.query(
+         'INSERT INTO `projects` (`name`, `type`, `user_id`) VALUES (?,?,?)',
+         [name, type, user_id],
+      );
    },
    addTask: (task: TaskCreate) => {
       const taskDB: TaskDB = transformToDB(task);
@@ -74,8 +77,11 @@ const updateElement = <T extends Record<string, T[keyof T]>>(
 };
 
 export const QUERIES = {
-   getAllProjects: () =>
-      pool.query('SELECT * FROM projects ORDER BY `created_at` ASC'),
+   getProjectsFromUser: (userId: string) =>
+      pool.query(
+         'SELECT * FROM projects WHERE user_id=? ORDER BY `created_at` ASC',
+         [userId],
+      ),
    getTasksByProjectId: (id: Id) =>
       pool.query(
          'SELECT * FROM tasks WHERE project_id=? ORDER BY `created_at` ASC',
@@ -91,8 +97,11 @@ export const QUERIES = {
          [date],
       ),
    getNotes: () => pool.query('SELECT * FROM notes ORDER BY `created_at` ASC'),
+   getUserInboxProject: (userId: string) =>
+      pool.query('SELECT * FROM projects WHERE user_id=? AND `type`="preset"', [
+         userId,
+      ]),
    getProject: (id: Id) =>
       pool.query('SELECT * FROM projects WHERE id=?', [id]),
 };
 // Update all fields at once
-//
