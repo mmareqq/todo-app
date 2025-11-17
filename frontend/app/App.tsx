@@ -12,6 +12,7 @@ import {
    SignInButton,
    UserButton,
 } from '@clerk/clerk-react';
+import LoginGuestButton from './LoginGuestButton';
 
 // This code is only for TS
 declare global {
@@ -47,6 +48,7 @@ const App = () => {
                   <SignInButton>
                      <Button className="px-18 py-2">Sign In</Button>
                   </SignInButton>
+                  <LoginGuestButton />
                </div>
             </SignedOut>
             <SignedIn>
