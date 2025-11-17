@@ -1,4 +1,4 @@
-import { MUTATIONS } from '../db/queries';
+import MUTATIONS from 'backend/db/mutations';
 import { getTaskParam } from 'backend/utils/getParams';
 import type { Handler, HandlerEvent } from '@netlify/functions';
 

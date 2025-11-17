@@ -10,12 +10,13 @@ const z_Project = z.object({
 const z_ProjectCreate = z.object({
    name: z.string(),
    type: z.literal(['custom', 'preset']),
-   user_id: z.string(),
 });
 
 const z_ProjectUpdate = z.object({ name: z.string().optional() });
 
 type ProjectCreate = z.infer<typeof z_ProjectCreate>;
+type ProjectCreatetWithUser = ProjectCreate & { user_id: string };
+
 type ProjectUpdate = {
    name?: string;
 };
@@ -29,4 +30,5 @@ export {
    Project,
    ProjectCreate,
    ProjectUpdate,
+   ProjectCreatetWithUser,
 };

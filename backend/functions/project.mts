@@ -1,7 +1,7 @@
-import { QUERIES, MUTATIONS } from '../db/queries';
+import QUERIES from 'backend/db/queries';
+import MUTATIONS from 'backend/db/mutations';
 import { z_Project, z_ProjectUpdate, Id } from '@types';
 import type { Handler, HandlerEvent } from '@netlify/functions';
-import { array } from 'zod';
 import cleanUndefined from 'backend/utils/cleanUndefined';
 import { getProjectParam } from '../utils/getParams';
 

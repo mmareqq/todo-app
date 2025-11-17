@@ -27,6 +27,7 @@ const z_NoteUpdate = z_NoteCreate.partial();
 
 type Note = z.infer<typeof z_Note>;
 type NoteCreate = z.infer<typeof z_NoteCreate>;
+type NoteCreateWithUser = NoteCreate & { user_id: string };
 type NoteUpdate = Partial<NoteCreate>;
 
 type NoteColor = z.infer<typeof z_NoteColor>;
@@ -41,4 +42,5 @@ export {
    NoteColor,
    NoteUpdate,
    NoteSize,
+   NoteCreateWithUser,
 };

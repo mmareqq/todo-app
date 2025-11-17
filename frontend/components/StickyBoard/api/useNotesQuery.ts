@@ -7,12 +7,13 @@ export const useNotesQuery = () => {
    const { getToken } = useAuth();
    return useQuery({
       queryKey: ['notes'],
-      queryFn: async (): Promise<Note[]> => {
+      queryFn: async () => {
          const token = await getToken();
          if (!token) throw new Error('Cannot generate token. Probably no user');
          const req = getFetchRequest(`/api/notes`, 'GET', token);
          const json = await fetchJSON(req);
-         return json;
+
+         return json as Note[];
       },
    });
 };

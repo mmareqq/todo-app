@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import type { Project, Id } from '@types';
 import { getFetchRequest, fetchJSON } from '@frontend/utils/fetch';
 import { useAuth } from '@clerk/clerk-react';
+
 const useProjectQuery = (projectId: Id) => {
    const { getToken } = useAuth();
    return useQuery({

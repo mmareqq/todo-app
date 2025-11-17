@@ -1,11 +1,15 @@
-import { QUERIES, MUTATIONS } from '../db/queries';
+import QUERIES from '../db/queries';
+import MUTATIONS from 'backend/db/mutations';
 import { array } from 'zod';
 import { z_Note, z_NoteCreate } from '@types';
 import type { Handler, HandlerEvent } from '@netlify/functions';
+import getVerifiedUserId from 'backend/utils/getVerifiedUserId';
+
 export const handler: Handler = async (event: HandlerEvent) => {
    try {
+      const userId = await getVerifiedUserId(event.headers.authorization);
       if (event.httpMethod === 'GET') {
-         const [rows] = await QUERIES.getNotes();
+         const [rows] = await QUERIES.getNotes(userId);
          const notes = array(z_Note).parse(rows);
          return { statusCode: 200, body: JSON.stringify(notes) };
       }
@@ -14,7 +18,7 @@ export const handler: Handler = async (event: HandlerEvent) => {
          if (!event.body) throw Error('no body for POST');
          const body = JSON.parse(event.body);
          const note = z_NoteCreate.parse(body);
-         await MUTATIONS.addNote(note);
+         await MUTATIONS.addNote({ ...note, user_id: userId });
          return { statusCode: 200 };
       }
 

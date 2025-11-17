@@ -24,47 +24,46 @@ from = "/api/projects/inbox"
 to = "/.netlify/functions/inbox"
 status = 200
 methods = ["POST"]
-# ✔ / ✔
+
 [[redirects]]
 from = "/api/projects/:projectId"
 to = "/.netlify/functions/project"
 status = 200
 methods = ["GET", "PATCH", "DELETE"]
-# ✔ / ✔
+
 
 [[redirects]]
 from = "/api/projects/:projectId/tasks"
 to = "/.netlify/functions/project-tasks"
 status = 200
 methods = ["GET"]
-# ✔ / ✔
+
 [[redirects]]
 from = "/api/tasks"
 to = "/.netlify/functions/tasks"
 status = 200
 methods = ["POST"]
-# ✖ / ✔
+
 [[redirects]]
 from = "/api/tasks/:taskId"
 to = "/.netlify/functions/task"
 status = 200
 methods = ["PATCH", "DELETE"]
-# ✔ / ✔
+
 [[redirects]]
 from = "/api/projects/:projectId/tasks"
 to = "/.netlify/functions/project-tasks-delete"
 status = 200
 methods = ["DELETE"]
-# ✔ / ✔
+
 [[redirects]]
 from = "/api/notes"
 to = "/.netlify/functions/notes"
 status = 200
 methods = ["GET", "POST", "DELETE"]
-# ✔ / ✔
+
 [[redirects]]
 from = "/api/notes/:noteId"
 to = "/.netlify/functions/note"
 status = 200
 methods = ["PATCH", "DELETE"]
-# ✖ / ✔

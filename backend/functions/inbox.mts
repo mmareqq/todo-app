@@ -1,4 +1,5 @@
-import { MUTATIONS, QUERIES } from '../db/queries';
+import MUTATIONS from 'backend/db/mutations';
+import QUERIES from '../db/queries';
 import type { Handler, HandlerEvent } from '@netlify/functions';
 import { z_Project } from '@types';
 import getVerifiedUserId from 'backend/utils/getVerifiedUserId';

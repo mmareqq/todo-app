@@ -1,4 +1,5 @@
-import { MUTATIONS, QUERIES } from '../db/queries';
+import MUTATIONS from 'backend/db/mutations';
+import QUERIES from '../db/queries';
 import { z_Project, z_ProjectCreate } from '@types';
 import { array } from 'zod';
 import type { Handler, HandlerEvent } from '@netlify/functions';
@@ -15,9 +16,9 @@ export const handler: Handler = async (event: HandlerEvent) => {
       if (event.httpMethod === 'POST') {
          if (!event.body) throw Error('no body for PATCH');
          const body = JSON.parse(event.body);
-         const project = z_ProjectCreate.parse({ ...body, user_id: userId });
+         const project = z_ProjectCreate.parse(body);
 
-         await MUTATIONS.addProject(project);
+         await MUTATIONS.addProject({ ...project, user_id: userId });
          return { statusCode: 201 };
       }
 

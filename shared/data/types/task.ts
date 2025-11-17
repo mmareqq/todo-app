@@ -31,6 +31,7 @@ type Task = z.infer<typeof z_Task>;
 type TaskDB = z.infer<typeof z_TaskDB>;
 
 type TaskCreate = z.infer<typeof z_TaskCreate>;
+type TaskCreateWithUser = TaskCreate & { user_id: string };
 type TaskUpdate = Prettify<Partial<TaskCreate>>;
 
 type TaskPriority = z.infer<typeof z_TaskPriority>;
@@ -45,4 +46,5 @@ export {
    TaskUpdate,
    Task,
    TaskDB,
+   TaskCreateWithUser,
 };

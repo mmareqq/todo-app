@@ -1,5 +1,5 @@
 import type { Handler, HandlerEvent } from '@netlify/functions';
-import { MUTATIONS } from '../db/queries';
+import MUTATIONS from 'backend/db/mutations';
 import { z_NoteUpdate } from '@types';
 import { getNoteParam } from 'backend/utils/getParams';
 import cleanUndefined from 'backend/utils/cleanUndefined';
